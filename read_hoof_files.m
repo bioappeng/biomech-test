@@ -1,11 +1,9 @@
- function [C] = read_hoof_files(folder_path, files, num_headerlines, varin)
+function [DropSet] = read_hoof_files(folder_path, files, num_headerlines, varin)
 
-% where folder1 = project folder containing subfolders, structure should
-%                   follow 'folder1/', i.e. 'santa_anita/'
-% where folder2 = subfolder containing the .txt files for given experiment
-%                   parameters, usually a date, i.e. '11_apr_15/'
-% where files = indicators for which files to include, i.e. '11*.txt' or
-%                   'TT*.txt'
+% where files = indicators for which files to include, i.e. '11*.txt'
+    %NOTE: importance of 'files' is the inclusion of '.' and '..' by the
+    %dir() Matlab function
+
 % where num_headerlines = number of headerlines to remove
 % where varin = numbers of input variables (5 or 8 see below)
 
@@ -27,29 +25,25 @@
 % C{n,8} is triax load z data for drop n
 
 if varin == 5
-    f = '%f%f%f%f%f'; %string pot, single ax load, triax accel
+    numfields = '%f%f%f%f%f'; %string pot, single ax load, triax accel
 end
 
 if varin == 8
-    f = '%f%f%f%f%f%f%f%f'; %If triaxial load cell included
+    numfields = '%f%f%f%f%f%f%f%f'; %If triaxial load cell included
 end
 
+path = folder_path
+filelist = dir([path, files]);
 
-path = ['/',folder_path,files];
+numfiles = size(filelist,1)
 
-filelist = dir(path)
+DropSet = cell(numfiles,varin);
 
-% Check number of Files and variables
-ifiles = size(filelist,1)
-
-C = cell(ifiles,varin);
-
-for i=1:ifiles
-   
+for i=1:numfiles
     % Open the data file, read in the data
-    fileid = fopen(filelist(i,1).name);
-    C(i,:) = textscan(fileid,f,'HeaderLines',num_headerlines);
-    fclose(fileid);
-    
+    filepath = [path, filelist(i,1).name]
+    file = fopen(filepath);
+    DropSet(i,:) = textscan(file, numfields,'HeaderLines',num_headerlines);
+    fclose(file);
 end
    

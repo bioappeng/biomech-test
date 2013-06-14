@@ -1,32 +1,27 @@
-% Preallocate
+nSets = size(data,1);
 
-z = size(data,2);
-
-for j = 1:z; % This loop sets up to find the max number of drops for each track (or experimental set)
+% find the max number of drops for each dataset
+for j = 1:nSets;
    n_list(j) = size(data{1,j},1);
 end
+n = max(n_list);
 
-n = max(n_list); % Use the max number of drops for the largest set to preallocate
+load = cell(1,nSets);
+xload = cell(1,nSets);
+yload = cell(1,nSets);
+zload = cell(1,nSets);
+position = cell(1,nSets);
 
-%n = size(data{1,1},1); %sample repetitions
-
-load = cell(1,z);
-xload = cell(1,z);
-yload = cell(1,z);
-zload = cell(1,z);
-position = cell(1,z);
-
-%max_load_rate = nan(n,z);
-max_load = nan(n,z);
-max_vert_a = nan(n,z);
-max_for_a = nan(n,z);
-max_xload = nan(n,z);
-max_yload = nan(n,z);
-max_zload = nan(n,z);
+%in case # drops is different
+max_load = nan(n,nSets);
+max_vert_a = nan(n,nSets);
+max_for_a = nan(n,nSets);
+max_xload = nan(n,nSets);
+max_yload = nan(n,nSets);
+max_zload = nan(n,nSets);
 
 
-for i = 1:size(data,2) % representing a track or experimental set, i.e. harrow, 14%, 10.16cm (see labels)
-
+for i = 1:nSets
     DropSet = data{1,i};
     
     if isempty(DropSet) ~= 1
@@ -54,4 +49,4 @@ for i = 1:size(data,2) % representing a track or experimental set, i.e. harrow, 
     end
 end
 
-clear depth i j z n n_list
+clear nSets n n_list

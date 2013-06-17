@@ -26,7 +26,7 @@ classdef dropSet
                         
             for i=1:numfiles
                 filepath = [path, flist(i,1).name];
-                obj.drops(i) = drop(filepath, num_headerlines, three_axis_load);
+                obj.drops(i).Value = drop(filepath, num_headerlines, three_axis_load);
             end
         end
     end

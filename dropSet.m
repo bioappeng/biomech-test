@@ -1,6 +1,7 @@
 classdef dropSet
     properties
         isThreeAxLoad
+        
         pos
         load
         accx
@@ -9,8 +10,13 @@ classdef dropSet
         loadx
         loady
         loadz
+        
     end
     methods
+        %constructor for dropSet class
+        %takes a path (can be absolute or relative, but must be followed
+        %with a trailing '\'), number of headerlines in the ascii files,
+        %and a boolean for whether the data has 3 axis load data
         function obj = dropSet(path, num_headerlines, three_axis_load)
             fext = '*.txt';
             flist = dir([path, fext]);
@@ -35,17 +41,19 @@ classdef dropSet
                 fclose(file);
             end
             
-            obj.pos = data{i,1}(:,1);    
-            obj.load = data{i,2}(:,1);
-            obj.accx = data{i,8}(:,1);    
-            obj.accy = data{i,6}(:,1);    
-            obj.accz = data{i,7}(:,1);
-            
-            if obj.isThreeAxLoad == 1;
-                obj.loadx = data{i,4}(:,1);
-                obj.loady = data{i,3}(:,1);
-                obj.loadz = data{i,5}(:,1);
+            for i=1:numfiles
+                obj.pos(:,i) = data{i,1}(:,1);    
+                obj.load(:,i) = data{i,2}(:,1);
+                obj.accx(:,i) = data{i,8}(:,1);    
+                obj.accy(:,i) = data{i,6}(:,1);    
+                obj.accz(:,i) = data{i,7}(:,1);
+
+                if obj.isThreeAxLoad == 1;
+                    obj.loadx(:,i) = data{i,4}(:,1);
+                    obj.loady(:,i) = data{i,3}(:,1);
+                    obj.loadz(:,i) = data{i,5}(:,1);
+                end
             end
-        end
+        end 
     end
 end

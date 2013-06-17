@@ -2,7 +2,7 @@ classdef dropSet
     properties
         three_axis_load
         num_headerlines
-        drops = [];
+        drops
     end
     methods
         %constructor for dropSet class
@@ -15,6 +15,7 @@ classdef dropSet
             numfiles = size(flist,1);
             
             obj.three_axis_load = three_axis_load;
+            obj.num_headerlines = num_headerlines;
             
             if three_axis_load == 0
                 numfields = '%f%f%f%f%f'; %string pot, single ax load, triax accel

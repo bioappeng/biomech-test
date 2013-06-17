@@ -27,7 +27,7 @@ classdef drop
             obj.three_axis_load = three_axis_load;
             
             file = fopen(filepath);
-            data = textscan(file, numfields, 'HeaderLines', num_headerlines)
+            data = textscan(file, numfields, 'HeaderLines', num_headerlines);
             fclose(file);
             
             obj.pos = data{1,1}(:,1);

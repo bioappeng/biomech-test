@@ -1,8 +1,13 @@
 classdef dropSet
     properties
+        drops
+        
         three_axis_load
         num_headerlines
-        drops
+    end
+    properties (Constant)
+        pos_calib_value = 433.0; %needs a better variable name -- is a multiplier?
+        sample_rate = 1/2000;
     end
     methods
         %constructor for dropSet class
@@ -29,6 +34,12 @@ classdef dropSet
                 filepath = [path, flist(i,1).name];
                 obj.drops(i).Value = drop(filepath, num_headerlines, three_axis_load);
             end
+        end
+        
+        %position calibration. not clear if posmin needs to be the minimum
+        %of each drop (and calibration specific to the drop) or the minimum
+        %of all drops in the dropset.
+        function calib_pos(obj)
         end
     end
 end

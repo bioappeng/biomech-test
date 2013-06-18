@@ -72,9 +72,9 @@ function [ load, xload, yload, zload, position, load_rate,...
     % Elliminate the zero drift on load cell
 %    tr_load = remove_noise(tr_load,2000, [400], 0, 'low',1);
     % Calibrate the load data
-    Amp = 1;
-    Cal_load = (1000/0.2273); %1000 N (1 kN) = .2273 mV
-    load_cal = tr_load * Amp * Cal_load;
+%     Amp = 1;
+%     Cal_load = (1000/0.2273); %1000 N (1 kN) = .2273 mV
+%     load_cal = tr_load * Amp * Cal_load;
     
 
     %[firstpeak,loc]=findpeaks(load_cal,'minpeakheight',.1*max_load(i,1),'npeaks',1);
@@ -84,12 +84,12 @@ function [ load, xload, yload, zload, position, load_rate,...
       tr_xload = remove_noise(tr_xload,2000, [400], 2, 'low',0);
       tr_yload = remove_noise(tr_yload,2000, [400], 2, 'low',0);
       tr_zload = remove_noise(tr_zload,2000, [400], 2, 'low',0);
-        Cal_xload = 1;%.75; 
-        Cal_yload = 1;%.75;
-        Cal_zload = 1;%.75;
-    xload_cal = tr_xload * Cal_xload;
-    yload_cal = tr_yload * Cal_yload;
-    zload_cal = tr_zload * Cal_zload;
+%         Cal_xload = 1;%.75; 
+%         Cal_yload = 1;%.75;
+%         Cal_zload = 1;%.75;
+%     xload_cal = tr_xload * Cal_xload;
+%     yload_cal = tr_yload * Cal_yload;
+%     zload_cal = tr_zload * Cal_zload;
     
     
     [max_xload(i,1),loc] = max (xload_cal);

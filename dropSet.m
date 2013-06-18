@@ -29,16 +29,16 @@ classdef dropSet < handle
                 numfields = '%f%f%f%f%f%f%f%f'; %If triaxial load cell included
                 num_cols = 8;
             end
-                        
+            
+
             for i=1:numfiles
+                %read in data
                 filepath = [path, flist(i,1).name];
-                obj.drops(i).Value = drop(filepath, num_headerlines, three_axis_load);
+                obj.drops(i).Value = drop(filepath, num_headerlines, three_axis_load, obj.sample_rate);
             end
         end
         
-        %position calibration. not clear if posmin needs to be the minimum
-        %of each drop (and calibration specific to the drop) or the minimum
-        %of all drops in the dropset.
+        %position calibration.
         function calib_pos(obj)
             num_drops = size(obj.drops);
             num_drops = num_drops(2);

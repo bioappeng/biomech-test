@@ -3,6 +3,9 @@ classdef drop < handle
     properties
         three_axis_load
         
+        time
+        length
+        
         pos
         load
         accx
@@ -18,7 +21,8 @@ classdef drop < handle
         %takes: a filepath (relative or absolute)
         %       number of headerlines in the ascii file
         %       boolean for whether file has 3ax load cell data
-        function obj = drop(filepath, num_headerlines, three_axis_load)
+        function obj = drop(filepath, num_headerlines, three_axis_load, sample_rate)
+                        
             if three_axis_load
                 numfields = '%f%f%f%f%f%f%f%f';
             else
@@ -42,6 +46,9 @@ classdef drop < handle
                 obj.loady = data{1,7}(:,1);
                 obj.loadz = data{1,8}(:,1);
             end
+            
+            obj.length = size(obj.pos);
+            obj.time = (0: sample_rate: ((obj.length-1)*sample_rate))'
         end
     end
 end

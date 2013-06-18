@@ -43,9 +43,9 @@ classdef dropSet < handle
             num_drops = size(obj.drops);
             num_drops = num_drops(2);
             for i=1:num_drops
-                obj.drops(i).Value.pos(:) = obj.drops(i).Value.pos(:) * obj.pos_calib_value;
+                obj.drops(i).Value.pos = obj.drops(i).Value.pos * obj.pos_calib_value;
                 drop_min = min(obj.drops(i).Value.pos);
-                obj.drops(i).Value.pos(:) = obj.drops(i).Value.pos(:) - drop_min;
+                obj.drops(i).Value.pos = obj.drops(i).Value.pos - drop_min;
             end 
         end
     end

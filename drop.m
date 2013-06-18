@@ -15,6 +15,15 @@ classdef drop < handle
         loadx
         loady
         loadz
+        
+        % calculated maxima
+        max_load
+        max_accx
+        max_accy
+        max_accz
+        max_loadx
+        max_loady
+        max_loadz
     end
     
     methods
@@ -53,5 +62,19 @@ classdef drop < handle
             obj.length = size(obj.pos);
             obj.time = (0: sample_rate: ((obj.length-1)*sample_rate))';
         end
+        
+        function calc_maxima(obj)
+            obj.max_load = max(abs(obj.load));
+            obj.max_accx = max(abs(obj.accx));
+            obj.max_accy = max(abs(obj.accy));
+            obj.max_accz = max(abs(obj.accz));
+            
+            if obj.three_axis_load
+                obj.max_loadx = max(obj.loadx);
+                obj.max_loady = max(obj.loady);
+                obj.max_loadz = max(obj.loadz);
+            end
+        end
+            
     end
 end

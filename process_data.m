@@ -23,47 +23,48 @@ function [ load, xload, yload, zload, position, load_rate,...
 %foutput = 'junk';%'test_11_apr_20_results.txt';
 %C = C18;
 
-ifiles = size(DropSet,1);
-
-for i = 1:ifiles
-
-if isnan(DropSet{i,8}(:,1)) == 1
-    DropSet{i,8}(:,1) = DropSet{i,7}(:,1);
-    DropSet{i,7}(:,1) = DropSet{i,6}(:,1);
-    DropSet{i,6}(:,1) = DropSet{i,5}(:,1);
-    DropSet{i,5}(:,1) = DropSet{i,4}(:,1);
-    DropSet{i,4}(:,1) = DropSet{i,3}(:,1);
-    DropSet{i,3}(:,1) = DropSet{i,2}(:,1);
-    DropSet{i,2}(:,1) = DropSet{i,1}(:,1);
-    DropSet{i,1}(:,1) = NaN;
-end
+%     ifiles = size(DropSet,1);
+% 
+%     for i = 1:ifiles
+% 
+%         if isnan(DropSet{i,8}(:,1)) == 1
+%             DropSet{i,8}(:,1) = DropSet{i,7}(:,1);
+%             DropSet{i,7}(:,1) = DropSet{i,6}(:,1);
+%             DropSet{i,6}(:,1) = DropSet{i,5}(:,1);
+%             DropSet{i,5}(:,1) = DropSet{i,4}(:,1);
+%             DropSet{i,4}(:,1) = DropSet{i,3}(:,1);
+%             DropSet{i,3}(:,1) = DropSet{i,2}(:,1);
+%             DropSet{i,2}(:,1) = DropSet{i,1}(:,1);
+%             DropSet{i,1}(:,1) = NaN;
+%         end
     
     %**********************************
-    pos = DropSet{i,1}(:,1); % Read in the position data    
-    tr_load = DropSet{i,2}(:,1); % Read in the load data
-    xaccel = DropSet{i,8}(:,1); % Read in the accel x    
-    yaccel = DropSet{i,6}(:,1); % Read in the accel y    
-    zaccel = DropSet{i,7}(:,1); % Read in the accel z
-    tr_xload = DropSet{i,4}(:,1); % Read in the load x    
-    tr_yload = DropSet{i,3}(:,1); % Read in the load y    
-    tr_zload = DropSet{i,5}(:,1); % Read in the load z
-
+%     pos = DropSet{i,1}(:,1); % Read in the position data    
+%     tr_load = DropSet{i,2}(:,1); % Read in the load data
+%     xaccel = DropSet{i,8}(:,1); % Read in the accel x    
+%     yaccel = DropSet{i,6}(:,1); % Read in the accel y    
+%     zaccel = DropSet{i,7}(:,1); % Read in the accel z
+%     tr_xload = DropSet{i,4}(:,1); % Read in the load x    
+%     tr_yload = DropSet{i,3}(:,1); % Read in the load y    
+%     tr_zload = DropSet{i,5}(:,1); % Read in the load z
+% 
     %**********************************
     % Position data
     % Calibrate the position data, meters per volt (millimeters per millivolt)
-    Cal_pos = 433.0; 
-    pos_cal = Cal_pos * pos;
-    % Define smallest element as zero
-    posmin = min(pos_cal);
-    pos_cal = pos_cal - posmin;
-    % Check length of vectors
-    s = size(pos);
-    Length = s(:,1);
-
-    %**********************************
-    % Assign time Values
-    Samp_rate = 1/2000;
-    t = (0: Samp_rate: ((Length-1)*Samp_rate))';
+%     Cal_pos = 433.0; 
+%     pos_cal = Cal_pos * pos;
+%     % Define smallest element as zero
+%     posmin = min(pos_cal);
+%     pos_cal = pos_cal - posmin;
+%     
+%     % Check length of vectors
+%     s = size(pos);
+%     Length = s(:,1);
+% 
+%     %**********************************
+%     % Assign time Values
+%     Samp_rate = 1/2000;
+%     t = (0: Samp_rate: ((Length-1)*Samp_rate))';
 
     %**********************************
     % Single axis load data

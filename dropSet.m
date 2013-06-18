@@ -10,6 +10,7 @@ classdef dropSet < handle
         pos_calib_value = 433.0; %needs a better variable name -- is a multiplier?
         load_calib_value = (1000/0.2273); %same as above -- original comment
                                           %from Christie: 1000 N (1 kN) = .2273 mV
+        loadxyz_calib_value = 1; %see above. again.
         sample_rate = 1/2000;
     end
     methods
@@ -50,6 +51,18 @@ classdef dropSet < handle
             amp = 1; %don't know what this is or where it should be going. does it change?
             for i=1:obj.num_drops
                 obj.drops(i).Value.load = obj.drops(i).Value.load * amp * obj.load_calib_value;
+            end
+        end
+        
+        %triaxial load calibration
+        function calib_load_triax(obj)
+            for i=1:obj.num_drops
+                
+                %MISSING remove_noise functionality
+                
+                obj.loadx = loadx * obj.loadxyz_calib_value;
+                obj.loady = loady * obj.loadxyz_calib_value;
+                obj.loadz = loadz * obj.loadxyz_calib_value;
             end
         end
     end

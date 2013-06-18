@@ -1,15 +1,9 @@
-%all the calculations/math live here 
-
-
-function [ load, xload, yload, zload, position, load_rate,...
-           xload_rate, yload_rate, zload_rate, max_load,...
-           max_vert_a, max_for_a, for_accel, vert_accel,...
-           side_accel, max_xload, max_yload, max_zload ]...
-= process_data(DropSet)
+ function [load, xload, yload, zload, position, load_rate, xload_rate, yload_rate, zload_rate, max_load, max_vert_a, max_for_a, for_accel, vert_accel, side_accel, max_xload, max_yload, max_zload]...
+     = process_data_3axes_20130613(C, folder1, folder2)
 
 % Load (N), Displacement (m), accel in g
  
-% where DropSet is an array of hoof tester data for a given data set (i.e. often
+% where C is an array of hoof tester data for a given data set (i.e. often
 %                   representing a lap around the track)
 % where folder1 = project folder containing subfolders, structure should
 %                   follow 'folder1/', i.e. 'santa_anita/'
@@ -23,48 +17,50 @@ function [ load, xload, yload, zload, position, load_rate,...
 %foutput = 'junk';%'test_11_apr_20_results.txt';
 %C = C18;
 
-%     ifiles = size(DropSet,1);
-% 
-%     for i = 1:ifiles
-% 
-%         if isnan(DropSet{i,8}(:,1)) == 1
-%             DropSet{i,8}(:,1) = DropSet{i,7}(:,1);
-%             DropSet{i,7}(:,1) = DropSet{i,6}(:,1);
-%             DropSet{i,6}(:,1) = DropSet{i,5}(:,1);
-%             DropSet{i,5}(:,1) = DropSet{i,4}(:,1);
-%             DropSet{i,4}(:,1) = DropSet{i,3}(:,1);
-%             DropSet{i,3}(:,1) = DropSet{i,2}(:,1);
-%             DropSet{i,2}(:,1) = DropSet{i,1}(:,1);
-%             DropSet{i,1}(:,1) = NaN;
-%         end
+
+path = ['/Users/Christie/Documents/1_UMaine/Horses/',folder1,folder2];
+
+ifiles = size(C,1);
+
+for i = 1:ifiles
+
+if isnan(C{i,8}(:,1)) == 1
+    C{i,8}(:,1) = C{i,7}(:,1);
+    C{i,7}(:,1) = C{i,6}(:,1);
+    C{i,6}(:,1) = C{i,5}(:,1);
+    C{i,5}(:,1) = C{i,4}(:,1);
+    C{i,4}(:,1) = C{i,3}(:,1);
+    C{i,3}(:,1) = C{i,2}(:,1);
+    C{i,2}(:,1) = C{i,1}(:,1);
+    C{i,1}(:,1) = NaN;
+end
     
     %**********************************
-%     pos = DropSet{i,1}(:,1); % Read in the position data    
-%     tr_load = DropSet{i,2}(:,1); % Read in the load data
-%     xaccel = DropSet{i,8}(:,1); % Read in the accel x    
-%     yaccel = DropSet{i,6}(:,1); % Read in the accel y    
-%     zaccel = DropSet{i,7}(:,1); % Read in the accel z
-%     tr_xload = DropSet{i,4}(:,1); % Read in the load x    
-%     tr_yload = DropSet{i,3}(:,1); % Read in the load y    
-%     tr_zload = DropSet{i,5}(:,1); % Read in the load z
-% 
+    pos = C{i,1}(:,1); % Read in the position data    
+    tr_load = C{i,2}(:,1); % Read in the load data
+    xaccel = C{i,8}(:,1); % Read in the accel x    
+    yaccel = C{i,6}(:,1); % Read in the accel y    
+    zaccel = C{i,7}(:,1); % Read in the accel z
+    tr_xload = C{i,4}(:,1); % Read in the load x    
+    tr_yload = C{i,3}(:,1); % Read in the load y    
+    tr_zload = C{i,5}(:,1); % Read in the load z
+
     %**********************************
     % Position data
     % Calibrate the position data, meters per volt (millimeters per millivolt)
-%     Cal_pos = 433.0; 
-%     pos_cal = Cal_pos * pos;
-%     % Define smallest element as zero
-%     posmin = min(pos_cal);
-%     pos_cal = pos_cal - posmin;
-%     
-%     % Check length of vectors
-%     s = size(pos);
-%     Length = s(:,1);
-% 
-%     %**********************************
-%     % Assign time Values
-%     Samp_rate = 1/2000;
-%     t = (0: Samp_rate: ((Length-1)*Samp_rate))';
+    Cal_pos = 433.0; 
+    pos_cal = Cal_pos * pos;
+    % Define smallest element as zero
+    posmin = min(pos_cal);
+    pos_cal = pos_cal - posmin;
+    % Check length of vectors
+    s = size(pos);
+    Length = s(:,1);
+
+    %**********************************
+    % Assign time Values
+    Samp_rate = 1/2000;
+    t = (0: Samp_rate: ((Length-1)*Samp_rate))';
 
     %**********************************
     % Single axis load data
@@ -72,9 +68,9 @@ function [ load, xload, yload, zload, position, load_rate,...
     % Elliminate the zero drift on load cell
 %    tr_load = remove_noise(tr_load,2000, [400], 0, 'low',1);
     % Calibrate the load data
-%     Amp = 1;
-%     Cal_load = (1000/0.2273); %1000 N (1 kN) = .2273 mV
-%     load_cal = tr_load * Amp * Cal_load;
+    Amp = 1;
+    Cal_load = (1000/0.2273); %1000 N (1 kN) = .2273 mV
+    load_cal = tr_load * Amp * Cal_load;
     
 
     %[firstpeak,loc]=findpeaks(load_cal,'minpeakheight',.1*max_load(i,1),'npeaks',1);
@@ -84,12 +80,12 @@ function [ load, xload, yload, zload, position, load_rate,...
       tr_xload = remove_noise(tr_xload,2000, [400], 2, 'low',0);
       tr_yload = remove_noise(tr_yload,2000, [400], 2, 'low',0);
       tr_zload = remove_noise(tr_zload,2000, [400], 2, 'low',0);
-%         Cal_xload = 1;%.75; 
-%         Cal_yload = 1;%.75;
-%         Cal_zload = 1;%.75;
-%     xload_cal = tr_xload * Cal_xload;
-%     yload_cal = tr_yload * Cal_yload;
-%     zload_cal = tr_zload * Cal_zload;
+        Cal_xload = 1;%.75; 
+        Cal_yload = 1;%.75;
+        Cal_zload = 1;%.75;
+    xload_cal = tr_xload * Cal_xload;
+    yload_cal = tr_yload * Cal_yload;
+    zload_cal = tr_zload * Cal_zload;
     
     
     [max_xload(i,1),loc] = max (xload_cal);
@@ -106,7 +102,6 @@ function [ load, xload, yload, zload, position, load_rate,...
     while pos_cal(loc) < 0; %zload_cal(loc) > 50 %load_cal(loc_p)*0.25 || load_rate(loc) > 0
         loc = loc - 1;
     end
-    
     loc_start = loc-50;
     loc_end = loc_start + 145;
     

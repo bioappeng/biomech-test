@@ -1,11 +1,12 @@
 % a class representing a single drop of the hoof tester
 classdef drop < handle
     properties
-        three_axis_load
+        three_axis_load %boolean whether or not 3ax load cell
         
         time
         length
         
+        % data from hooftester sensors
         pos
         load
         accx
@@ -21,6 +22,7 @@ classdef drop < handle
         %takes: a filepath (relative or absolute)
         %       number of headerlines in the ascii file
         %       boolean for whether file has 3ax load cell data
+        %       sample rate for the drop
         function obj = drop(filepath, num_headerlines,...
                             three_axis_load, sample_rate)
                         

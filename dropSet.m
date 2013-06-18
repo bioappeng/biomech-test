@@ -1,3 +1,12 @@
+%dropSet -- represents a set of drops (drops are implemented
+%       by the drop class) of the biomechanical hoof tester
+%           
+%           ex. - a lap around a track with n drops
+%               - a grid of drops around an arena
+%               - etc.
+%
+%contains methods for processing of data
+
 classdef dropSet < handle
     properties
         drops
@@ -58,11 +67,11 @@ classdef dropSet < handle
         function calib_load_triax(obj)
             for i=1:obj.num_drops
                 
-                %MISSING remove_noise functionality
+                %MISSING remove_noise() functionality
                 
-                obj.loadx = loadx * obj.loadxyz_calib_value;
-                obj.loady = loady * obj.loadxyz_calib_value;
-                obj.loadz = loadz * obj.loadxyz_calib_value;
+                obj.drops(i).Value.loadx = obj.drops(i).Value.loadx * obj.loadxyz_calib_value;
+                obj.drops(i).Value.loady = obj.drops(i).Value.loady * obj.loadxyz_calib_value;
+                obj.drops(i).Value.loadz = obj.drops(i).Value.loadz * obj.loadxyz_calib_value;
             end
         end
     end

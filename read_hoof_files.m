@@ -1,4 +1,6 @@
- function [C] = read_hoof_files(folder_path, files, num_headerlines, varin)
+%THIS FUNCTIONALITY HAS BEEN IMPLEMENTED IN dropSet.m/drop.m
+
+function [C] = read_hoof_files(folder_path, files, num_headerlines, varin)
 
 % where folder1 = project folder containing subfolders, structure should
 %                   follow 'folder1/', i.e. 'santa_anita/'
@@ -35,7 +37,7 @@ if varin == 8
 end
 
 
-path = ['/Users/Christie/Documents/1_Work/Horses/',folder_path,files];
+path = ['',folder_path,files];
 
 filelist = dir(path)
 

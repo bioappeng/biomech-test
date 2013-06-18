@@ -18,7 +18,7 @@
 %C = C18;
 
 
-path = ['/Users/Christie/Documents/1_UMaine/Horses/',folder1,folder2];
+path = ['',folder1,folder2];
 
 ifiles = size(C,1);
 

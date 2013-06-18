@@ -63,6 +63,7 @@ classdef drop < handle
             obj.time = (0: sample_rate: ((obj.length-1)*sample_rate))';
         end
         
+        %find drop maxima of sensor data
         function calc_maxima(obj)
             obj.max_load = max(abs(obj.load));
             obj.max_accx = max(abs(obj.accx));
@@ -70,6 +71,8 @@ classdef drop < handle
             obj.max_accz = max(abs(obj.accz));
             
             if obj.three_axis_load
+                %it's possible that we may need to take abs() of these like
+                %above given the uncertainty with signs in data aquisition.
                 obj.max_loadx = max(obj.loadx);
                 obj.max_loady = max(obj.loady);
                 obj.max_loadz = max(obj.loadz);

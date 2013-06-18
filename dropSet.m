@@ -74,5 +74,9 @@ classdef dropSet < handle
                 obj.drops(i).Value.loadz = obj.drops(i).Value.loadz * obj.loadxyz_calib_value;
             end
         end
+        
+        %FUNCTIONS FOR SIGNAL FILTER -- not implemented
+        % function remove_noise()
+        % function filter_signal()
     end
 end

@@ -1,4 +1,4 @@
-classdef dropSet
+classdef dropSet < handle
     properties
         drops
         
@@ -40,6 +40,13 @@ classdef dropSet
         %of each drop (and calibration specific to the drop) or the minimum
         %of all drops in the dropset.
         function calib_pos(obj)
+            num_drops = size(obj.drops);
+            num_drops = num_drops(2);
+            for i=1:num_drops
+                obj.drops(i).Value.pos(:) = obj.drops(i).Value.pos(:) * obj.pos_calib_value;
+                drop_min = min(obj.drops(i).Value.pos);
+                obj.drops(i).Value.pos(:) = obj.drops(i).Value.pos(:) - drop_min;
+            end 
         end
     end
 end

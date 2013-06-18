@@ -1,5 +1,5 @@
 % a class representing a single drop of the hoof tester
-classdef drop
+classdef drop < handle
     properties
         three_axis_load
         

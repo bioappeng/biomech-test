@@ -17,9 +17,8 @@ classdef dropSet < handle
     end
     properties (Constant)
         pos_calib_value = 433.0; %needs a better variable name -- is a multiplier?
-        load_calib_value = (1000/0.2273); %same as above -- original comment
-                                          %from Christie: 1000 N (1 kN) = .2273 mV
-        loadxyz_calib_value = 1; %see above. again.
+        load_calib_value = (1000/0.2273); %1000 N (1 kN) = .2273 mV
+        loadxyz_calib_value = 1; %see above(pos_calib_value)
         sample_rate = 1/2000;
     end
     methods
@@ -44,6 +43,13 @@ classdef dropSet < handle
             
             num_drops = size(obj.drops);
             obj.num_drops = num_drops(2);
+        end
+        
+        %run the basic calculations
+        function run_calcs(obj)
+            for i=1:obj.num_drops
+                obj.drops(i).Value.calc_maxima();
+            end
         end
         
         %position calibration.

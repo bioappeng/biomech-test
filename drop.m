@@ -28,6 +28,7 @@ classdef drop < handle
     
     methods
         %constructor
+<<<<<<< HEAD
         %takes: a filepath (relative or absolute)
         %       number of headerlines in the ascii file
         %       boolean for whether file has 3ax load cell data
@@ -71,11 +72,9 @@ classdef drop < handle
             obj.max_accz = max(abs(obj.accz));
             
             if obj.three_axis_load
-                %it's possible that we may need to take abs() of these like
-                %above given the uncertainty with signs in data aquisition.
-                obj.max_loadx = max(obj.loadx);
-                obj.max_loady = max(obj.loady);
-                obj.max_loadz = max(obj.loadz);
+                obj.max_loadx = max(abs(obj.loadx));
+                obj.max_loady = max(abs(obj.loady));
+                obj.max_loadz = max(abs(obj.loadz));
             end
         end
             

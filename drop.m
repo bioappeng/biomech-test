@@ -4,7 +4,6 @@ classdef drop < handle
         three_axis_load %boolean whether or not 3ax load cell
         
         time
-        length
         
         % data from hooftester sensors
         pos
@@ -28,7 +27,6 @@ classdef drop < handle
     
     methods
         %constructor
-<<<<<<< HEAD
         %takes: a filepath (relative or absolute)
         %       number of headerlines in the ascii file
         %       boolean for whether file has 3ax load cell data
@@ -60,8 +58,7 @@ classdef drop < handle
                 obj.loadz = data{1,8}(:,1);
             end
             
-            obj.length = size(obj.pos);
-            obj.time = (0: sample_rate: ((obj.length-1)*sample_rate))';
+            obj.time = (0: sample_rate: ((length-1)*sample_rate))';
         end
         
         %find drop maxima of sensor data

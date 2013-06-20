@@ -13,7 +13,6 @@ classdef dropSet < handle
         num_drops
         
         three_axis_load
-        num_headerlines
     end
     properties (Constant)
         pos_calib_value = 433.0; %needs a better variable name -- is a multiplier?
@@ -32,7 +31,6 @@ classdef dropSet < handle
             numfiles = size(flist,1);
             
             obj.three_axis_load = three_axis_load;
-            obj.num_headerlines = num_headerlines;
 
             for i=1:numfiles
                 %read in data

@@ -18,7 +18,9 @@ function basic_gui
                                   'Position', [25,230,80,17],...
                                   'String', 'Header Lines');
     filelist = uicontrol('Style', 'listbox',...
-                        'Position', [25,45,400,160]);
+                        'Position', [25,45,400,160],...
+                        'Callback', {@filelist_Callback},...
+                        'Max', 10, 'Min', 1);
     submit_button = uicontrol('Style', 'pushbutton', 'String', 'Done',...
                             'Position', [390,10,50,25],...
                             'Callback',{@submit_button_Callback});
@@ -26,6 +28,9 @@ function basic_gui
     %ui element callbacks
     function filepath_Callback(source,eventdata)
         dropSet_filepath = [uigetdir(pwd), '\'];
+        dir_struct = dir(dropSet_filepath);
+        [sorted_names, sorted_index] = sortrows({dir_struct.name}');
+        set(filelist, 'String', sorted_names(3:end), 'Value', 1);
     end
 
     function headerlines_Callback(source,eventdata)
@@ -33,11 +38,12 @@ function basic_gui
     end
 
     function submit_button_Callback(source,eventdata)
-%         index_selected = get(filelist, 'Value');
-%         filelist_all = get(filelist, 'String');
-%         filelist_selected = filelist_all(index_selected); %this probably won't work
         test = dropSet(dropSet_filepath, dropSet_headerlines, true)
         test.drops(:).Value % for debugging
+    end
+
+    function filelist_Callback(source, eventdata)
+
     end
 
     %initialize dropSet data (defaults)

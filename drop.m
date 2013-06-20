@@ -58,6 +58,7 @@ classdef drop < handle
                 obj.loadz = data{1,8}(:,1);
             end
             
+            length = size(obj.pos);
             obj.time = (0: sample_rate: ((length-1)*sample_rate))';
         end
         

@@ -1,7 +1,7 @@
 About
 -----
 
-Software for the analysis of data collected using the [Biomechanical Hoof Tester](http://www.bioappeng.com/Horse/Horse_home.html).
+Software for the analysis of data collected using the [Biomechanical Surface Tester](http://www.bioappeng.com/Horse/Horse_home.html).
 
 License
 -------

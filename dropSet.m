@@ -43,13 +43,6 @@ classdef dropSet < handle
             obj.num_drops = num_drops(2);
         end
         
-        %run the basic calculations
-        function run_calcs(obj)
-            for i=1:obj.num_drops
-                obj.drops(i).Value.calc_maxima();
-            end
-        end
-        
         %position calibration.
         function calib_pos(obj)
             for i=1:obj.num_drops

@@ -5,7 +5,6 @@
 %               - a grid of drops around an arena
 %               - etc.
 %
-%contains methods for processing of data
 
 classdef dropSet < handle
     properties
@@ -42,38 +41,5 @@ classdef dropSet < handle
             num_drops = size(obj.drops);
             obj.num_drops = num_drops(2);
         end
-        
-        %position calibration.
-        function calib_pos(obj)
-            for i=1:obj.num_drops
-                obj.drops(i).Value.pos = obj.drops(i).Value.pos * obj.pos_calib_value;
-                drop_min = min(obj.drops(i).Value.pos);
-                obj.drops(i).Value.pos = obj.drops(i).Value.pos - drop_min;
-            end 
-        end
-        
-        %single-axis load calibration
-        function calib_load(obj)
-            amp = 1; %don't know what this is or where it should be going. does it change?
-            for i=1:obj.num_drops
-                obj.drops(i).Value.load = obj.drops(i).Value.load * amp * obj.load_calib_value;
-            end
-        end
-        
-        %triaxial load calibration
-        function calib_load_triax(obj)
-            for i=1:obj.num_drops
-                
-                %MISSING remove_noise() functionality
-                
-                obj.drops(i).Value.loadx = obj.drops(i).Value.loadx * obj.loadxyz_calib_value;
-                obj.drops(i).Value.loady = obj.drops(i).Value.loady * obj.loadxyz_calib_value;
-                obj.drops(i).Value.loadz = obj.drops(i).Value.loadz * obj.loadxyz_calib_value;
-            end
-        end
-        
-        %FUNCTIONS FOR SIGNAL FILTER -- not implemented
-        % function remove_noise()
-        % function filter_signal()
     end
 end

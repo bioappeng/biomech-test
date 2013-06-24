@@ -2,7 +2,6 @@
 classdef drop < handle
     properties
         three_axis_load %boolean whether or not 3ax load cell
-        
         time
         
         % data from hooftester sensors
@@ -58,22 +57,9 @@ classdef drop < handle
                 obj.loadz = data{1,8}(:,1);
             end
             
+            length = size(obj.pos);
+            length = length(1,:);
             obj.time = (0: sample_rate: ((length-1)*sample_rate))';
-        end
-        
-        %find drop maxima of sensor data
-        function calc_maxima(obj)
-            obj.max_load = max(abs(obj.load));
-            obj.max_accx = max(abs(obj.accx));
-            obj.max_accy = max(abs(obj.accy));
-            obj.max_accz = max(abs(obj.accz));
-            
-            if obj.three_axis_load
-                obj.max_loadx = max(abs(obj.loadx));
-                obj.max_loady = max(abs(obj.loady));
-                obj.max_loadz = max(abs(obj.loadz));
-            end
-        end
-            
+        end 
     end
 end

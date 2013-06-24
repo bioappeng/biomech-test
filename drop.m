@@ -14,14 +14,6 @@ classdef drop < handle
         loady
         loadz
         
-        % calculated maxima
-        max_load
-        max_accx
-        max_accy
-        max_accz
-        max_loadx
-        max_loady
-        max_loadz
     end
     
     methods

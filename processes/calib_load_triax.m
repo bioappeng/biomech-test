@@ -1,5 +1,5 @@
 %find drop maxima of sensor data
-function calc_maxima(Set)
+function calc_maxima(Set, p)
     for i=1:Set.num_drops
         Set.drops(i).Value.max_load = max(abs(Set.load));
         Set.drops(i).Value.max_accx = max(abs(Set.accx));

@@ -10,15 +10,16 @@ classdef dropSet < handle
     properties
         drops
         num_drops
-        
         three_axis_load
     end
+    
     properties (Constant)
         pos_calib_value = 433.0; %needs a better variable name -- is a multiplier?
         load_calib_value = (1000/0.2273); %1000 N (1 kN) = .2273 mV
         loadxyz_calib_value = 1; %see above(pos_calib_value)
         sample_rate = 1/2000;
     end
+    
     methods
         %constructor for dropSet class
         %takes a path (can be absolute or relative, but must be followed

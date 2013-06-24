@@ -1,4 +1,4 @@
-function calib_pos(Set)
+function calib_pos(Set, p)
     for i=1:Set.num_drops
         Set.drops(i).Value.pos = Set.drops(i).Value.pos * Set.pos_calib_value;
         drop_min = min(Set.drops(i).Value.pos);

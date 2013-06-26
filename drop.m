@@ -1,10 +1,7 @@
 % a class representing a single drop of the hoof tester
 classdef drop < handle
     properties
-        three_axis_load %boolean whether or not 3ax load cell
         time
-        
-        % data from hooftester sensors
         pos
         load
         accx
@@ -13,7 +10,20 @@ classdef drop < handle
         loadx
         loady
         loadz
-        
+    end
+    
+    methods (Static, Access = private)
+        %helper function for constructor -- parse datafile
+        function data = parse_file(filepath, three_axis_load, headerlines)
+            if three_axis_load
+                numfields = '%f%f%f%f%f%f%f%f';
+            else
+                numfields = '%f%f%f%f%f';
+            end
+            file = fopen(filepath);
+            data = textscan(file, numfields, 'HeaderLines', headerlines);
+            fclose(file);
+        end
     end
     
     methods
@@ -22,36 +32,24 @@ classdef drop < handle
         %       number of headerlines in the ascii file
         %       boolean for whether file has 3ax load cell data
         %       sample rate for the drop
-        function obj = drop(filepath, num_headerlines,...
+        function obj = drop(filepath, headerlines,...
                             three_axis_load, sample_rate)
                         
-            if three_axis_load
-                numfields = '%f%f%f%f%f%f%f%f';
-            else
-                numfields = '%f%f%f%f%f';
-            end
-            
-            obj.three_axis_load = three_axis_load;
-            
-            file = fopen(filepath);
-            data = textscan(file, numfields, 'HeaderLines', num_headerlines);
-            fclose(file);
+            data = drop.parse_file(filepath, three_axis_load, headerlines);
             
             obj.pos = data{1,1}(:,1);
             obj.load = data{1,2}(:,1);
             obj.accx = data{1,3}(:,1);    
             obj.accy = data{1,4}(:,1);
             obj.accz = data{1,5}(:,1);
-
-            if obj.three_axis_load
+            if three_axis_load
                 obj.loadx = data{1,6}(:,1);
                 obj.loady = data{1,7}(:,1);
                 obj.loadz = data{1,8}(:,1);
             end
-            
             length = size(obj.pos);
             length = length(1,:);
             obj.time = (0: sample_rate: ((length-1)*sample_rate))';
-        end 
+        end
     end
 end

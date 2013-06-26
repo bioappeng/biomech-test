@@ -26,9 +26,9 @@ classdef processor < handle
             obj.calculated(1,field_number) = {name};
         end
         
-        function add_value(obj, value, field_number)
-            obj.calculated(obj.next_open_row(), field_number) = {value};
+        function value_index = add_value(obj, value, field_number)
+            value_index = obj.next_open_row();
+            obj.calculated(value_index, field_number) = {value};
         end
-        
     end
 end

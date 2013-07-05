@@ -1,6 +1,7 @@
 %single-axis load calibration
 function calib_load(Set, p)
-    amp = 1; %don't know what this is or where it should be going. does it change?
+        load_calib_value = (1000/0.2273); %1000 N (1 kN) = .2273 mV
+    amp = 1;
     for i=1:Set.num_drops
         Set.drops(i).Value.load = Set.drops(i).Value.load * amp * Set.load_calib_value;
     end

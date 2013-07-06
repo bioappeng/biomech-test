@@ -22,6 +22,7 @@ classdef tests < matlab.unittest.TestCase
         function setup(testCase)
             testCase.drop = testCase.Set.drops(1).Value;
             testCase.collector = parameter_collector();
+            testCase.proc = processor();
         end
     end
     
@@ -76,6 +77,16 @@ classdef tests < matlab.unittest.TestCase
             value = [1,2,3,4,5,6,7,8; 4,5,6,1,3,6,8,124313241];
             value_index = testCase.collector.add_value(value, field_number);
             testCase.assertEqual(value, testCase.collector.calculated{value_index, field_number});
+        end
+
+        function testApplyProcess(testCase)
+            function field_number = basicProcess(collector, dropSet)
+                value = 12341;
+                field_number = collector.add_field('basic');
+                value_index = collector.add_value(value, field_number);
+            end
+            field_number = testCase.proc.apply_process(testCase.collector, testCase.Set, @basicProcess);
+            testCase.assertEqual(value,testCase.collector.calculated{2:end,field_number});
         end
     end
 end

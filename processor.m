@@ -3,8 +3,8 @@ classdef processor < handle
         function obj = processor()
         end
         
-        function apply_process(obj, dropSet, process)
-            process(dropSet, obj);
+        function output = apply_process(obj, collector, dropSet, process)
+            output = process(collector, dropSet);
         end
     end
 end

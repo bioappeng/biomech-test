@@ -27,11 +27,6 @@ classdef drop < handle
     end
     
     methods
-        %constructor
-        %takes: a filepath (relative or absolute)
-        %       number of headerlines in the ascii file
-        %       boolean for whether file has 3ax load cell data
-        %       sample rate for the drop
         function obj = drop(filepath, headerlines,...
                             three_axis_load, sample_rate)
                         

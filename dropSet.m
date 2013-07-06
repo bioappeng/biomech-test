@@ -18,10 +18,6 @@ classdef dropSet < handle
     end
     
     methods
-        %constructor for dropSet class
-        %takes a path (can be absolute or relative, but must be followed
-        %with a trailing '\'), number of headerlines in the ascii files,
-        %and a boolean for whether the data has 3 axis load data
         function obj = dropSet(path, num_headerlines, three_axis_load)
             fext = '*.txt';
             flist = dir([path, fext]);

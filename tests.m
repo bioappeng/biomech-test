@@ -11,7 +11,7 @@ classdef tests < matlab.unittest.TestCase
     
     methods(TestClassSetup)
         function classSetup(testCase)
-            addpath('processes');
+            addpath('subprocesses');
             testCase.calcs = {@max_load, @max_accx, @max_accy, @max_accz, @max_loadx, @max_loady, @max_loadz};
             testCase.calibs = {@calib_load, @calib_load_triax, @calib_pos};
             testCase.Set = dropSet('test/', 0, true);

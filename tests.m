@@ -37,56 +37,29 @@ classdef tests < matlab.unittest.TestCase
             testCase.assertEqual(testCase.Set.num_drops, length(testCase.Set.drops));
             testCase.assertEqual(testCase.Set.three_axis_load, true);
         end
-        
-        function testNextOpenCol(testCase)
-            testCase.collector.calculated = {'one', 'two', 'three'};
-            testCase.assertEqual(testCase.collector.next_open_col, 4);
-            testCase.collector.calculated = {};
-        end
-            
-        function testNextOpenRow(testCase)
-            testCase.collector.calculated = {'one'; 'two'; 'three'};
-            testCase.assertEqual(testCase.collector.next_open_row, 4);
-            testCase.collector.calculated = {};
-        end
-        
-        function testAddField(testCase)
-            test_text = '%&(*a thing;';
-            test_text2 = 'another 609d6fas6fdsa&)(*, thing';
-            
-            field_number = testCase.collector.add_field(test_text);
-            testCase.assertEqual(field_number, 1);
-            testCase.assertEqual(char(testCase.collector.calculated(field_number)), test_text);
-            
-            field_number = testCase.collector.add_field(test_text2);
-            testCase.assertEqual(field_number, 2);
-            testCase.assertEqual(char((testCase.collector.calculated(field_number))), test_text2);
-            
-            testCase.collector.calculated = {};
-        end
-        
+
         function testAddValue_for_Num(testCase)
-            field_number = testCase.collector.add_field('test');
+            field_name = 'test';
             value = 7.21234;
-            value_index = testCase.collector.add_value(value, field_number);
-            testCase.assertEqual(value, testCase.collector.calculated{value_index, field_number});
+            testCase.collector.add_data(value, field_name);
+            testCase.assertEqual(value, testCase.collector.calculated.('test'));
         end
         
         function testAddValue_for_Matrix(testCase)
-            field_number = testCase.collector.add_field('test');
+            field_name = 'test';
             value = [1,2,3,4,5,6,7,8; 4,5,6,1,3,6,8,124313241];
-            value_index = testCase.collector.add_value(value, field_number);
-            testCase.assertEqual(value, testCase.collector.calculated{value_index, field_number});
+            testCase.collector.add_data(value, field_name);
+            testCase.assertEqual(value, testCase.collector.calculated.('test'));
         end
 
         function testApplyProcess(testCase)
-            function field_number = basicProcess(collector, dropSet)
+            function basicProcess(collector, dropSet)
+                field_name = 'test';
                 value = 12341;
-                field_number = collector.add_field('basic');
-                value_index = collector.add_value(value, field_number);
+                collector.add_data(value, field_name);
             end
-            field_number = testCase.proc.apply_process(testCase.collector, testCase.Set, @basicProcess);
-            testCase.assertEqual(value,testCase.collector.calculated{2:end,field_number});
+            testCase.proc.apply_process(testCase.collector, testCase.Set, @basicProcess);
+            testCase.assertEqual(value,testCase.collector.calculated.test);
         end
     end
 end

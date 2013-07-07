@@ -8,7 +8,18 @@ classdef parameter_collector < handle
         end
         
         function add_data(obj, value, field_name)
-            obj.calculated.(field_name) = value;
+            try
+                obj.calculated.(field_name) = value;
+            catch err
+            end
+        end
+        
+        function parameter = access_parameter(obj, parameter_name)
+            if isfield(obj.calculated, parameter_name)
+                parameter = obj.calculated.(parameter_name);
+            else
+                parameter = [];
+            end
         end
     end
 end

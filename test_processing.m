@@ -70,5 +70,15 @@ classdef test_processing < matlab.unittest.TestCase
                                         testCase.Set, @max_accz);
             testCase.assertEqual(testCase.collector.calculated.max_accz, [4;501;100]);
         end
+
+        function test_access_parameter_if_exists(testCase)
+            data = [1,2,3,4,5,6,1];
+            testCase.collector.add_data(data, 'testdata');
+            testCase.assertEqual(testCase.collector.access_parameter('testdata'), data);
+        end
+
+        function test_access_parameter_if_not_exist(testCase)
+            testCase.assertEqual(testCase.collector.access_parameter('notvaliddata'), []);
+        end
     end
 end

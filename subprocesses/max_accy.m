@@ -1,8 +1,9 @@
 %find drop maxima of sensor data
-function max_accy(Set, p)
-    field_number = p.add_field('max_accy');
+function max_accy(collector, Set)
+    max_acc = zeros(Set.num_drops, 1);
     for i=1:Set.num_drops
         drop = Set.drops(i).Value;
-        p.add_value(max(abs(drop.accy)), field_number)
+        max_acc(i, 1) = max(abs(drop.accy));
     end
+    collector.add_data(max_acc, 'max_accy');
 end

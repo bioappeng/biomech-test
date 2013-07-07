@@ -1,4 +1,4 @@
-classdef tests < matlab.unittest.TestCase
+classdef test_general < matlab.unittest.TestCase
     properties
         Set
         drop

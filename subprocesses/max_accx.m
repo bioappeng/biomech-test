@@ -5,5 +5,5 @@ function max_accx(collector, Set)
         drop = Set.drops(i).Value;
         max_acc(i, 1) = max(abs(drop.accx));
     end
-    collector.add_data(max_acc, 'max_acceleration');
+    collector.add_data(max_acc, 'max_accx');
 end

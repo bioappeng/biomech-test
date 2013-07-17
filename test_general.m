@@ -21,7 +21,7 @@ classdef test_general < matlab.unittest.TestCase
     
     methods(TestMethodSetup)
         function setup_general(testCase)
-            testCase.collector = parameter_collector();
+            testCase.collector = calculation_collector();
         end
 
         function setup_ascii(testCase)
@@ -32,7 +32,6 @@ classdef test_general < matlab.unittest.TestCase
         function setup_mat(testCase)
             testCase.mat_drop_early = testCase.matSet.drops(1).Value;
             testCase.mat_drop_middle = testCase.matSet.drops(5).Value;
-            testCase.collector = parameter_collector();
         end
     end
     

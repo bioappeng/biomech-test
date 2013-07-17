@@ -13,7 +13,7 @@ classdef test_processing < matlab.unittest.TestCase
 
     methods(TestMethodSetup)
         function setup(testCase)
-            testCase.collector = parameter_collector();
+            testCase.collector = calculation_collector();
             testCase.proc = processor();
         end
 

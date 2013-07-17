@@ -1,10 +1,10 @@
-classdef parameter_collector < handle
+classdef calculation_collector < handle
     properties
         calculated;
     end
 
     methods
-        function obj = parameter_collector()
+        function obj = calculation_collector()
         end
         
         function add_data(obj, value, field_name)

@@ -27,7 +27,7 @@ function basic_gui
 
     %ui element callbacks
     function filepath_Callback(source,eventdata)
-        dropSet_filepath = [uigetdir(pwd), '\'];
+        dropSet_filepath = [uigetdir(pwd), '/'];
         dir_struct = dir(dropSet_filepath);
         [sorted_names, sorted_index] = sortrows({dir_struct.name}');
         set(filelist, 'String', sorted_names(3:end), 'Value', 1);
@@ -38,7 +38,7 @@ function basic_gui
     end
 
     function submit_button_Callback(source,eventdata)
-        test = dropSet(dropSet_filepath, dropSet_headerlines, true)
+        test = dropSet(dropSet_filepath, dropSet_headerlines, true, true)
         test.drops(:).Value % for debugging
     end
 
@@ -48,7 +48,7 @@ function basic_gui
 
     %initialize dropSet data (defaults)
     %these should be read from settings file in release versions
-    dropSet_filepath = [pwd, '\'];
+    dropSet_filepath = [pwd, '/'];
     dropSet_headerlines = 0;
 
     set(f, 'Visible', 'on');

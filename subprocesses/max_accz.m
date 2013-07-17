@@ -5,5 +5,5 @@ function max_accz(collector, Set)
         drop = Set.drops(i).Value;
         max_acc(i, 1) = max(abs(drop.accz));
     end
-    collector.add_data(max_acc, 'max_accz');
+    collector.add_field(max_acc, 'max_accz');
 end

@@ -13,34 +13,27 @@ classdef test_processing < matlab.unittest.TestCase
 
     methods(TestMethodSetup)
         function setup(testCase)
-            testCase.collector = parameter_collector();
+            testCase.collector = calculation_collector();
             testCase.proc = processor();
         end
 
-        function setupSetMock(testCase)
+        function setupMocks(testCase)
             testCase.Set.num_drops = 3;
-            drop1.Value.accx = [1,2,3,4];
-            drop2.Value.accx = [1,2,500,-501];
-            drop3.Value.accx = [-100,2,3];
-            drop1.Value.accy = [1,2,3,4];
-            drop2.Value.accy = [1,2,500,-501];
-            drop3.Value.accy = [-100,2,3];
-            drop1.Value.accz = [1,2,3,4];
-            drop2.Value.accz = [1,2,500,-501];
-            drop3.Value.accz = [-100,2,3];
-            testCase.Set.drops = [drop1, drop2, drop3];
         end
     end
 
     methods(TestMethodTeardown)
+        function teardown(testCase)
+            clear testCase.Set;
+        end
     end
 
     methods(Test)
-        function testApplyProcess(testCase)
+        function test_apply_process(testCase)
             function basicProcess(collector, dropSet)
                 field_name = 'test';
                 value = 12341;
-                collector.add_data(value, field_name);
+                collector.add_field(value, field_name);
             end
             testCase.proc.apply_process(testCase.collector,...
                                         testCase.Set, @basicProcess);
@@ -49,21 +42,57 @@ classdef test_processing < matlab.unittest.TestCase
         end
 
         function test_max_accx(testCase)
+            drop1.Value.accx = [1,2,3,4];
+            drop2.Value.accx = [1,2,500,-501];
+            drop3.Value.accx = [-100,2,3];
+            testCase.Set.drops = [drop1, drop2, drop3];
             testCase.proc.apply_process(testCase.collector,...
                                         testCase.Set, @max_accx);
             testCase.assertEqual(testCase.collector.calculated.max_accx, [4;501;100]);
         end
 
         function test_max_accy(testCase)
+            drop1.Value.accy = [1,2,3,4];
+            drop2.Value.accy = [1,2,500,-501];
+            drop3.Value.accy = [-100,2,3];
+            testCase.Set.drops = [drop1, drop2, drop3];
             testCase.proc.apply_process(testCase.collector,...
                                         testCase.Set, @max_accy);
             testCase.assertEqual(testCase.collector.calculated.max_accy, [4;501;100]);
         end
 
         function test_max_accz(testCase)
+            drop1.Value.accz = [1,2,3,4];
+            drop2.Value.accz = [1,2,500,-501];
+            drop3.Value.accz = [-100,2,3];
+            testCase.Set.drops = [drop1, drop2, drop3];
             testCase.proc.apply_process(testCase.collector,...
                                         testCase.Set, @max_accz);
             testCase.assertEqual(testCase.collector.calculated.max_accz, [4;501;100]);
+        end
+
+        function test_add_field_for_num(testCase)
+            field_name = 'test';
+            value = 7.21234;
+            testCase.collector.add_field(value, field_name);
+            testCase.assertEqual(value, testCase.collector.calculated.('test'));
+        end
+        
+        function test_add_field_for_matrix(testCase)
+            field_name = 'test';
+            value = [1,2,3,4,5,6,7,8; 4,5,6,1,3,6,8,124313241];
+            testCase.collector.add_field(value, field_name);
+            testCase.assertEqual(value, testCase.collector.calculated.('test'));
+        end
+
+        function test_access_field_if_exists(testCase)
+            data = [1,2,3,4,5,6,1];
+            testCase.collector.add_field(data, 'testdata');
+            testCase.assertEqual(testCase.collector.access_field('testdata'), data);
+        end
+
+        function test_access_field_if_not_exist(testCase)
+            testCase.assertEqual(testCase.collector.access_field('notvaliddata'), []);
         end
     end
 end

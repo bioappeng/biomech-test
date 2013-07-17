@@ -5,5 +5,5 @@ function max_accy(collector, Set)
         drop = Set.drops(i).Value;
         max_acc(i, 1) = max(abs(drop.accy));
     end
-    collector.add_data(max_acc, 'max_accy');
+    collector.add_field(max_acc, 'max_accy');
 end

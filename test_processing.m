@@ -29,11 +29,11 @@ classdef test_processing < matlab.unittest.TestCase
     end
 
     methods(Test)
-        function testApplyProcess(testCase)
+        function test_apply_process(testCase)
             function basicProcess(collector, dropSet)
                 field_name = 'test';
                 value = 12341;
-                collector.add_data(value, field_name);
+                collector.add_field(value, field_name);
             end
             testCase.proc.apply_process(testCase.collector,...
                                         testCase.Set, @basicProcess);
@@ -71,14 +71,28 @@ classdef test_processing < matlab.unittest.TestCase
             testCase.assertEqual(testCase.collector.calculated.max_accz, [4;501;100]);
         end
 
-        function test_access_parameter_if_exists(testCase)
-            data = [1,2,3,4,5,6,1];
-            testCase.collector.add_data(data, 'testdata');
-            testCase.assertEqual(testCase.collector.access_parameter('testdata'), data);
+        function test_add_field_for_num(testCase)
+            field_name = 'test';
+            value = 7.21234;
+            testCase.collector.add_field(value, field_name);
+            testCase.assertEqual(value, testCase.collector.calculated.('test'));
+        end
+        
+        function test_add_field_for_matrix(testCase)
+            field_name = 'test';
+            value = [1,2,3,4,5,6,7,8; 4,5,6,1,3,6,8,124313241];
+            testCase.collector.add_field(value, field_name);
+            testCase.assertEqual(value, testCase.collector.calculated.('test'));
         end
 
-        function test_access_parameter_if_not_exist(testCase)
-            testCase.assertEqual(testCase.collector.access_parameter('notvaliddata'), []);
+        function test_access_field_if_exists(testCase)
+            data = [1,2,3,4,5,6,1];
+            testCase.collector.add_field(data, 'testdata');
+            testCase.assertEqual(testCase.collector.access_field('testdata'), data);
+        end
+
+        function test_access_field_if_not_exist(testCase)
+            testCase.assertEqual(testCase.collector.access_field('notvaliddata'), []);
         end
     end
 end

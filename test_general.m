@@ -6,7 +6,6 @@ classdef test_general < matlab.unittest.TestCase
         ascii_drop_middle
         mat_drop_early
         mat_drop_middle
-        collector
     end
     
     methods(TestClassSetup)
@@ -21,7 +20,6 @@ classdef test_general < matlab.unittest.TestCase
     
     methods(TestMethodSetup)
         function setup_general(testCase)
-            testCase.collector = calculation_collector();
         end
 
         function setup_ascii(testCase)
@@ -71,20 +69,6 @@ classdef test_general < matlab.unittest.TestCase
             testCase.assertNotEmpty(testCase.mat_drop_early.accy);
             testCase.assertNotEmpty(testCase.mat_drop_middle.pot);
             testCase.assertNotEmpty(testCase.mat_drop_middle.accy);
-        end
-
-        function testAddValue_for_Num(testCase)
-            field_name = 'test';
-            value = 7.21234;
-            testCase.collector.add_data(value, field_name);
-            testCase.assertEqual(value, testCase.collector.calculated.('test'));
-        end
-        
-        function testAddValue_for_Matrix(testCase)
-            field_name = 'test';
-            value = [1,2,3,4,5,6,7,8; 4,5,6,1,3,6,8,124313241];
-            testCase.collector.add_data(value, field_name);
-            testCase.assertEqual(value, testCase.collector.calculated.('test'));
         end
     end
 end

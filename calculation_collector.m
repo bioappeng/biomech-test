@@ -7,14 +7,14 @@ classdef calculation_collector < handle
         function obj = calculation_collector()
         end
         
-        function add_data(obj, value, field_name)
+        function add_field(obj, value, field_name)
             try
                 obj.calculated.(field_name) = value;
             catch err
             end
         end
         
-        function parameter = access_parameter(obj, parameter_name)
+        function parameter = access_field(obj, parameter_name)
             if isfield(obj.calculated, parameter_name)
                 parameter = obj.calculated.(parameter_name);
             else

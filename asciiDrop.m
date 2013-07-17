@@ -13,7 +13,6 @@ classdef asciiDrop < handle & drop
     end
     
     methods (Static, Access = private)
-        %helper function for constructor -- parse datafile
         function data = parse_file(filepath, three_axis_load, headerlines)
             if three_axis_load
                 numfields = '%f%f%f%f%f%f%f%f';

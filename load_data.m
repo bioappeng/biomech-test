@@ -68,27 +68,26 @@ function load_data
     end
 
     function headerlines_Callback(source, eventdata)
-        dropSet_headerlines = str2num(get(source, 'String'))
+        dropSet_headerlines = str2num(get(source, 'String'));
     end
 
     function filelist_Callback(source, eventdata)
     end
 
     function triax_load_check_Callback(source, eventdata)
-        dropSet_istriaxload = get(source, 'Value')
+        dropSet_istriaxload = get(source, 'Value');
     end
 
     function filetype_Callback(source, eventdata)
         if get(source, 'Value') == 1
-            dropSet_isascii = true
+            dropSet_isascii = true;
         else
-            dropSet_isascii = false
+            dropSet_isascii = false;
         end
     end
 
     function done_button_Callback(source, eventdata)
         Set = dropSet(dropSet_filepath, dropSet_headerlines, dropSet_istriaxload, dropSet_isascii);
-        Set.drops(:).Value % for debugging
     end
 
     %initialize dropSet data (defaults)

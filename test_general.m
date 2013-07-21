@@ -56,19 +56,19 @@ classdef test_general < matlab.unittest.TestCase
         function test_drop_constructor_ascii(testCase)
             testCase.assertInstanceOf(testCase.ascii_drop_early, 'asciiDrop');
             testCase.assertInstanceOf(testCase.ascii_drop_middle, 'asciiDrop');
-            testCase.assertNotEmpty(testCase.ascii_drop_early.pot);
-            testCase.assertNotEmpty(testCase.ascii_drop_early.accy);
-            testCase.assertNotEmpty(testCase.ascii_drop_middle.pot);
-            testCase.assertNotEmpty(testCase.ascii_drop_middle.accy);
+            testCase.assertNotEmpty(testCase.ascii_drop_early.pot.data);
+            testCase.assertNotEmpty(testCase.ascii_drop_early.accy.data);
+            testCase.assertNotEmpty(testCase.ascii_drop_middle.pot.data);
+            testCase.assertNotEmpty(testCase.ascii_drop_middle.accy.data);
         end
 
         function test_drop_constructor_mat(testCase)
             testCase.assertInstanceOf(testCase.mat_drop_early, 'matDrop');
             testCase.assertInstanceOf(testCase.mat_drop_middle, 'matDrop');
-            testCase.assertNotEmpty(testCase.mat_drop_early.pot);
-            testCase.assertNotEmpty(testCase.mat_drop_early.accy);
-            testCase.assertNotEmpty(testCase.mat_drop_middle.pot);
-            testCase.assertNotEmpty(testCase.mat_drop_middle.accy);
+            testCase.assertNotEmpty(testCase.mat_drop_early.pot.data);
+            testCase.assertNotEmpty(testCase.mat_drop_early.accy.data);
+            testCase.assertNotEmpty(testCase.mat_drop_middle.pot.data);
+            testCase.assertNotEmpty(testCase.mat_drop_middle.accy.data);
         end
     end
 end

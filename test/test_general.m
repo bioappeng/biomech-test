@@ -9,12 +9,16 @@ classdef test_general < matlab.unittest.TestCase
     end
     
     methods(TestClassSetup)
-        function class_setup_ascci(testCase)
-            testCase.asciiSet = dropSet('test/other/', 0, true, true);
+        function class_setup_other(testCase)
+            addpath('../lib/');
+        end
+
+        function class_setup_ascii(testCase)
+            testCase.asciiSet = dropSet('../test/data/other/', 0, true, true);
         end
 
         function class_setup_mat(testCase)
-            testCase.matSet = dropSet('test/sweden/test.mat', 0, true, false);
+            testCase.matSet = dropSet('../test/data/sweden/test.mat', 0, true, false);
         end
     end
     
@@ -56,19 +60,19 @@ classdef test_general < matlab.unittest.TestCase
         function test_drop_constructor_ascii(testCase)
             testCase.assertInstanceOf(testCase.ascii_drop_early, 'asciiDrop');
             testCase.assertInstanceOf(testCase.ascii_drop_middle, 'asciiDrop');
-            testCase.assertNotEmpty(testCase.ascii_drop_early.pot);
-            testCase.assertNotEmpty(testCase.ascii_drop_early.accy);
-            testCase.assertNotEmpty(testCase.ascii_drop_middle.pot);
-            testCase.assertNotEmpty(testCase.ascii_drop_middle.accy);
+            testCase.assertNotEmpty(testCase.ascii_drop_early.pot.data);
+            testCase.assertNotEmpty(testCase.ascii_drop_early.accy.data);
+            testCase.assertNotEmpty(testCase.ascii_drop_middle.pot.data);
+            testCase.assertNotEmpty(testCase.ascii_drop_middle.accy.data);
         end
 
         function test_drop_constructor_mat(testCase)
             testCase.assertInstanceOf(testCase.mat_drop_early, 'matDrop');
             testCase.assertInstanceOf(testCase.mat_drop_middle, 'matDrop');
-            testCase.assertNotEmpty(testCase.mat_drop_early.pot);
-            testCase.assertNotEmpty(testCase.mat_drop_early.accy);
-            testCase.assertNotEmpty(testCase.mat_drop_middle.pot);
-            testCase.assertNotEmpty(testCase.mat_drop_middle.accy);
+            testCase.assertNotEmpty(testCase.mat_drop_early.pot.data);
+            testCase.assertNotEmpty(testCase.mat_drop_early.accy.data);
+            testCase.assertNotEmpty(testCase.mat_drop_middle.pot.data);
+            testCase.assertNotEmpty(testCase.mat_drop_middle.accy.data);
         end
     end
 end

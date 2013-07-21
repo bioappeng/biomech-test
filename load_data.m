@@ -38,6 +38,9 @@ function load_data
                                   'String', '  Triaxial Load',...
                                   'Parent', uipanel_settings,...
                                   'Position', [.64, .5, .2, .3],...
+                                  'Max', 1,...
+                                  'Min', 0,...
+                                  'Value', 1,...
                                   'Callback', {@triax_load_check_Callback});
     filepath_button = uicontrol('Style', 'pushbutton',...
                         'Parent', uipanel_files,...
@@ -54,7 +57,7 @@ function load_data
     done_button = uicontrol('Style', 'pushbutton', 'String', 'Done',...
                             'Units', 'normalized',...
                             'Position', [.9, .025, .075, .05],...
-                            'Callback',{@submit_button_Callback});
+                            'Callback',{@done_button_Callback});
 
     %ui element callbacks
     function filepath_Callback(source, eventdata)
@@ -65,27 +68,35 @@ function load_data
     end
 
     function headerlines_Callback(source, eventdata)
-        dropSet_headerlines = get(source, 'Value') - 1;
-    end
-
-    function submit_button_Callback(source, eventdata)
-        Set = dropSet(dropSet_filepath, dropSet_headerlines, true, true)
-        Set.drops(:).Value % for debugging
+        dropSet_headerlines = str2num(get(source, 'String'))
     end
 
     function filelist_Callback(source, eventdata)
     end
 
     function triax_load_check_Callback(source, eventdata)
+        dropSet_istriaxload = get(source, 'Value')
     end
 
     function filetype_Callback(source, eventdata)
+        if get(source, 'Value') == 1
+            dropSet_isascii = true
+        else
+            dropSet_isascii = false
+        end
+    end
+
+    function done_button_Callback(source, eventdata)
+        Set = dropSet(dropSet_filepath, dropSet_headerlines, dropSet_istriaxload, dropSet_isascii);
+        Set.drops(:).Value % for debugging
     end
 
     %initialize dropSet data (defaults)
     %these should be read from settings file in release versions
     dropSet_filepath = [pwd, '/'];
     dropSet_headerlines = 0;
+    dropSet_isascii = true;
+    dropSet_istriaxload = true;
 
     set(f, 'Visible', 'on');
 end

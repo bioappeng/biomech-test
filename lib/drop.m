@@ -10,5 +10,12 @@ classdef (Abstract) drop < handle
         loadx
         loady
         loadz
+
+        flagged
+    end
+
+    methods (Abstract)
+        flag(obj)
+        unflag(obj)
     end
 end

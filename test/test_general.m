@@ -9,12 +9,16 @@ classdef test_general < matlab.unittest.TestCase
     end
     
     methods(TestClassSetup)
-        function class_setup_ascci(testCase)
-            testCase.asciiSet = dropSet('test/other/', 0, true, true);
+        function class_setup_other(testCase)
+            addpath('../lib/');
+        end
+
+        function class_setup_ascii(testCase)
+            testCase.asciiSet = dropSet('../test/data/other/', 0, true, true);
         end
 
         function class_setup_mat(testCase)
-            testCase.matSet = dropSet('test/sweden/test.mat', 0, true, false);
+            testCase.matSet = dropSet('../test/data/sweden/test.mat', 0, true, false);
         end
     end
     

@@ -6,8 +6,12 @@ classdef test_processing < matlab.unittest.TestCase
     end
 
     methods(TestClassSetup)
+        function class_setup_other(testCase)
+            addpath('../lib/');
+        end
+
         function class_setup(testCase)
-            addpath('subprocesses');
+            addpath('../lib/subprocesses');
         end
     end
 

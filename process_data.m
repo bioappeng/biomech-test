@@ -19,26 +19,57 @@ function process_data(Set);
                                    'Parent', uipanel_processes,...
                                    'String', 'max acceleration x',...
                                    'Units', 'normalized',...
+                                   'Value', 1,...
                                    'Position', [.05, .9, .3, .05],...
                                    'Callback', {@max_accx_Callback});
     acc_max_y_checkbox = uicontrol('Style', 'checkbox',...
                                    'Parent', uipanel_processes,...
                                    'String', 'max acceleration y',...
                                    'Units', 'normalized',...
+                                   'Value', 1,...
                                    'Position', [.05, .8, .3, .05],...
                                    'Callback', {@max_accy_Callback});
+    acc_max_z_checkbox = uicontrol('Style', 'checkbox',...
+                                   'Parent', uipanel_processes,...
+                                   'String', 'max acceleration z',...
+                                   'Units', 'normalized',...
+                                   'Value', 1,...
+                                   'Position', [.05, .7, .3, .05],...
+                                   'Callback', {@max_accz_Callback});
 
-    function done_button_Callback(source, eventdata)
-    end
 
     function max_accx_Callback(source,eventdata)
+        max_accx.to_run = get(source, 'Value');
     end
 
     function max_accy_Callback(source,eventdata)
+        max_accy.to_run = get(source, 'Value');
     end
 
-    set(f, 'Visible', 'on');
-    
+    function max_accz_Callback(source,eventdata)
+        max_accz.to_run = get(source, 'Value');
+    end
+
+    function done_button_Callback(source, eventdata)
+        for i=1:length(processes)
+            process = processes{i};
+            if process.to_run
+                proc.apply_process(collector, Set, process)
+            end
+        end
+        collector.calculated
+        delete(get(source, 'parent'));
+    end
+
+    max_accx = process_max_accx();
+    max_accy = process_max_accy();
+    max_accz = process_max_accz();
+    max_accx.to_run = true;
+    max_accy.to_run = true;
+    max_accz.to_run = true;
+    processes = {max_accx, max_accy, max_accz};
     collector = calculation_collector();
     proc = processor();
+
+    set(f, 'Visible', 'on');
 end

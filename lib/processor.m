@@ -4,7 +4,7 @@ classdef processor < handle
         end
         
         function apply_process(obj, collector, dropSet, process)
-            process(collector, dropSet);
+            process.run(collector, dropSet);
         end
     end
 end

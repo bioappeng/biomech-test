@@ -10,6 +10,8 @@ classdef matDrop < drop & handle
         loadx
         loady
         loadz
+
+        flagged
     end
 
     methods
@@ -26,6 +28,16 @@ classdef matDrop < drop & handle
             length = size(obj.pot.data);
             length = length(1,:);
             obj.time = signal((0: sample_rate: ((length-1)*sample_rate))');
+
+            obj.flagged = false;
+        end
+
+        function flag(obj)
+            obj.flagged = true;
+        end
+        
+        function unflag(obj)
+            obj.flagged = false;
         end
     end
 end

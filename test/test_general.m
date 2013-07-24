@@ -58,6 +58,7 @@ classdef test_general < matlab.unittest.TestCase
         end
 
         function test_drop_constructor_ascii(testCase)
+            testCase.assertEqual(testCase.ascii_drop_early.id, 'TT5_14_091555');
             testCase.assertInstanceOf(testCase.ascii_drop_early, 'asciiDrop');
             testCase.assertInstanceOf(testCase.ascii_drop_middle, 'asciiDrop');
             testCase.assertNotEmpty(testCase.ascii_drop_early.pot.data);

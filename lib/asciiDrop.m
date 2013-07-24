@@ -1,5 +1,8 @@
 classdef asciiDrop < handle & drop
     properties
+        id
+        flagged
+
         time
         pot
         pot2
@@ -10,8 +13,6 @@ classdef asciiDrop < handle & drop
         loadx
         loady
         loadz
-
-        flagged
     end
     
     methods (Static, Access = private)
@@ -32,6 +33,8 @@ classdef asciiDrop < handle & drop
                             three_axis_load, sample_rate)
                         
             data = asciiDrop.parse_file(filepath, three_axis_load, headerlines);
+            [pathstr, name, ext] = fileparts(filepath);
+            obj.id = name;
             
             obj.pot = signal(data{1,1}(:,1));
             obj.load = signal(data{1,2}(:,1));

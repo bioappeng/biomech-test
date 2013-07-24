@@ -1,5 +1,7 @@
 classdef (Abstract) drop < handle
     properties (Abstract)
+        id
+
         time
         pot
         pot2

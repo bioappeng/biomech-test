@@ -1,5 +1,7 @@
 classdef matDrop < drop & handle
     properties
+        id
+
         time
         pot
         pot2

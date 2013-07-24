@@ -56,5 +56,12 @@ classdef dropSet < handle
             num_drops = size(obj.drops);
             obj.num_drops = num_drops(2);
         end
+
+        function ids = drop_ids(obj)
+            ids = {};
+            for i=1:length(obj.drops)
+                ids{end + 1} = obj.drops(i).Value.id;
+            end
+        end
     end
 end

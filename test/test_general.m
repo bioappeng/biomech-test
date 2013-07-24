@@ -49,6 +49,11 @@ classdef test_general < matlab.unittest.TestCase
             testCase.assertEqual(testCase.asciiSet.num_drops, length(testCase.asciiSet.drops));
             testCase.assertEqual(testCase.asciiSet.three_axis_load, true);
         end
+        
+        function test_dropSet_get_ids(testCase)
+            ids = testCase.asciiSet.drop_ids();
+            testCase.assertEqual(ids{1}, testCase.ascii_drop_early.id);
+        end
 
         function test_dropSet_constructor_mat(testCase)
             testCase.assertInstanceOf(testCase.matSet, 'dropSet');

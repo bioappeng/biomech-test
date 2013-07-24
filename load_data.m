@@ -65,7 +65,7 @@ function load_data
         dropSet_filepath = [uigetdir(pwd), '/'];
         dir_struct = dir(dropSet_filepath);
         [sorted_names, sorted_index] = sortrows({dir_struct.name}');
-        set(filelist, 'String', sorted_names(3:end), 'Value', 1);
+        set(filelist, 'String', sorted_names(:), 'Value', 1);
     end
 
     function headerlines_Callback(source, eventdata)

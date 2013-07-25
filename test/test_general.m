@@ -20,6 +20,7 @@ classdef test_general < matlab.unittest.TestCase
         function class_setup_mat(testCase)
             testCase.matSet = dropSet('../test/data/sweden/test.mat', 0, true, false);
         end
+
     end
     
     methods(TestMethodSetup)
@@ -41,8 +42,16 @@ classdef test_general < matlab.unittest.TestCase
         function teardown(testCase)
         end
     end
-    
+
     methods(Test)
+        function test_signal_constructor(testCase)
+            a_signal = signal('a signal name', [1,2,3,4]);
+            testCase.assertInstanceOf(a_signal, 'signal');
+            testCase.assertEqual(a_signal.name, 'a signal name');
+            testCase.assertEqual(a_signal.data, [1,2,3,4]);
+            testCase.assertEqual(a_signal.flagged, false);
+        end
+
         function test_dropSet_constructor_ascii(testCase)
             testCase.assertInstanceOf(testCase.asciiSet, 'dropSet');
             testCase.assertNotEmpty(testCase.asciiSet.drops);

@@ -43,9 +43,9 @@ classdef test_processing < matlab.unittest.TestCase
         end
 
         function test_process_max_accx(testCase)
-            drop1.Value.accx = signal([1,2,3,4]);
-            drop2.Value.accx = signal([1,2,500,-501]);
-            drop3.Value.accx = signal([-100,2,3]);
+            drop1.Value.accx = signal('', [1,2,3,4]);
+            drop2.Value.accx = signal('', [1,2,500,-501]);
+            drop3.Value.accx = signal('', [-100,2,3]);
             testCase.Set.drops = [drop1, drop2, drop3];
             process = process_max_accx();
             testCase.proc.apply_process(testCase.collector,...
@@ -54,9 +54,9 @@ classdef test_processing < matlab.unittest.TestCase
         end
 
         function test_process_max_accy(testCase)
-            drop1.Value.accy = signal([1,2,3,4]);
-            drop2.Value.accy = signal([1,2,500,-501]);
-            drop3.Value.accy = signal([-100,2,3]);
+            drop1.Value.accy = signal('', [1,2,3,4]);
+            drop2.Value.accy = signal('', [1,2,500,-501]);
+            drop3.Value.accy = signal('', [-100,2,3]);
             process = process_max_accy();
             testCase.Set.drops = [drop1, drop2, drop3];
             testCase.proc.apply_process(testCase.collector,...
@@ -65,9 +65,9 @@ classdef test_processing < matlab.unittest.TestCase
         end
 
         function test_process_max_accz(testCase)
-            drop1.Value.accz = signal([1,2,3,4]);
-            drop2.Value.accz = signal([1,2,500,-501]);
-            drop3.Value.accz = signal([-100,2,3]);
+            drop1.Value.accz = signal('', [1,2,3,4]);
+            drop2.Value.accz = signal('', [1,2,500,-501]);
+            drop3.Value.accz = signal('', [-100,2,3]);
             testCase.Set.drops = [drop1, drop2, drop3];
             process = process_max_accz();
             testCase.proc.apply_process(testCase.collector,...

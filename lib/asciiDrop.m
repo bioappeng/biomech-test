@@ -36,19 +36,19 @@ classdef asciiDrop < handle & drop
             [pathstr, name, ext] = fileparts(filepath);
             obj.id = name;
             
-            obj.pot = signal(data{1,1}(:,1));
-            obj.load = signal(data{1,2}(:,1));
-            obj.accx = signal(data{1,3}(:,1));
-            obj.accy = signal(data{1,4}(:,1));
-            obj.accz = signal(data{1,5}(:,1));
+            obj.pot = signal('string pot', data{1,1}(:,1));
+            obj.load = signal('single axis load', data{1,2}(:,1));
+            obj.accx = signal('x acceleration', data{1,3}(:,1));
+            obj.accy = signal('y acceleration', data{1,4}(:,1));
+            obj.accz = signal('z acceleration', data{1,5}(:,1));
             if three_axis_load
-                obj.loadx = signal(data{1,6}(:,1));
-                obj.loady = signal(data{1,7}(:,1));
-                obj.loadz = signal(data{1,8}(:,1));
+                obj.loadx = signal('x load', data{1,6}(:,1));
+                obj.loady = signal('y load', data{1,7}(:,1));
+                obj.loadz = signal('z load', data{1,8}(:,1));
             end
             length = size(obj.pot.data);
             length = length(1,:);
-            obj.time = signal((0: sample_rate: ((length-1)*sample_rate))');
+            obj.time = signal('time', (0: sample_rate: ((length-1)*sample_rate))');
 
             obj.flagged = false;
         end

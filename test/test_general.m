@@ -24,18 +24,6 @@ classdef test_general < matlab.unittest.TestCase
     end
     
     methods(TestMethodSetup)
-        function setup_general(testCase)
-        end
-
-        function setup_ascii(testCase)
-            testCase.ascii_drop_early = testCase.asciiSet.drops(1).Value;
-            testCase.ascii_drop_middle = testCase.asciiSet.drops(5).Value;
-        end
-
-        function setup_mat(testCase)
-            testCase.mat_drop_early = testCase.matSet.drops(1).Value;
-            testCase.mat_drop_middle = testCase.matSet.drops(5).Value;
-        end
     end
     
     methods(TestMethodTeardown)
@@ -61,7 +49,7 @@ classdef test_general < matlab.unittest.TestCase
         
         function test_dropSet_get_ids(testCase)
             ids = testCase.asciiSet.drop_ids();
-            testCase.assertEqual(ids{1}, testCase.ascii_drop_early.id);
+            testCase.assertEqual(ids{1}, testCase.asciiSet.drops(1).Value.id);
         end
 
         function test_dropSet_constructor_mat(testCase)
@@ -72,22 +60,18 @@ classdef test_general < matlab.unittest.TestCase
         end
 
         function test_drop_constructor_ascii(testCase)
-            testCase.assertEqual(testCase.ascii_drop_early.id, 'TT5_14_091555');
-            testCase.assertInstanceOf(testCase.ascii_drop_early, 'asciiDrop');
-            testCase.assertInstanceOf(testCase.ascii_drop_middle, 'asciiDrop');
-            testCase.assertNotEmpty(testCase.ascii_drop_early.pot.data);
-            testCase.assertNotEmpty(testCase.ascii_drop_early.accy.data);
-            testCase.assertNotEmpty(testCase.ascii_drop_middle.pot.data);
-            testCase.assertNotEmpty(testCase.ascii_drop_middle.accy.data);
+            an_ascii_drop = testCase.asciiSet.drops(1).Value;
+            testCase.assertEqual(an_ascii_drop.id, 'TT5_14_091555');
+            testCase.assertInstanceOf(an_ascii_drop, 'asciiDrop');
+            testCase.assertNotEmpty(an_ascii_drop.pot.data);
+            testCase.assertNotEmpty(an_ascii_drop.accy.data);
         end
 
         function test_drop_constructor_mat(testCase)
-            testCase.assertInstanceOf(testCase.mat_drop_early, 'matDrop');
-            testCase.assertInstanceOf(testCase.mat_drop_middle, 'matDrop');
-            testCase.assertNotEmpty(testCase.mat_drop_early.pot.data);
-            testCase.assertNotEmpty(testCase.mat_drop_early.accy.data);
-            testCase.assertNotEmpty(testCase.mat_drop_middle.pot.data);
-            testCase.assertNotEmpty(testCase.mat_drop_middle.accy.data);
+            a_mat_drop = testCase.matSet.drops(3).Value;
+            testCase.assertInstanceOf(a_mat_drop, 'matDrop');
+            testCase.assertNotEmpty(a_mat_drop.pot.data);
+            testCase.assertNotEmpty(a_mat_drop.accy.data);
         end
     end
 end

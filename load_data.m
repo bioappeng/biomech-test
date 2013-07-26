@@ -89,7 +89,6 @@ function load_data
 
     function done_button_Callback(source, eventdata)
         Set = dropSet(dropSet_filepath, dropSet_headerlines, dropSet_istriaxload, dropSet_isascii);
-        Set.drops(1).Value.loadx
         process_data(Set);
         delete(get(source, 'parent'));
     end

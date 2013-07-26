@@ -66,5 +66,25 @@ classdef test_general < matlab.unittest.TestCase
             testCase.assertNotEmpty(a_mat_drop.pot.data);
             testCase.assertNotEmpty(a_mat_drop.accy.data);
         end
+
+        function test_drop_ascii_flag(testCase)
+            an_ascii_drop = testCase.asciiSet.drops(1).Value;
+            testCase.assertEqual(an_ascii_drop.flagged, false);
+            an_ascii_drop.flag();
+            testCase.assertEqual(an_ascii_drop.flagged, true);
+            testCase.assertEqual(an_ascii_drop.flagged, true);
+            an_ascii_drop.unflag();
+            testCase.assertEqual(an_ascii_drop.flagged, false);
+        end
+
+        function test_drop_mat_flag(testCase)
+            a_mat_drop = testCase.matSet.drops(1).Value;
+            testCase.assertEqual(a_mat_drop.flagged, false);
+            a_mat_drop.flag();
+            testCase.assertEqual(a_mat_drop.flagged, true);
+            testCase.assertEqual(a_mat_drop.flagged, true);
+            a_mat_drop.unflag();
+            testCase.assertEqual(a_mat_drop.flagged, false);
+        end
     end
 end

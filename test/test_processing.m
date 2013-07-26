@@ -6,12 +6,9 @@ classdef test_processing < matlab.unittest.TestCase
     end
 
     methods(TestClassSetup)
-        function class_setup_other(testCase)
+        function class_setup(testCase)
             addpath('resources');
             addpath('../lib/');
-        end
-
-        function class_setup(testCase)
             addpath('../lib/subprocesses');
         end
     end
@@ -35,10 +32,10 @@ classdef test_processing < matlab.unittest.TestCase
 
     methods(Test)
         function test_apply_process(testCase)
-            process = process_basic_process();
+            a_basic_process = process_basic_process();
             testCase.proc.apply_process(testCase.collector,...
-                                        testCase.Set, process);
-            testCase.assertEqual(process.value,...
+                                        testCase.Set, a_basic_process);
+            testCase.assertEqual(a_basic_process.value,...
                                  testCase.collector.calculated.test);
         end
 

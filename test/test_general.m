@@ -2,10 +2,6 @@ classdef test_general < matlab.unittest.TestCase
     properties
         asciiSet 
         matSet
-        ascii_drop_early
-        ascii_drop_middle
-        mat_drop_early
-        mat_drop_middle
     end
     
     methods(TestClassSetup)
@@ -14,11 +10,11 @@ classdef test_general < matlab.unittest.TestCase
         end
 
         function class_setup_ascii(testCase)
-            testCase.asciiSet = dropSet('../test/data/other/', 0, true, true);
+            testCase.asciiSet = dropSet('../test/data/small_data/ascii/', 0, true, true);
         end
 
         function class_setup_mat(testCase)
-            testCase.matSet = dropSet('../test/data/sweden/test.mat', 0, true, false);
+            testCase.matSet = dropSet('../test/data/small_data/mat/test.mat', 0, true, false);
         end
 
     end

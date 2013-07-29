@@ -62,43 +62,43 @@ function load_data
 
     %ui element callbacks
     function filepath_Callback(source, eventdata)
-        dropSet_filepath = [uigetdir(pwd), '/'];
-        dir_struct = dir(dropSet_filepath);
+        drop_set_filepath = [uigetdir(pwd), '/'];
+        dir_struct = dir(drop_set_filepath);
         [sorted_names, sorted_index] = sortrows({dir_struct.name}');
         set(filelist, 'String', sorted_names(:), 'Value', 1);
     end
 
     function headerlines_Callback(source, eventdata)
-        dropSet_headerlines = str2num(get(source, 'String'));
+        drop_set_headerlines = str2num(get(source, 'String'));
     end
 
     function filelist_Callback(source, eventdata)
     end
 
     function triax_load_check_Callback(source, eventdata)
-        dropSet_istriaxload = get(source, 'Value');
+        drop_set_istriaxload = get(source, 'Value');
     end
 
     function filetype_Callback(source, eventdata)
         if get(source, 'Value') == 1
-            dropSet_isascii = true;
+            drop_set_isascii = true;
         else
-            dropSet_isascii = false;
+            drop_set_isascii = false;
         end
     end
 
     function done_button_Callback(source, eventdata)
-        Set = dropSet(dropSet_filepath, dropSet_headerlines, dropSet_istriaxload, dropSet_isascii);
+        Set = drop_set(drop_set_filepath, drop_set_headerlines, drop_set_istriaxload, drop_set_isascii);
         validate_data(Set);
         delete(get(source, 'parent'));
     end
 
-    %initialize dropSet data (defaults)
+    %initialize drop_set data (defaults)
     %these should be read from settings file in release versions
-    dropSet_filepath = [pwd, '/'];
-    dropSet_headerlines = 0;
-    dropSet_isascii = true;
-    dropSet_istriaxload = true;
+    drop_set_filepath = [pwd, '/'];
+    drop_set_headerlines = 0;
+    drop_set_isascii = true;
+    drop_set_istriaxload = true;
 
     set(f, 'Visible', 'on');
 end

@@ -47,9 +47,30 @@ function validate_data(Set)
 
     function signal_list_callback(source, eventdata)
         selection = get(source, 'Value');
+        if selection == 1;
+            current_signal = current_drop.pot
+        elseif selection == 2;
+            current_signal = current_drop.pot2
+        elseif selection == 3;
+            current_signal = current_drop.load
+        elseif selection == 4;
+            current_signal = current_drop.accx
+        elseif selection == 5;
+            current_signal = current_drop.accy
+        elseif selection == 6;
+            current_signal = current_drop.accz
+        elseif selection == 7;
+            current_signal = current_drop.accz
+        elseif selection == 8;
+            current_signal = current_drop.loadx
+        elseif selection == 9
+            current_signal = current_drop.loady
+        elseif selection == 10;
+            current_signal = current_drop.loadz
+        end
     end
+
     drop_ids = Set.drop_ids();
     set(drop_list, 'String', drop_ids(:), 'Value', 1);
     set(f, 'Visible', 'on');
-    
 end

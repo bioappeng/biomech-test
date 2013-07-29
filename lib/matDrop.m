@@ -1,4 +1,4 @@
-classdef matDrop < drop & handle
+classdef matDrop < drop & handle & flaggable
     properties
         id
 

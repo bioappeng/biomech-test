@@ -1,4 +1,4 @@
-classdef process < handle
+classdef (Abstract) process < handle
     properties
         to_run;
     end

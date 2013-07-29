@@ -1,4 +1,4 @@
-classdef asciiDrop < handle & drop
+classdef asciiDrop < handle & drop & flaggable
     properties
         id
         flagged

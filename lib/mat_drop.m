@@ -1,4 +1,4 @@
-classdef matDrop < drop & handle & flaggable
+classdef mat_drop < drop & handle & flaggable
     properties
         id
 
@@ -17,7 +17,7 @@ classdef matDrop < drop & handle & flaggable
     end
 
     methods
-        function obj = matDrop(data, channels, three_axis_load, sample_rate)
+        function obj = mat_drop(data, channels, three_axis_load, sample_rate)
             obj.pot = signal('string pot', data(channels.pch));
             obj.load = signal('single axis load', data(channels.lch));
             obj.accx = signal('x acceleration', data(channels.vch));

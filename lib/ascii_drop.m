@@ -1,4 +1,4 @@
-classdef asciiDrop < handle & drop & flaggable
+classdef ascii_drop < handle & drop & flaggable
     properties
         id
         flagged
@@ -29,10 +29,10 @@ classdef asciiDrop < handle & drop & flaggable
     end
     
     methods
-        function obj = asciiDrop(filepath, headerlines,...
+        function obj = ascii_drop(filepath, headerlines,...
                             three_axis_load, sample_rate)
                         
-            data = asciiDrop.parse_file(filepath, three_axis_load, headerlines);
+            data = ascii_drop.parse_file(filepath, three_axis_load, headerlines);
             [pathstr, name, ext] = fileparts(filepath);
             obj.id = name;
             

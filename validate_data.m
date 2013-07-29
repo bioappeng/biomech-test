@@ -58,6 +58,7 @@ function validate_data(Set)
     function droplist_Callback(source, eventdata)
         set(current_drop_text, 'String', drop_ids(get(drop_list, 'Value')))
         current_drop = Set.drops(get(drop_list, 'Value')).Value;
+        signal_list_callback(signal_list, eventdata);
     end
 
     function signal_list_callback(source, eventdata)
@@ -93,6 +94,11 @@ function validate_data(Set)
 
     function signal_flag_button_Callback(source, eventdata)
         current_signal.flag();
+    end
+
+    function done_button_Callback(source, eventdata)
+        process_data(Set);
+        delete(get(source, 'parent'));
     end
 
     current_drop = Set.drops(1).Value;

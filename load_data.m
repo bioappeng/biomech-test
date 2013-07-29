@@ -89,7 +89,7 @@ function load_data
 
     function done_button_Callback(source, eventdata)
         Set = dropSet(dropSet_filepath, dropSet_headerlines, dropSet_istriaxload, dropSet_isascii);
-        process_data(Set);
+        validate_data(Set);
         delete(get(source, 'parent'));
     end
 

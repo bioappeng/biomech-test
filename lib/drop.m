@@ -1,4 +1,4 @@
-classdef (Abstract) drop < handle
+classdef (Abstract) drop < handle & flaggable
     properties (Abstract)
         id
 

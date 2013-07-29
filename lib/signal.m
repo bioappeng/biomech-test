@@ -1,4 +1,4 @@
-classdef signal < handle
+classdef signal < handle & flaggable
     properties
         data;
         name;

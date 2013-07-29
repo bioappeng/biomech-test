@@ -15,5 +15,13 @@ classdef signal < handle
             obj.processes_run = [];
             obj.flagged = false;
         end
+        
+        function flag(obj)
+            obj.flagged = true;
+        end
+
+        function unflag(obj)
+            obj.flagged = false;
+        end
     end
 end

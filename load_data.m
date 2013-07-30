@@ -1,5 +1,5 @@
 function load_data
-    addpath('lib/');
+    addpath('lib/framework/');
     
     f = figure('Visible','off',...
               'Position',[100,200,700,500],...

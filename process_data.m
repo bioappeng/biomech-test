@@ -3,6 +3,7 @@ function process_data(Set);
               'Position',[100,200,700,500],...
               'MenuBar','none',...
               'Name','data processing');
+    addpath('lib/framework/subprocesses');
 
     %ui elements
     uipanel_filters = uipanel('Title', 'Filters',...
@@ -57,7 +58,7 @@ function process_data(Set);
                 proc.apply_process(collector, Set, process)
             end
         end
-        collector.calculated
+        save_data(Set, collector)
         delete(get(source, 'parent'));
     end
 

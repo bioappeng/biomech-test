@@ -6,7 +6,7 @@ classdef test_general < matlab.unittest.TestCase
     
     methods(TestClassSetup)
         function class_setup_other(testCase)
-            addpath('../lib/');
+            addpath('../lib/framework/');
         end
     end
     

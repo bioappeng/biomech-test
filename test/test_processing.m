@@ -8,8 +8,8 @@ classdef test_processing < matlab.unittest.TestCase
     methods(TestClassSetup)
         function class_setup(testCase)
             addpath('resources');
-            addpath('../lib/');
-            addpath('../lib/subprocesses');
+            addpath('../lib/framework/');
+            addpath('../lib/framework/subprocesses');
         end
     end
 
@@ -103,5 +103,6 @@ classdef test_processing < matlab.unittest.TestCase
             dumper.grab_data(testCase.collector);
             testCase.assertEqual(dumper.data, testCase.collector.calculated);
         end
+
     end
 end

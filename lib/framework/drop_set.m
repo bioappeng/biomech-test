@@ -30,6 +30,10 @@ classdef drop_set < handle
                 ids{end + 1} = obj.drops(i).Value.id;
             end
         end
+
+        function drop = get_drop(obj, drop_num)
+            drop = obj.drops(drop_num).Value;
+        end
     end
 
     methods (Static)

@@ -52,6 +52,13 @@ classdef test_general < matlab.unittest.TestCase
             testCase.assertEqual(testCase.matSet.three_axis_load, true);
         end
 
+        function test_access_drop_method_correct(testCase)
+            valid_drop = testCase.asciiSet.drops(2).Value;
+            got_drop = testCase.asciiSet.get_drop(2);
+            testCase.assertInstanceOf(got_drop, 'drop');
+            testCase.assertSameHandle(got_drop, valid_drop);
+        end
+
         function test_drop_constructor_ascii(testCase)
             an_ascii_drop = testCase.asciiSet.drops(1).Value;
             testCase.assertEqual(an_ascii_drop.id, 'TT5_14_091555');
@@ -59,6 +66,7 @@ classdef test_general < matlab.unittest.TestCase
             testCase.assertNotEmpty(an_ascii_drop.pot.data);
             testCase.assertNotEmpty(an_ascii_drop.accy.data);
         end
+
 
         function test_drop_constructor_mat(testCase)
             a_mat_drop = testCase.matSet.drops(3).Value;

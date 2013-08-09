@@ -7,13 +7,13 @@ classdef test_processing < matlab.unittest.TestCase
 
     methods(TestClassSetup)
         function class_setup(testCase)
-            file = fopen('../acceptance/resources/calculated', 'w+');
+            file = fopen('resources/calculated', 'w+');
             fprintf(file, '');
             fclose(file);
-            addpath('../acceptance/resources');
-            addpath('../../../lib/resources/');
-            addpath('../../../lib/framework/');
-            addpath('../../../lib/framework/subprocesses');
+            addpath('resources/');
+            addpath('../../lib/resources/');
+            addpath('../../lib/framework/');
+            addpath('../../lib/framework/subprocesses');
         end
     end
 
@@ -105,8 +105,8 @@ classdef test_processing < matlab.unittest.TestCase
             non_empty_collector.add_field([1;2;3;4;5;6], 'a_field_name');
             dumper = data_dumper();
             dumper.grab_data(non_empty_collector);
-            dumper.dump('../acceptance/resources/calculated')
-            fileid = fopen('../acceptance/resources/calculated');
+            dumper.dump('resources/calculated')
+            fileid = fopen('resources/calculated');
             file = fread(fileid);
             fclose(fileid);
             testCase.assertNotEmpty(file);

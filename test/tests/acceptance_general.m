@@ -1,8 +1,8 @@
 classdef acceptance_general < matlab.unittest.TestCase
     methods(TestClassSetup)
         function class_setup_other(testCase)
-            addpath('../../../lib/framework/');
-            addpath('../../../lib/framework/subprocesses/');
+            addpath('../../lib/framework/');
+            addpath('../../lib/framework/subprocesses/');
             addpath('resources/');
         end
     end

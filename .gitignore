@@ -1,2 +1,2 @@
-test/tests/acceptance/resources/small_data/*
+*.txt
 *swp

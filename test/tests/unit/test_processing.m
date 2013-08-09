@@ -7,13 +7,13 @@ classdef test_processing < matlab.unittest.TestCase
 
     methods(TestClassSetup)
         function class_setup(testCase)
-            file = fopen('resources/calculated', 'w+');
+            file = fopen('../acceptance/resources/calculated', 'w+');
             fprintf(file, '');
             fclose(file);
-            addpath('resources');
-            addpath('../lib/resources/');
-            addpath('../lib/framework/');
-            addpath('../lib/framework/subprocesses');
+            addpath('../acceptance/resources');
+            addpath('../../../lib/resources/');
+            addpath('../../../lib/framework/');
+            addpath('../../../lib/framework/subprocesses');
         end
     end
 
@@ -35,14 +35,6 @@ classdef test_processing < matlab.unittest.TestCase
     end
 
     methods(Test)
-        function test_apply_process(testCase)
-            a_basic_process = process_basic_process();
-            testCase.proc.apply_process(testCase.collector,...
-                                        testCase.Set, a_basic_process);
-            testCase.assertEqual(a_basic_process.value,...
-                                 testCase.collector.calculated.test);
-        end
-
         function test_process_max_accx(testCase)
             drop1.Value.accx = signal('', [1,2,3,4]);
             drop2.Value.accx = signal('', [1,2,500,-501]);
@@ -113,8 +105,8 @@ classdef test_processing < matlab.unittest.TestCase
             non_empty_collector.add_field([1;2;3;4;5;6], 'a_field_name');
             dumper = data_dumper();
             dumper.grab_data(non_empty_collector);
-            dumper.dump('resources/calculated')
-            fileid = fopen('resources/calculated');
+            dumper.dump('../acceptance/resources/calculated')
+            fileid = fopen('../acceptance/resources/calculated');
             file = fread(fileid);
             fclose(fileid);
             testCase.assertNotEmpty(file);

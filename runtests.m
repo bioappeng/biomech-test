@@ -3,7 +3,7 @@ function results = runtests(which_tests)
 
     switch which_tests
         case 'all',
-            results = run(TestSuite.fromFolder('test'));
+            results = run(TestSuite.fromFolder('test/tests/', 'IncludingSubfolders', true));
     end
 
     time = 0.0;

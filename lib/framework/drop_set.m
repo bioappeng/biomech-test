@@ -5,7 +5,6 @@ classdef drop_set < handle
     end
     
     properties (Constant)
-        sample_rate = 1/2000;
     end
     
     methods

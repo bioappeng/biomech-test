@@ -41,22 +41,22 @@ classdef acceptance_general < matlab.unittest.TestCase
             testCase.assertEqual(mat_set.num_drops, length(mat_set.drops));
         end
 
-        function test_drop_constructor_mat(testCase)
-            mat_set = drop_set(testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, true, false));
-            a_mat_drop = mat_set.drops(3).Value;
-            testCase.assertInstanceOf(a_mat_drop, 'mat_drop');
-            testCase.assertNotEmpty(a_mat_drop.pot.data);
-            testCase.assertNotEmpty(a_mat_drop.accy.data);
-        end
-
-        function test_drop_constructor_ascii(testCase)
-            ascii_set = drop_set(testCase.assembler.assemble('resources/small_data/ascii/', 0, true, true));
-            an_ascii_drop = ascii_set.drops(1).Value;
-            testCase.assertEqual(an_ascii_drop.id, 'TT5_14_091555');
-            testCase.assertInstanceOf(an_ascii_drop, 'ascii_drop');
-            testCase.assertNotEmpty(an_ascii_drop.pot.data);
-            testCase.assertNotEmpty(an_ascii_drop.accy.data);
-        end
+%        function test_drop_constructor_mat(testCase)
+%            mat_set = drop_set(testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, true, false));
+%            a_mat_drop = mat_set.drops(3).Value;
+%            testCase.assertInstanceOf(a_mat_drop, 'mat_drop');
+%            testCase.assertNotEmpty(a_mat_drop.pot.data);
+%            testCase.assertNotEmpty(a_mat_drop.accy.data);
+%        end
+%
+%        function test_drop_constructor_ascii(testCase)
+%            ascii_set = drop_set(testCase.assembler.assemble('resources/small_data/ascii/', 0, true, true));
+%            an_ascii_drop = ascii_set.drops(1).Value;
+%            testCase.assertEqual(an_ascii_drop.id, 'TT5_14_091555');
+%            testCase.assertInstanceOf(an_ascii_drop, 'ascii_drop');
+%            testCase.assertNotEmpty(an_ascii_drop.pot.data);
+%            testCase.assertNotEmpty(an_ascii_drop.accy.data);
+%        end
 
         %function test_drop_flag(testCase)
         %    ascii_set = drop_set('resources/small_data/ascii/', 0, true, true);

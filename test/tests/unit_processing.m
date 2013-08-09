@@ -1,4 +1,4 @@
-classdef test_processing < matlab.unittest.TestCase
+classdef unit_processing < matlab.unittest.TestCase
     properties
         proc
         collector

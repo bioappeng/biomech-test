@@ -23,6 +23,14 @@ classdef test_general < matlab.unittest.TestCase
             testCase.assertEqual(a_signal.data, [1,2,3,4]);
             testCase.assertEqual(a_signal.flagged, false);
         end
+
+       % function test_apply_process(testCase)
+       %     a_basic_process = process_basic_process();
+       %     testCase.proc.apply_process(testCase.collector,...
+       %                                 testCase.Set, a_basic_process);
+       %     testCase.assertEqual(a_basic_process.value,...
+       %                          testCase.collector.calculated.test);
+       % end
         
        % function test_drop_set_get_ids(testCase)
        %     ids = testCase.asciiSet.drop_ids();
@@ -36,24 +44,5 @@ classdef test_general < matlab.unittest.TestCase
        %     testCase.assertSameHandle(got_drop, valid_drop);
        % end
 
-       % function test_drop_ascii_flag(testCase)
-       %     an_ascii_drop = testCase.asciiSet.drops(1).Value;
-       %     testCase.assertEqual(an_ascii_drop.flagged, false);
-       %     an_ascii_drop.flag();
-       %     testCase.assertEqual(an_ascii_drop.flagged, true);
-       %     testCase.assertEqual(an_ascii_drop.flagged, true);
-       %     an_ascii_drop.unflag();
-       %     testCase.assertEqual(an_ascii_drop.flagged, false);
-       % end
-
-       % function test_drop_mat_flag(testCase)
-       %     a_mat_drop = testCase.matSet.drops(1).Value;
-       %     testCase.assertEqual(a_mat_drop.flagged, false);
-       %     a_mat_drop.flag();
-       %     testCase.assertEqual(a_mat_drop.flagged, true);
-       %     testCase.assertEqual(a_mat_drop.flagged, true);
-       %     a_mat_drop.unflag();
-       %     testCase.assertEqual(a_mat_drop.flagged, false);
-       % end
     end
 end

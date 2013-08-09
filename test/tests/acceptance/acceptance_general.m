@@ -51,12 +51,15 @@ classdef acceptance_general < matlab.unittest.TestCase
             testCase.assertNotEmpty(an_ascii_drop.accy.data);
         end
 
-       % function test_apply_process(testCase)
-       %     a_basic_process = process_basic_process();
-       %     testCase.proc.apply_process(testCase.collector,...
-       %                                 testCase.Set, a_basic_process);
-       %     testCase.assertEqual(a_basic_process.value,...
-       %                          testCase.collector.calculated.test);
-       % end
+        function test_drop_flag(testCase)
+            ascii_set = drop_set('resources/small_data/ascii/', 0, true, true);
+            an_ascii_drop = ascii_set.drops(1).Value;
+            testCase.assertEqual(an_ascii_drop.flagged, false);
+            an_ascii_drop.flag();
+            testCase.assertEqual(an_ascii_drop.flagged, true);
+            testCase.assertEqual(an_ascii_drop.flagged, true);
+            an_ascii_drop.unflag();
+            testCase.assertEqual(an_ascii_drop.flagged, false);
+        end
     end
 end

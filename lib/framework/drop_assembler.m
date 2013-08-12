@@ -29,9 +29,10 @@ classdef drop_assembler < handle
         function drops = build_mat_drops(obj, path)
             file = path;
             database = load(path);
-            for i=1:length(database.DHdb);
+            database = database.DHdb;
+            for i=1:length(database);
                 channels = obj.get_which_mat_channels(database, i);
-                signals = obj.build_mat_signals(channels, database.DHdb(i).data, obj.sample_rate);
+                signals = obj.build_mat_signals(channels, database(i).data, obj.sample_rate);
                 drops(i).Value = drop(signals, []);
             end
         end
@@ -80,15 +81,15 @@ classdef drop_assembler < handle
         end
 
         function channels = get_which_mat_channels(obj, database, index)
-            channels.pch = database.DHdb(index).ChInfo.pch;
-            channels.lch = database.DHdb(index).ChInfo.lch;
-            channels.vch = database.DHdb(index).ChInfo.vch;
-            channels.tch = database.DHdb(index).ChInfo.tch;
-            channels.fach = database.DHdb(index).ChInfo.fach;
-            channels.p2ch = database.DHdb(index).ChInfo.p2ch;
-            channels.tlch = database.DHdb(index).ChInfo.tlch;
-            channels.vlch = database.DHdb(index).ChInfo.vlch;
-            channels.falch = database.DHdb(index).ChInfo.falch;
+            channels.pch = database(index).ChInfo.pch;
+            channels.lch = database(index).ChInfo.lch;
+            channels.vch = database(index).ChInfo.vch;
+            channels.tch = database(index).ChInfo.tch;
+            channels.fach = database(index).ChInfo.fach;
+            channels.p2ch = database(index).ChInfo.p2ch;
+            channels.tlch = database(index).ChInfo.tlch;
+            channels.vlch = database(index).ChInfo.vlch;
+            channels.falch = database(index).ChInfo.falch;
         end
     end
 end

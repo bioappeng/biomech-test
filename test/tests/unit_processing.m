@@ -35,6 +35,14 @@ classdef unit_processing < matlab.unittest.TestCase
     end
 
     methods(Test)
+       % function test_apply_process(testCase)
+       %     a_basic_process = process_basic_process();
+       %     testCase.proc.apply_process(testCase.collector,...
+       %                                 testCase.Set, a_basic_process);
+       %     testCase.assertEqual(a_basic_process.value,...
+       %                          testCase.collector.calculated.test);
+       % end
+        
         function test_process_max_accx(testCase)
             drop1.Value.accx = signal('', [1,2,3,4]);
             drop2.Value.accx = signal('', [1,2,500,-501]);

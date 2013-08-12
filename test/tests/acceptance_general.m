@@ -25,7 +25,7 @@ classdef acceptance_general < matlab.unittest.TestCase
     end
 
     methods(Test)
-        function test_drop_set_constructor_ascii(testCase)
+        function test_ascii_set_creation(testCase)
             drops = testCase.assembler.assemble('resources/small_data/ascii/', 0, true);
             ascii_set = drop_set(drops);
             testCase.assertInstanceOf(ascii_set, 'drop_set');
@@ -33,30 +33,13 @@ classdef acceptance_general < matlab.unittest.TestCase
             testCase.assertEqual(ascii_set.num_drops, length(ascii_set.drops));
         end
 
-        function test_drop_set_constructor_mat(testCase)
+        function test_mat_set_creation(testCase)
             drops = testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, false);
             mat_set = drop_set(drops);
             testCase.assertInstanceOf(mat_set, 'drop_set');
             testCase.assertNotEmpty(mat_set.drops);
             testCase.assertEqual(mat_set.num_drops, length(mat_set.drops));
         end
-
-%        function test_drop_constructor_mat(testCase)
-%            mat_set = drop_set(testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, true, false));
-%            a_mat_drop = mat_set.drops(3).Value;
-%            testCase.assertInstanceOf(a_mat_drop, 'mat_drop');
-%            testCase.assertNotEmpty(a_mat_drop.pot.data);
-%            testCase.assertNotEmpty(a_mat_drop.accy.data);
-%        end
-%
-%        function test_drop_constructor_ascii(testCase)
-%            ascii_set = drop_set(testCase.assembler.assemble('resources/small_data/ascii/', 0, true, true));
-%            an_ascii_drop = ascii_set.drops(1).Value;
-%            testCase.assertEqual(an_ascii_drop.id, 'TT5_14_091555');
-%            testCase.assertInstanceOf(an_ascii_drop, 'ascii_drop');
-%            testCase.assertNotEmpty(an_ascii_drop.pot.data);
-%            testCase.assertNotEmpty(an_ascii_drop.accy.data);
-%        end
 
         function test_drop_assembler_generates_non_empty_list_of_ascii_drops(testCase)
             assembler = drop_assembler();

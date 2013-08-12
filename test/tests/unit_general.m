@@ -34,14 +34,6 @@ classdef unit_general < matlab.unittest.TestCase
             testCase.assertEqual(an_ascii_drop.flagged, false);
         end
 
-       % function test_apply_process(testCase)
-       %     a_basic_process = process_basic_process();
-       %     testCase.proc.apply_process(testCase.collector,...
-       %                                 testCase.Set, a_basic_process);
-       %     testCase.assertEqual(a_basic_process.value,...
-       %                          testCase.collector.calculated.test);
-       % end
-        
         function test_drop_set_get_ids(testCase)
             addpath('../mmockito/mmockito/');
             mock_drop1 = Mock();

@@ -26,7 +26,7 @@ classdef acceptance_general < matlab.unittest.TestCase
 
     methods(Test)
         function test_drop_set_constructor_ascii(testCase)
-            drops = testCase.assembler.assemble('resources/small_data/ascii/', 0, true, true);
+            drops = testCase.assembler.assemble('resources/small_data/ascii/', 0, true);
             ascii_set = drop_set(drops);
             testCase.assertInstanceOf(ascii_set, 'drop_set');
             testCase.assertNotEmpty(ascii_set.drops);
@@ -34,7 +34,7 @@ classdef acceptance_general < matlab.unittest.TestCase
         end
 
         function test_drop_set_constructor_mat(testCase)
-            drops = testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, true, false);
+            drops = testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, false);
             mat_set = drop_set(drops);
             testCase.assertInstanceOf(mat_set, 'drop_set');
             testCase.assertNotEmpty(mat_set.drops);
@@ -71,7 +71,7 @@ classdef acceptance_general < matlab.unittest.TestCase
 
         function test_drop_assembler_generates_non_empty_list_of_ascii_drops(testCase)
             assembler = drop_assembler();
-            drops = assembler.assemble('resources/small_data/ascii/', 0, true, true);
+            drops = assembler.assemble('resources/small_data/ascii/', 0, true);
             testCase.assertNotEmpty(drops);
             for i=1:length(drops)
                 testCase.assertInstanceOf(drops(i).Value, 'drop');
@@ -80,7 +80,7 @@ classdef acceptance_general < matlab.unittest.TestCase
 
         function test_drop_assembler_generates_non_empty_list_of_mat_drops(testCase)
             assembler = drop_assembler();
-            drops = assembler.assemble('resources/small_data/mat/test.mat', 0, true, false);
+            drops = assembler.assemble('resources/small_data/mat/test.mat', 0, false);
             testCase.assertNotEmpty(drops);
             for i=1:length(drops)
                 testCase.assertInstanceOf(drops(i).Value, 'drop');

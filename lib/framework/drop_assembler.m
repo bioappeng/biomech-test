@@ -4,15 +4,15 @@ classdef drop_assembler < handle
     end
 
     methods
-        function drops = assemble(obj, path, num_headerlines, three_axis_load, isascii)
+        function drops = assemble(obj, path, num_headerlines, isascii)
             if isascii
-                drops = obj.build_ascii_drops(path, num_headerlines, three_axis_load);
+                drops = obj.build_ascii_drops(path, num_headerlines);
             else
                 drops = obj.build_mat_drops(path);
             end
         end
 
-        function drops = build_ascii_drops(obj, path, num_headerlines, three_axis_load)
+        function drops = build_ascii_drops(obj, path, num_headerlines)
             fext = '*.txt';
             flist = dir([path, fext]);
             numfiles = size(flist,1);
@@ -20,7 +20,7 @@ classdef drop_assembler < handle
                 filepath = [path, flist(i,1).name];
                 [pathstr, name, ext] = fileparts(filepath);
                 id = name;
-                data = obj.parse_ascii_file(filepath, three_axis_load, num_headerlines);
+                data = obj.parse_ascii_file(filepath, num_headerlines);
                 signals = obj.build_ascii_signals(data, obj.sample_rate);
                 drops(i).Value = drop(signals, name);
             end
@@ -36,12 +36,8 @@ classdef drop_assembler < handle
             end
         end
 
-        function data = parse_ascii_file(obj, filepath, three_axis_load, headerlines)
-            if three_axis_load
-                numfields = '%f%f%f%f%f%f%f%f';
-            else
-                numfields = '%f%f%f%f%f';
-            end
+        function data = parse_ascii_file(obj, filepath, headerlines)
+            numfields = '%f%f%f%f%f%f%f%f';
             file = fopen(filepath);
             data = textscan(file, numfields, 'HeaderLines', headerlines);
             fclose(file);

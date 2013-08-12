@@ -8,7 +8,8 @@ classdef drop_assembler < handle
             if isascii
                 drops = obj.build_ascii_drops(path, num_headerlines);
             else
-                drops = obj.build_mat_drops(path);
+                database = obj.get_mat_database(path);
+                drops = obj.build_mat_drops_from_database(database);
             end
         end
 
@@ -18,18 +19,19 @@ classdef drop_assembler < handle
             numfiles = size(flist,1);
             for i=1:numfiles
                 filepath = [path, flist(i,1).name];
-                [pathstr, name, ext] = fileparts(filepath);
-                id = name;
-                data = obj.parse_ascii_file(filepath, num_headerlines);
+                [id, data] = obj.parse_ascii_file(filepath, num_headerlines);
                 signals = obj.build_ascii_signals(data, obj.sample_rate);
-                drops(i).Value = drop(signals, name);
+                drops(i).Value = drop(signals, id);
             end
         end
 
-        function drops = build_mat_drops(obj, path)
+        function database = get_mat_database(obj, path)
             file = path;
             database = load(path);
             database = database.DHdb;
+        end
+
+        function drops = build_mat_drops_from_database(obj, database)
             for i=1:length(database);
                 channels = obj.get_which_mat_channels(database, i);
                 signals = obj.build_mat_signals(channels, database(i).data, obj.sample_rate);
@@ -37,9 +39,10 @@ classdef drop_assembler < handle
             end
         end
 
-        function data = parse_ascii_file(obj, filepath, headerlines)
-            numfields = '%f%f%f%f%f%f%f%f';
+        function [id, data] = parse_ascii_file(obj, filepath, headerlines)
+            [pathstr, id, ext] = fileparts(filepath);
             file = fopen(filepath);
+            numfields = '%f%f%f%f%f%f%f%f';
             data = textscan(file, numfields, 'HeaderLines', headerlines);
             fclose(file);
         end
@@ -74,7 +77,6 @@ classdef drop_assembler < handle
             signals('loady') = signal('y load', data(channels.tlch));
             signals('loadx') = signal('x load', data(channels.vlch));
             signals('loadz') = signal('z load', data(channels.falch));
-
             length = size(signals('pot').data);
             length = length(1,:);
             signals('time') = signal('time', (0: sample_rate: ((length-1)*sample_rate))');

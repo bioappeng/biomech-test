@@ -4,9 +4,6 @@ classdef calculation_collector < handle
     end
 
     methods
-        function obj = calculation_collector()
-        end
-        
         function add_field(obj, value, field_name)
             try
                 obj.calculated.(field_name) = value;

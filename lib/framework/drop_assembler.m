@@ -22,7 +22,7 @@ classdef drop_assembler < handle
                 id = name;
                 data = obj.parse_ascii_file(filepath, three_axis_load, num_headerlines);
                 signals = obj.build_ascii_signals(data, obj.sample_rate);
-                drops(i).Value = ascii_drop(signals, name);
+                drops(i).Value = drop(signals, name);
             end
         end
 
@@ -32,7 +32,7 @@ classdef drop_assembler < handle
             for i=1:length(database.DHdb);
                 channels = obj.get_which_mat_channels(database, i);
                 signals = obj.build_mat_signals(channels, database.DHdb(i).data, obj.sample_rate);
-                drops(i).Value = mat_drop(signals);
+                drops(i).Value = drop(signals, []);
             end
         end
 

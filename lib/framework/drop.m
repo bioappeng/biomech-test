@@ -1,23 +1,23 @@
-classdef (Abstract) drop < handle & flaggable
-    properties (Abstract)
+classdef drop < handle & flaggable
+    properties
         id
-
-        time
-        pot
-        pot2
-        load
-        accx
-        accy
-        accz
-        loadx
-        loady
-        loadz
-
+        signals
         flagged
     end
 
-    methods (Abstract)
-        flag(obj)
-        unflag(obj)
+    methods
+        function obj = drop(signals, id)
+            obj.signals = signals;
+            obj.id = id;
+            obj.flagged = false;
+        end
+
+        function flag(obj)
+            obj.flagged = true;
+        end
+        
+        function unflag(obj)
+            obj.flagged = false;
+        end
     end
 end

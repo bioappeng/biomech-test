@@ -74,7 +74,7 @@ classdef acceptance_general < matlab.unittest.TestCase
             drops = assembler.assemble('resources/small_data/ascii/', 0, true, true);
             testCase.assertNotEmpty(drops);
             for i=1:length(drops)
-                testCase.assertInstanceOf(drops(i).Value, 'ascii_drop');
+                testCase.assertInstanceOf(drops(i).Value, 'drop');
             end
         end
 
@@ -83,7 +83,7 @@ classdef acceptance_general < matlab.unittest.TestCase
             drops = assembler.assemble('resources/small_data/mat/test.mat', 0, true, false);
             testCase.assertNotEmpty(drops);
             for i=1:length(drops)
-                testCase.assertInstanceOf(drops(i).Value, 'mat_drop');
+                testCase.assertInstanceOf(drops(i).Value, 'drop');
             end
         end
     end

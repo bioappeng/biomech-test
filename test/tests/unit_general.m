@@ -57,13 +57,5 @@ classdef unit_general < matlab.unittest.TestCase
             ids = a_drop_set.drop_ids();
             testCase.assertEqual(ids, {'one', 'two', 'three'});
         end
-
-       % function test_access_drop_method_correct(testCase)
-       %     valid_drop = testCase.asciiSet.drops(2).Value;
-       %     got_drop = testCase.asciiSet.get_drop(2);
-       %     testCase.assertInstanceOf(got_drop, 'drop');
-       %     testCase.assertSameHandle(got_drop, valid_drop);
-       % end
-
     end
 end

@@ -58,17 +58,6 @@ classdef acceptance_general < matlab.unittest.TestCase
 %            testCase.assertNotEmpty(an_ascii_drop.accy.data);
 %        end
 
-        %function test_drop_flag(testCase)
-        %    ascii_set = drop_set('resources/small_data/ascii/', 0, true, true);
-        %    an_ascii_drop = ascii_set.drops(1).Value;
-        %    testCase.assertEqual(an_ascii_drop.flagged, false);
-        %    an_ascii_drop.flag();
-        %    testCase.assertEqual(an_ascii_drop.flagged, true);
-        %    testCase.assertEqual(an_ascii_drop.flagged, true);
-        %    an_ascii_drop.unflag();
-        %    testCase.assertEqual(an_ascii_drop.flagged, false);
-        %end
-
         function test_drop_assembler_generates_non_empty_list_of_ascii_drops(testCase)
             assembler = drop_assembler();
             drops = assembler.assemble('resources/small_data/ascii/', 0, true);

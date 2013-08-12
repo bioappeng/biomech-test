@@ -19,5 +19,9 @@ classdef drop < handle & flaggable
         function unflag(obj)
             obj.flagged = false;
         end
+
+        function id = get_id(obj)
+            id = obj.id;
+        end
     end
 end

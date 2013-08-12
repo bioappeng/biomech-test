@@ -17,7 +17,7 @@ classdef drop_set < handle
         function ids = drop_ids(obj)
             ids = {};
             for i=1:length(obj.drops)
-                ids{end + 1} = obj.drops(i).Value.id;
+                ids{end + 1} = obj.get_drop(i).get_id();
             end
         end
 

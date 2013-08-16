@@ -38,37 +38,76 @@ classdef unit_processing < matlab.unittest.TestCase
        %                          testCase.collector.calculated.test);
        % end
         
-        %function test_process_max_accx(testCase)
-        %    drop1.Value.accx = signal('', [1,2,3,4]);
-        %    drop2.Value.accx = signal('', [1,2,500,-501]);
-        %    drop3.Value.accx = signal('', [-100,2,3]);
-        %    testCase.Set.drops = [drop1, drop2, drop3];
-        %    process = process_max_accx();
-        %    testCase.proc.apply_process(testCase.collector,...
-        %                                testCase.Set, process);
-        %    testCase.assertEqual(testCase.collector.calculated.max_accx, [4;501;100]);
-        %end
+        function test_process_max_accx(testCase)
+            import containers.Map;
 
-        %function test_process_max_accy(testCase)
-        %    drop1.Value.accy = signal('', [1,2,3,4]);
-        %    drop2.Value.accy = signal('', [1,2,500,-501]);
-        %    drop3.Value.accy = signal('', [-100,2,3]);
-        %    process = process_max_accy();
-        %    testCase.Set.drops = [drop1, drop2, drop3];
-        %    testCase.proc.apply_process(testCase.collector,...
-        %                                testCase.Set, process);
-        %    testCase.assertEqual(testCase.collector.calculated.max_accy, [4;501;100]);
-        %end
+            signals1 = Map();
+            signals2 = Map();
+            signals3 = Map();
+            signals1('accx') = signal('accx', [1,2,3,4]);
+            drop1 = drop(signals1, 'one');
+            signals2('accx') = signal('accx', [1,2,500,-501]);
+            drop2 = drop(signals2, 'two');
+            signals3('accx') = signal('accx', [-100,2,3]);
+            drop3 = drop(signals3, 'three');
+            collector = calculation_collector();
+            drops = [];
+            drops(1).Value = drop1;
+            drops(2).Value = drop2;
+            drops(3).Value = drop3;
+            set = drop_set(drops);
+            process = process_max_accx();
+            proc = processor();
+            proc.apply_process(collector, set, process);
+            testCase.assertEqual(collector.calculated.max_accx, [4;501;100]);
+        end
 
-        %function test_process_max_accz(testCase)
-        %    drop1.Value.accz = signal('', [1,2,3,4]);
-        %    drop2.Value.accz = signal('', [1,2,500,-501]);
-        %    drop3.Value.accz = signal('', [-100,2,3]);
-        %    testCase.Set.drops = [drop1, drop2, drop3];
-        %    process = process_max_accz();
-        %    testCase.proc.apply_process(testCase.collector,...
-        %                                testCase.Set, process);
-        %    testCase.assertEqual(testCase.collector.calculated.max_accz, [4;501;100]);
-        %end
+        function test_process_max_accy(testCase)
+            import containers.Map;
+
+            signals1 = Map();
+            signals2 = Map();
+            signals3 = Map();
+            signals1('accy') = signal('accy', [1,2,3,4]);
+            drop1 = drop(signals1, 'one');
+            signals2('accy') = signal('accy', [1,2,500,-501]);
+            drop2 = drop(signals2, 'two');
+            signals3('accy') = signal('accy', [-100,2,3]);
+            drop3 = drop(signals3, 'three');
+            collector = calculation_collector();
+            drops = [];
+            drops(1).Value = drop1;
+            drops(2).Value = drop2;
+            drops(3).Value = drop3;
+            set = drop_set(drops);
+            process = process_max_accy();
+            proc = processor();
+            proc.apply_process(collector, set, process);
+            testCase.assertEqual(collector.calculated.max_accy, [4;501;100]);
+        end
+
+        function test_process_max_accz(testCase)
+            import containers.Map;
+
+            signals1 = Map();
+            signals2 = Map();
+            signals3 = Map();
+            signals1('accz') = signal('accz', [1,2,3,4]);
+            drop1 = drop(signals1, 'one');
+            signals2('accz') = signal('accz', [1,2,500,-501]);
+            drop2 = drop(signals2, 'two');
+            signals3('accz') = signal('accz', [-100,2,3]);
+            drop3 = drop(signals3, 'three');
+            collector = calculation_collector();
+            drops = [];
+            drops(1).Value = drop1;
+            drops(2).Value = drop2;
+            drops(3).Value = drop3;
+            set = drop_set(drops);
+            process = process_max_accz();
+            proc = processor();
+            proc.apply_process(collector, set, process);
+            testCase.assertEqual(collector.calculated.max_accz, [4;501;100]);
+        end
     end
 end

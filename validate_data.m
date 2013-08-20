@@ -64,31 +64,29 @@ function validate_data(Set)
     function signal_list_callback(source, eventdata)
         selection = get(source, 'Value');
         if selection == 1;
-            current_signal = current_drop.pot;
+            current_signal = current_drop.signals('pot');
         elseif selection == 2;
-            current_signal = current_drop.pot2;
+            current_signal = current_drop.signals('pot2');
         elseif selection == 3;
-            current_signal = current_drop.load;
+            current_signal = current_drop.signals('load');
         elseif selection == 4;
-            current_signal = current_drop.accx;
+            current_signal = current_drop.signals('accx');
         elseif selection == 5;
-            current_signal = current_drop.accy;
+            current_signal = current_drop.signals('accy');
         elseif selection == 6;
-            current_signal = current_drop.accz;
+            current_signal = current_drop.signals('accz');
         elseif selection == 7;
-            current_signal = current_drop.accz;
-        elseif selection == 8;
-            current_signal = current_drop.loadx;
-        elseif selection == 9
-            current_signal = current_drop.loady;
-        elseif selection == 10;
-            current_signal = current_drop.loadz;
+            current_signal = current_drop.signals('loadx');
+        elseif selection == 8
+            current_signal = current_drop.signals('loady');
+        elseif selection == 9;
+            current_signal = current_drop.signals('loadz');
         end
     end
 
     function signal_view_button_Callback(source, eventdata)
         signal = current_signal.data;
-        time = current_drop.time.data;
+        time = current_drop.signals('time').data;
         plot(signal_plot, time, signal);
     end
 
@@ -102,7 +100,7 @@ function validate_data(Set)
     end
 
     current_drop = Set.drops(1).Value;
-    current_signal = current_drop.pot;
+    current_signal = current_drop.signals('pot');
     drop_ids = Set.drop_ids();
     set(drop_list, 'String', drop_ids(:), 'Value', 1);
     set(current_drop_text, 'String', current_drop.id);

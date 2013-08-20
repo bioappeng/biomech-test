@@ -88,11 +88,14 @@ function load_data
     end
 
     function done_button_Callback(source, eventdata)
-        Set = drop_set(drop_set_filepath, drop_set_headerlines, drop_set_istriaxload, drop_set_isascii);
+        drops = assembler.assemble(drop_set_filepath, drop_set_headerlines, drop_set_isascii);
+        Set = drop_set(drops);
         validate_data(Set);
         delete(get(source, 'parent'));
     end
 
+    %required objects
+    assembler = drop_assembler();
     %initialize drop_set data (defaults)
     %these should be read from settings file in release versions
     drop_set_filepath = [pwd, '/'];

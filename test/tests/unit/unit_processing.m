@@ -109,5 +109,101 @@ classdef unit_processing < matlab.unittest.TestCase
             proc.apply_process(collector, set, process);
             testCase.assertEqual(collector.calculated.max_accz, [4;501;100]);
         end
-    end
+
+         function test_process_max_loadx(testCase)
+            import containers.Map;
+
+            signals1 = Map();
+            signals2 = Map();
+            signals3 = Map();
+            signals1('loadx') = signal('loadx', [1,2,3,4]);
+            drop1 = drop(signals1, 'one');
+            signals2('loadx') = signal('loadx', [1,2,500,-501]);
+            drop2 = drop(signals2, 'two');
+            signals3('loadx') = signal('loadx', [-100,2,3]);
+            drop3 = drop(signals3, 'three');
+            collector = calculation_collector();
+            drops = [];
+            drops(1).Value = drop1;
+            drops(2).Value = drop2;
+            drops(3).Value = drop3;
+            set = drop_set(drops);
+            process = process_max_loadx();
+            proc = processor();
+            proc.apply_process(collector, set, process);
+            testCase.assertEqual(collector.calculated.max_loadx, [4;501;100]);
+        end
+
+         function test_process_max_load(testCase)
+            import containers.Map;
+
+            signals1 = Map();
+            signals2 = Map();
+            signals3 = Map();
+            signals1('load') = signal('load', [1,2,3,4]);
+            drop1 = drop(signals1, 'one');
+            signals2('load') = signal('load', [1,2,500,-501]);
+            drop2 = drop(signals2, 'two');
+            signals3('load') = signal('load', [-100,2,3]);
+            drop3 = drop(signals3, 'three');
+            collector = calculation_collector();
+            drops = [];
+            drops(1).Value = drop1;
+            drops(2).Value = drop2;
+            drops(3).Value = drop3;
+            set = drop_set(drops);
+            process = process_max_load();
+            proc = processor();
+            proc.apply_process(collector, set, process);
+            testCase.assertEqual(collector.calculated.max_load, [4;501;100]);
+        end
+
+         function test_process_max_loady(testCase)
+            import containers.Map;
+
+            signals1 = Map();
+            signals2 = Map();
+            signals3 = Map();
+            signals1('loady') = signal('loady', [1,2,3,4]);
+            drop1 = drop(signals1, 'one');
+            signals2('loady') = signal('loady', [1,2,500,-501]);
+            drop2 = drop(signals2, 'two');
+            signals3('loady') = signal('loady', [-100,2,3]);
+            drop3 = drop(signals3, 'three');
+            collector = calculation_collector();
+            drops = [];
+            drops(1).Value = drop1;
+            drops(2).Value = drop2;
+            drops(3).Value = drop3;
+            set = drop_set(drops);
+            process = process_max_loady();
+            proc = processor();
+            proc.apply_process(collector, set, process);
+            testCase.assertEqual(collector.calculated.max_loady, [4;501;100]);
+        end
+
+         function test_process_max_loadz(testCase)
+            import containers.Map;
+
+            signals1 = Map();
+            signals2 = Map();
+            signals3 = Map();
+            signals1('loadz') = signal('loadz', [1,2,3,4]);
+            drop1 = drop(signals1, 'one');
+            signals2('loadz') = signal('loadz', [1,2,500,-501]);
+            drop2 = drop(signals2, 'two');
+            signals3('loadz') = signal('loadz', [-100,2,3]);
+            drop3 = drop(signals3, 'three');
+            collector = calculation_collector();
+            drops = [];
+            drops(1).Value = drop1;
+            drops(2).Value = drop2;
+            drops(3).Value = drop3;
+            set = drop_set(drops);
+            process = process_max_loadz();
+            proc = processor();
+            proc.apply_process(collector, set, process);
+            testCase.assertEqual(collector.calculated.max_loadz, [4;501;100]);
+        end
+   end
 end

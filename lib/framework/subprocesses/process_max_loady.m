@@ -3,7 +3,7 @@ classdef process_max_loady < handle & process
         function run(collector, Set)
             for i=1:Set.num_drops
                 drop = Set.get_drop(i);
-                max_value(i, 1) = max(abs(drop.signals('loady').data));
+                max_value(i, 1) = max((drop.signals('loady').data));
             end
             collector.add_field(max_value, 'max_loady');
         end

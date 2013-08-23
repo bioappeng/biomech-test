@@ -73,24 +73,5 @@ classdef acceptance_general < matlab.unittest.TestCase
             fclose(fileid);
             testCase.assertNotEmpty(file);
         end
-
-        function process_load_rate(testCase)
-            addpath('../../lib/framework/subprocesses/');
-            drops = testCase.assembler.assemble('resources/small_data/ascii/', 0, true);
-            set = drop_set(drops);
-            collector = calculation_collector();
-            load_rate.run(collector, set)
-        end
-
-        function process_load_ratex(testCase)
-            addpath('../../lib/framework/subprocesses/');
-            drops = testCase.assembler.assemble('resources/small_data/ascii/', 0, true);
-            set = drop_set(drops);
-            collector = calculation_collector();
-            load_ratex.run(collector, set)
-        end
-
-        function process_test_data_and_output_results(testCase)
-        end
     end
 end

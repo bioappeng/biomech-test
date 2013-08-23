@@ -3,6 +3,8 @@ classdef drop < handle & flaggable
         id
         signals
         flagged
+        window_start
+        window_end
     end
 
     methods

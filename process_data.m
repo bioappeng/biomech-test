@@ -52,6 +52,7 @@ function process_data(Set);
     end
 
     function done_button_Callback(source, eventdata)
+        preproc.preprocess_signals(Set);
         for i=1:length(processes)
             process = processes{i};
             if process.to_run
@@ -65,12 +66,21 @@ function process_data(Set);
     max_accx = process_max_accx();
     max_accy = process_max_accy();
     max_accz = process_max_accz();
+    max_load = process_max_load();
+    max_loadx = process_max_loadx();
+    max_loady = process_max_loady();
+    max_loadz = process_max_loadz();
     max_accx.to_run = true;
     max_accy.to_run = true;
     max_accz.to_run = true;
-    processes = {max_accx, max_accy, max_accz};
+    max_loadx.to_run = true;
+    max_loady.to_run = true;
+    max_loadz.to_run = true;
+    max_load.to_run = true;
+    processes = {max_accx, max_accy, max_accz, max_loadx, max_loady, max_loadz, max_load};
     collector = calculation_collector();
     proc = processor();
+    preproc = preprocessor();
 
     set(f, 'Visible', 'on');
 end

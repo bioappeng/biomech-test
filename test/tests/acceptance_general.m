@@ -73,5 +73,12 @@ classdef acceptance_general < matlab.unittest.TestCase
             fclose(fileid);
             testCase.assertNotEmpty(file);
         end
+
+        function preprocess_basic_code_correctness(testCase)
+            drops = testCase.assembler.assemble('resources/small_data/ascii/', 0, true);
+            set = drop_set(drops);
+            preproc = preprocessor();
+            preproc.preprocess_signals(set);
+        end 
     end
 end

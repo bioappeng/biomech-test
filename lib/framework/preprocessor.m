@@ -49,11 +49,9 @@ classdef preprocessor < handle
                 obj.calibrate_triaxial_load(loadz);
 
                 obj.calculate_window(loadx, pot);
-                obj.set_signal_windows(drop.signals);
+                drop.window_start = obj.window_start;
+                drop.window_end = obj.window_end;
             end
-        end
-
-        function set_signal_windows(obj, signals)
         end
 
         function calibrate_position(obj, pot)

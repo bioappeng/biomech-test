@@ -41,7 +41,7 @@ classdef preprocessor < handle
 
                 obj.calibrate_position(pot);
                 obj.calibrate_single_axis_load(load);
-                obj.calibrate_acceleration(accx);
+                obj.calibrate_x_acceleration(accx);
                 obj.calibrate_acceleration(accy);
                 obj.calibrate_acceleration(accz);
                 obj.calibrate_triaxial_load(loadx);
@@ -66,6 +66,10 @@ classdef preprocessor < handle
 
         function calibrate_acceleration(obj, acc)
             acc.data = acc.data * obj.acceleration_const;
+        end
+
+        function calibrate_x_acceleration(obj, acc)
+            acc.data = - acc.data * obj.acceleration_const;
         end
 
         function calibrate_triaxial_load(obj, load)

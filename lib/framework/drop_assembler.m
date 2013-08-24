@@ -56,9 +56,9 @@ classdef drop_assembler < handle
             signals('loady') = signal('y load', data{1,3}(:,1));
             signals('loadx') = signal('x load', data{1,4}(:,1));
             signals('loadz') = signal('z load', data{1,5});
-            signals('accx') = signal('x acceleration', data{1,6}(:,1));
-            signals('accy') = signal('y acceleration', data{1,7}(:,1));
-            signals('accz') = signal('z acceleration', data{1,8}(:,1));
+            signals('accy') = signal('y acceleration', data{1,6}(:,1));
+            signals('accz') = signal('z acceleration', data{1,7}(:,1));
+            signals('accx') = signal('x acceleration', data{1,8}(:,1));
             length = size(signals('pot').data);
             length = length(1,:);
             signals('time') = signal('time', (0: sample_rate: ((length-1)*sample_rate))');

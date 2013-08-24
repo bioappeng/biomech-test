@@ -45,8 +45,6 @@ classdef preprocessor < handle
                 obj.calibrate_acceleration(accy);
                 obj.calibrate_acceleration(accz);
                 obj.calibrate_triaxial_load(loadx);
-                obj.calibrate_triaxial_load(loady);
-                obj.calibrate_triaxial_load(loadz);
 
                 obj.calculate_window(loadx, pot);
                 drop.window_start = obj.window_start;

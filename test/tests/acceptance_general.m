@@ -80,5 +80,17 @@ classdef acceptance_general < matlab.unittest.TestCase
             preproc = preprocessor();
             preproc.preprocess_signals(set);
         end 
+
+        function velocity_process_basic_code_correctness(testCase)
+            addpath('../../lib/framework/subprocesses/');
+            drops = testCase.assembler.assemble('resources/small_data/ascii/', 0, true);
+            set = drop_set(drops);
+            preproc = preprocessor();
+            preproc.preprocess_signals(set);
+            proc = processor();
+            collector = calculation_collector();
+            process = process_velocity_validation();
+            proc.apply_process(collector, set, process);
+        end
     end
 end

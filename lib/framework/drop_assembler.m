@@ -5,7 +5,7 @@ classdef drop_assembler < handle
 
     methods
         function obj = drop_assembler(settings)
-            obj.settings = settings;
+            obj.settings = settings.settings;
         end
 
         function drops = assemble(obj, path, num_headerlines, isascii)
@@ -18,14 +18,14 @@ classdef drop_assembler < handle
         end
 
         function drops = build_ascii_drops(obj, path, num_headerlines)
-            fext = obj.settings.settings.text_file_extension;
+            fext = obj.settings.text_file_extension;
             flist = dir([path, fext]);
             numfiles = size(flist,1);
             for i=1:numfiles
                 filepath = [path, flist(i,1).name];
                 [id, data] = obj.parse_ascii_file(filepath, num_headerlines);
                 signals = obj.build_ascii_signals(data);
-                drops(i).Value = drop(signals, id, obj.settings.settings.sample_rate);
+                drops(i).Value = drop(signals, id, obj.settings.sample_rate);
             end
         end
 
@@ -39,7 +39,7 @@ classdef drop_assembler < handle
             for i=1:length(database);
                 channels = obj.get_which_mat_channels(database, i);
                 signals = obj.build_mat_signals(channels, database(i).data);
-                drops(i).Value = drop(signals, [], obj.settings.settings.sample_rate);
+                drops(i).Value = drop(signals, [], obj.settings.sample_rate);
             end
         end
 
@@ -65,7 +65,7 @@ classdef drop_assembler < handle
             signals('accx') = signal('x acceleration', data{1,8}(:,1));
             length = size(signals('pot').data);
             length = length(1,:);
-            signals('time') = signal('time', (0: obj.settings.settings.sample_rate: ((length-1)*obj.settings.settings.sample_rate))');
+            signals('time') = signal('time', (0: obj.settings.sample_rate: ((length-1)*obj.settings.sample_rate))');
         end
 
         function signals = build_mat_signals(obj, channels, data)
@@ -83,7 +83,7 @@ classdef drop_assembler < handle
             signals('loadz') = signal('z load', data(channels.falch));
             length = size(signals('pot').data);
             length = length(1,:);
-            signals('time') = signal('time', (0:obj.settings.settings.sample_rate:((length-1) * obj.settings.settings.sample_rate))');
+            signals('time') = signal('time', (0:obj.settings.sample_rate:((length-1) * obj.settings.sample_rate))');
         end
 
         function channels = get_which_mat_channels(obj, database, index)

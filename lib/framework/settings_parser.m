@@ -8,7 +8,7 @@ classdef settings_parser < handle
         end
 
         function settings = parse_settings(obj)
-            settings = ReadYaml(obj.filename);
+            settings = settings_holder(ReadYaml(obj.filename));
         end
     end
 end

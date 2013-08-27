@@ -1,9 +1,13 @@
 classdef drop_assembler < handle
-    properties (Constant)
-        sample_rate = 1/2000;
+    properties
+        settings;
     end
 
     methods
+        function obj = drop_assembler(settings)
+            obj.settings = settings;
+        end
+
         function drops = assemble(obj, path, num_headerlines, isascii)
             if isascii
                 drops = obj.build_ascii_drops(path, num_headerlines);
@@ -20,8 +24,8 @@ classdef drop_assembler < handle
             for i=1:numfiles
                 filepath = [path, flist(i,1).name];
                 [id, data] = obj.parse_ascii_file(filepath, num_headerlines);
-                signals = obj.build_ascii_signals(data, obj.sample_rate);
-                drops(i).Value = drop(signals, id);
+                signals = obj.build_ascii_signals(data);
+                drops(i).Value = drop(signals, id, obj.settings.settings.sample_rate);
             end
         end
 
@@ -34,8 +38,8 @@ classdef drop_assembler < handle
         function drops = build_mat_drops_from_database(obj, database)
             for i=1:length(database);
                 channels = obj.get_which_mat_channels(database, i);
-                signals = obj.build_mat_signals(channels, database(i).data, obj.sample_rate);
-                drops(i).Value = drop(signals, []);
+                signals = obj.build_mat_signals(channels, database(i).data);
+                drops(i).Value = drop(signals, [], obj.settings.settings.sample_rate);
             end
         end
 
@@ -47,7 +51,7 @@ classdef drop_assembler < handle
             fclose(file);
         end
 
-        function signals = build_ascii_signals(obj, data, sample_rate)
+        function signals = build_ascii_signals(obj, data)
             import containers.Map;
 
             signals = Map();
@@ -61,10 +65,10 @@ classdef drop_assembler < handle
             signals('accx') = signal('x acceleration', data{1,8}(:,1));
             length = size(signals('pot').data);
             length = length(1,:);
-            signals('time') = signal('time', (0: sample_rate: ((length-1)*sample_rate))');
+            signals('time') = signal('time', (0: obj.settings.settings.sample_rate: ((length-1)*obj.settings.settings.sample_rate))');
         end
 
-        function signals = build_mat_signals(obj, channels, data, sample_rate)
+        function signals = build_mat_signals(obj, channels, data)
             import containers.Map;
 
             signals = Map();
@@ -79,7 +83,7 @@ classdef drop_assembler < handle
             signals('loadz') = signal('z load', data(channels.falch));
             length = size(signals('pot').data);
             length = length(1,:);
-            signals('time') = signal('time', (0: sample_rate: ((length-1)*sample_rate))');
+            signals('time') = signal('time', (0:obj.settings.settings.sample_rate:((length-1) * obj.settings.settings.sample_rate))');
         end
 
         function channels = get_which_mat_channels(obj, database, index)

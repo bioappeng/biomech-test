@@ -1,4 +1,4 @@
-sample_rate: 1/2000
+sample_rate: 0.0005
 text_file_extension: '*.txt'
 
 #column -> signal settings

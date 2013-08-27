@@ -1,8 +1,26 @@
 %   returns the polynomial coefficients,
 %   returns area under and average slope of the curve
 
-classdef process_velocity_validation < handle & process
+classdef process_velocity_validation < handle
+    properties
+        to_run
+    end
+
+    methods
+        function obj = process_velocity_validation(set)
+            obj.to_run = process_velocity_validation.assess_to_run(set);
+        end
+    end
+
     methods (Static)
+        function to_run = assess_to_run(Set)
+            if Set.get_drop(1).signals('pot').data == false; 
+                to_run = false;
+            else
+                to_run = true;
+            end
+        end
+
         function run(collector, set)
             for j=1:set.num_drops
                 drop = set.get_drop(j);

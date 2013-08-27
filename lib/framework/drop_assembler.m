@@ -1,6 +1,7 @@
 classdef drop_assembler < handle
     properties
         settings;
+        ascii_data;
     end
 
     methods
@@ -23,8 +24,8 @@ classdef drop_assembler < handle
             numfiles = size(flist,1);
             for i=1:numfiles
                 filepath = [path, flist(i,1).name];
-                [id, data] = obj.parse_ascii_file(filepath, num_headerlines);
-                signals = obj.build_ascii_signals(data);
+                [id, obj.ascii_data] = obj.parse_ascii_file(filepath, num_headerlines);
+                signals = obj.build_ascii_signals();
                 drops(i).Value = drop(signals, id, obj.settings.sample_rate);
             end
         end
@@ -51,21 +52,29 @@ classdef drop_assembler < handle
             fclose(file);
         end
 
-        function signals = build_ascii_signals(obj, data)
+        function signals = build_ascii_signals(obj)
             import containers.Map;
 
             signals = Map();
-            signals('pot') = signal('string pot', data{1, obj.settings.string_pot}(:,1));
-            signals('load') = signal('single axis load', data{1, obj.settings.single_axis_load}(:,1));
-            signals('loady') = signal('y load', data{1, obj.settings.loady}(:,1));
-            signals('loadx') = signal('x load', data{1, obj.settings.loadx}(:,1));
-            signals('loadz') = signal('z load', data{1, obj.settings.loadz}(:,1));
-            signals('accy') = signal('y acceleration', data{1, obj.settings.accy}(:,1));
-            signals('accz') = signal('z acceleration', data{1, obj.settings.accz}(:,1));
-            signals('accx') = signal('x acceleration', data{1, obj.settings.accx}(:,1));
+            signals('pot') = signal('string pot', obj.get_ascii_data(obj.settings.string_pot));
+            signals('load') = signal('single axis load', obj.get_ascii_data(obj.settings.single_axis_load));
+            signals('loady') = signal('y load', obj.get_ascii_data(obj.settings.loady));
+            signals('loadx') = signal('x load', obj.get_ascii_data(obj.settings.loadx));
+            signals('loadz') = signal('z load', obj.get_ascii_data(obj.settings.loadz));
+            signals('accy') = signal('y acceleration', obj.get_ascii_data(obj.settings.accy));
+            signals('accz') = signal('z acceleration', obj.get_ascii_data(obj.settings.accz));
+            signals('accx') = signal('x acceleration', obj.get_ascii_data(obj.settings.accx));
             length = size(signals('pot').data);
             length = length(1,:);
             signals('time') = signal('time', (0: obj.settings.sample_rate: ((length-1)*obj.settings.sample_rate))');
+        end
+
+        function data = get_ascii_data(obj, setting)
+            if setting == 'none'
+                data = false;
+            else
+                data = obj.ascii_data{1, setting}(:,1);
+            end
         end
 
         function signals = build_mat_signals(obj, channels, data)

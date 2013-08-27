@@ -102,7 +102,12 @@ function process_data(Set);
                 proc.apply_process(collector, Set, process)
             end
         end
-        save_data(Set, collector)
+
+        [file, path] = uiputfile('*.txt')
+        filepath = fullfile(path,file);
+        dumper = data_dumper();
+        dumper.grab_data(collector)
+        dumper.dump(filepath);
         delete(get(source, 'parent'));
     end
 
@@ -126,6 +131,8 @@ function process_data(Set);
     collector = calculation_collector();
     proc = processor();
     preproc = preprocessor();
+
+    filepath = [];
 
     set(f, 'Visible', 'on');
 end

@@ -3,12 +3,14 @@ classdef drop < handle & flaggable
         id
         signals
         flagged
+        sample_rate
         window_start
         window_end
     end
 
     methods
-        function obj = drop(signals, id)
+        function obj = drop(signals, id, sample_rate)
+            obj.sample_rate = sample_rate;
             obj.signals = signals;
             obj.id = id;
             obj.flagged = false;

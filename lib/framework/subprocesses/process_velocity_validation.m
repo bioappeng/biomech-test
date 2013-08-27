@@ -9,7 +9,7 @@ classdef process_velocity_validation < handle & process
                 position = drop.signals('pot').data;
                 s = size(position);
 
-                Samp_rate = 1/2000;
+                Samp_rate = drop.sample_rate;
 
                 t = (0 : Samp_rate : ((s-1)*Samp_rate));
                 imax = find(position == max(position) , 1 , 'first');

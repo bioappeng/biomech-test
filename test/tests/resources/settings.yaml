@@ -1,0 +1,15 @@
+sample_rate: 0.0005
+text_file_extension: '*.txt'
+
+#column -> signal settings
+#if not used -- 0
+
+string_pot: 1
+head_pot: 0
+single_axis_load: 2
+loady: 3
+loadx: 4
+loadz: 5
+accy: 6
+accz: 7
+accx: 8

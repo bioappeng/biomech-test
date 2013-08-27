@@ -7,13 +7,16 @@ classdef acceptance_general < matlab.unittest.TestCase
             addpath('../../lib/framework/');
             addpath('resources/');
             addpath('../../lib/resources/');
+            addpath('../../lib/resources/yamlmatlab/');
             file = fopen('resources/calculated', 'w+');
             fprintf(file, '');
             fclose(file);
         end
 
         function class_setup_objects(testCase)
-            testCase.assembler = drop_assembler();
+            parser = settings_parser('resources/settings.yaml');
+            settings = parser.parse_settings();
+            testCase.assembler = drop_assembler(settings);
         end
     end
 
@@ -45,8 +48,7 @@ classdef acceptance_general < matlab.unittest.TestCase
         end
 
         function drop_assembler_generates_non_empty_list_of_ascii_drops(testCase)
-            assembler = drop_assembler();
-            drops = assembler.assemble('resources/small_data/ascii/', 0, true);
+            drops = testCase.assembler.assemble('resources/small_data/ascii/', 0, true);
             testCase.assertNotEmpty(drops);
             for i=1:length(drops)
                 testCase.assertInstanceOf(drops(i).Value, 'drop');
@@ -54,8 +56,7 @@ classdef acceptance_general < matlab.unittest.TestCase
         end
 
         function drop_assembler_generates_non_empty_list_of_mat_drops(testCase)
-            assembler = drop_assembler();
-            drops = assembler.assemble('resources/small_data/mat/test.mat', 0, false);
+            drops = testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, false);
             testCase.assertNotEmpty(drops);
             for i=1:length(drops)
                 testCase.assertInstanceOf(drops(i).Value, 'drop');

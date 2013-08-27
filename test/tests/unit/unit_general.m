@@ -25,9 +25,9 @@ classdef unit_general < matlab.unittest.TestCase
         end
 
         function drop_set_should_have_correct_num_drops_when_created(testCase)
-            drop1 = drop([], 'one');
-            drop2 = drop([], 'two');
-            drop3 = drop([], 'three');
+            drop1 = drop([], 'one', 0);
+            drop2 = drop([], 'two', 0);
+            drop3 = drop([], 'three', 0);
             drops(1).Value = drop1;
             drops(2).Value = drop2;
             drops(3).Value = drop3;
@@ -36,9 +36,9 @@ classdef unit_general < matlab.unittest.TestCase
         end
 
         function drop_set_get_drop_should_return_valid_and_correct_drop(testCase)
-            drop1 = drop([], 'one');
-            drop2 = drop([], 'two');
-            drop3 = drop([], 'three');
+            drop1 = drop([], 'one', 0);
+            drop2 = drop([], 'two', 0);
+            drop3 = drop([], 'three', 0);
             drops(1).Value = drop1;
             drops(2).Value = drop2;
             drops(3).Value = drop3;
@@ -49,7 +49,7 @@ classdef unit_general < matlab.unittest.TestCase
         end
 
         function drop_flag_unflag_should_behave_as_expected(testCase)
-            an_ascii_drop = drop([], 'a_drop_id');
+            an_ascii_drop = drop([], 'a_drop_id', 0);
             testCase.assertEqual(an_ascii_drop.flagged, false);
             an_ascii_drop.flag();
             testCase.assertEqual(an_ascii_drop.flagged, true);

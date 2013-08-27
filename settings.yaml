@@ -2,10 +2,10 @@ sample_rate: 0.0005
 text_file_extension: '*.txt'
 
 #column -> signal settings
-#if not used -- 0
+#if not used -- 'none'
 
 string_pot: 1
-head_pot: 0
+head_pot: 'none'
 single_axis_load: 2
 loady: 3
 loadx: 4

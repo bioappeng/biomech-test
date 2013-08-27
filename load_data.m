@@ -1,5 +1,6 @@
 function load_data
     addpath('lib/framework/');
+    addpath('lib/resources/yamlmatlab/');
     
     f = figure('Visible','off',...
               'Position',[100,200,700,500],...
@@ -95,7 +96,9 @@ function load_data
     end
 
     %required objects
-    assembler = drop_assembler();
+    setting_parser = settings_parser('settings.yaml');
+    settings = setting_parser.parse_settings();
+    assembler = drop_assembler(settings);
     %initialize drop_set data (defaults)
     %these should be read from settings file in release versions
     drop_set_filepath = [pwd, '/'];

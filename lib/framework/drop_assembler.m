@@ -55,14 +55,14 @@ classdef drop_assembler < handle
             import containers.Map;
 
             signals = Map();
-            signals('pot') = signal('string pot', data{1,1}(:,1));
-            signals('load') = signal('single axis load', data{1,2}(:,1));
-            signals('loady') = signal('y load', data{1,3}(:,1));
-            signals('loadx') = signal('x load', data{1,4}(:,1));
-            signals('loadz') = signal('z load', data{1,5});
-            signals('accy') = signal('y acceleration', data{1,6}(:,1));
-            signals('accz') = signal('z acceleration', data{1,7}(:,1));
-            signals('accx') = signal('x acceleration', data{1,8}(:,1));
+            signals('pot') = signal('string pot', data{1, obj.settings.string_pot}(:,1));
+            signals('load') = signal('single axis load', data{1, obj.settings.single_axis_load}(:,1));
+            signals('loady') = signal('y load', data{1, obj.settings.loady}(:,1));
+            signals('loadx') = signal('x load', data{1, obj.settings.loadx}(:,1));
+            signals('loadz') = signal('z load', data{1, obj.settings.loadz}(:,1));
+            signals('accy') = signal('y acceleration', data{1, obj.settings.accy}(:,1));
+            signals('accz') = signal('z acceleration', data{1, obj.settings.accz}(:,1));
+            signals('accx') = signal('x acceleration', data{1, obj.settings.accx}(:,1));
             length = size(signals('pot').data);
             length = length(1,:);
             signals('time') = signal('time', (0: obj.settings.sample_rate: ((length-1)*obj.settings.sample_rate))');

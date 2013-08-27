@@ -1,5 +1,5 @@
 sample_rate: 1/2000
-text_file_extension: *.txt
+text_file_extension: '*.txt'
 
 #column -> signal settings
 #if not used -- 0

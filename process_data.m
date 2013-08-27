@@ -107,14 +107,14 @@ function process_data(Set);
         delete(get(source, 'parent'));
     end
 
-    max_accx = process_max_accx();
-    max_accy = process_max_accy();
-    max_accz = process_max_accz();
-    max_load = process_max_load();
-    max_loadx = process_max_loadx();
-    max_loady = process_max_loady();
-    max_loadz = process_max_loadz();
-    velocity_validation = process_velocity_validation();
+    max_accx = process_max_accx(Set);
+    max_accy = process_max_accy(Set);
+    max_accz = process_max_accz(Set);
+    max_load = process_max_load(Set);
+    max_loadx = process_max_loadx(Set);
+    max_loady = process_max_loady(Set);
+    max_loadz = process_max_loadz(Set);
+    velocity_validation = process_velocity_validation(Set);
     max_accx.to_run = true;
     max_accy.to_run = true;
     max_accz.to_run = true;

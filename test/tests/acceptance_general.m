@@ -90,7 +90,7 @@ classdef acceptance_general < matlab.unittest.TestCase
             preproc.preprocess_signals(set);
             proc = processor();
             collector = calculation_collector();
-            process = process_velocity_validation();
+            process = process_velocity_validation(set);
             proc.apply_process(collector, set, process);
         end
     end

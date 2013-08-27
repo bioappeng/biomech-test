@@ -18,7 +18,7 @@ classdef drop_assembler < handle
         end
 
         function drops = build_ascii_drops(obj, path, num_headerlines)
-            fext = '*.txt';
+            fext = obj.settings.settings.text_file_extension;
             flist = dir([path, fext]);
             numfiles = size(flist,1);
             for i=1:numfiles

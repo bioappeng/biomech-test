@@ -57,6 +57,7 @@ classdef drop_assembler < handle
 
             signals = Map();
             signals('pot') = signal('string pot', obj.get_ascii_data(obj.settings.string_pot));
+            signals('pot2') = signal('head pot', obj.get_ascii_data(obj.settings.head_pot));
             signals('load') = signal('single axis load', obj.get_ascii_data(obj.settings.single_axis_load));
             signals('loady') = signal('y load', obj.get_ascii_data(obj.settings.loady));
             signals('loadx') = signal('x load', obj.get_ascii_data(obj.settings.loadx));

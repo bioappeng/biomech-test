@@ -48,13 +48,6 @@ function validate_data(Set)
                             'Units', 'normalized',...
                             'Position', [.3, .05, .3, .35],...
                             'Callback',{@signal_view_button_Callback});
-    signal_flag_button = uicontrol('Style', 'pushbutton',...
-                            'String', 'Flag Current Signal',...
-                            'Parent', uipanel_signal_controls,...
-                            'Units', 'normalized',...
-                            'Position', [.65, .05, .3, .35],...
-                            'Callback',{@signal_flag_button_Callback});
-
     function droplist_Callback(source, eventdata)
         set(current_drop_text, 'String', drop_ids(get(drop_list, 'Value')))
         current_drop = Set.drops(get(drop_list, 'Value')).Value;
@@ -88,10 +81,6 @@ function validate_data(Set)
         signal = current_signal.data;
         time = current_drop.signals('time').data;
         plot(signal_plot, time, signal);
-    end
-
-    function signal_flag_button_Callback(source, eventdata)
-        current_signal.flag();
     end
 
     function done_button_Callback(source, eventdata)

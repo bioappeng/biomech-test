@@ -43,11 +43,11 @@ function validate_data(Set)
                             'Position', [.9, .015, .075, .05],...
                             'Callback',{@done_button_Callback});
     signal_view_button = uicontrol('Style', 'pushbutton',...
-                            'String', 'View Current Signal',...
+                            'String', 'Next Signal',...
                             'Parent', uipanel_signal_controls,...
                             'Units', 'normalized',...
                             'Position', [.3, .05, .3, .35],...
-                            'Callback',{@signal_view_button_Callback});
+                            'Callback',{@signal_view_next_button_Callback});
     function droplist_Callback(source, eventdata)
         set(current_drop_text, 'String', drop_ids(get(drop_list, 'Value')))
         current_drop = Set.drops(get(drop_list, 'Value')).Value;
@@ -75,9 +75,17 @@ function validate_data(Set)
         elseif selection == 9;
             current_signal = current_drop.signals('loadz');
         end
+        signal = current_signal.data;
+        time = current_drop.signals('time').data;
+        plot(signal_plot, time, signal);
     end
 
-    function signal_view_button_Callback(source, eventdata)
+    function signal_view_next_button_Callback(source, eventdata)
+        current_value = get(signal_list, 'Value');
+        if current_value < 9
+            set(signal_list, 'Value', current_value + 1);
+        end
+        signal_list_callback(signal_list, 'nothing');
         signal = current_signal.data;
         time = current_drop.signals('time').data;
         plot(signal_plot, time, signal);
@@ -90,6 +98,9 @@ function validate_data(Set)
 
     current_drop = Set.drops(1).Value;
     current_signal = current_drop.signals('pot');
+    signal = current_signal.data;
+    time = current_drop.signals('time').data;
+    plot(signal_plot, time, signal);
     drop_ids = Set.drop_ids();
     set(drop_list, 'String', drop_ids(:), 'Value', 1);
     set(current_drop_text, 'String', current_drop.id);

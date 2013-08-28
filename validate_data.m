@@ -81,9 +81,7 @@ function validate_data(Set)
         elseif selection == 9;
             current_signal = current_drop.signals('loadz');
         end
-        signal = current_signal.data;
-        time = current_drop.signals('time').data;
-        plot(signal_plot, time, signal);
+        plot_data();
     end
 
     function signal_view_next_button_Callback(source, eventdata)
@@ -92,9 +90,17 @@ function validate_data(Set)
             set(signal_list, 'Value', current_value + 1);
         end
         signal_list_callback(signal_list, 'nothing');
+        plot_data();
+    end
+
+    function plot_data()
         signal = current_signal.data;
-        time = current_drop.signals('time').data;
-        plot(signal_plot, time, signal);
+        if signal == false
+            cla(signal_plot);
+        else
+            time = current_drop.signals('time').data;
+            plot(signal_plot, time, signal);
+        end
     end
 
     function signal_view_previous_button_Callback(source, eventdata)

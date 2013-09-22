@@ -1,3 +1,5 @@
+%assembles drops from their respective data formats
+%using settings provided in settings_holder object
 classdef drop_assembler < handle
     properties
         settings;

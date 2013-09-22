@@ -1,3 +1,4 @@
+%dumps values from a calculation_collector into a csv file
 classdef data_dumper < handle
     properties
         data;

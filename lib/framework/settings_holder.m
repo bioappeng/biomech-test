@@ -1,3 +1,4 @@
+%object container for settings
 classdef settings_holder < handle
     properties
         settings;

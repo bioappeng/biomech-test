@@ -1,3 +1,4 @@
+%does preprocessing/calibration to prepare raw data for processing
 classdef preprocessor < handle
     properties
         position_const = 433.0;

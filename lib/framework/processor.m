@@ -1,3 +1,4 @@
+%an object that applys a process to a drop_set, and calculation_collector
 classdef processor < handle
     methods
         function obj = processor()

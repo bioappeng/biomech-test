@@ -1,3 +1,4 @@
+%parser for a .yaml settings file
 classdef settings_parser < handle
     properties
         filename;

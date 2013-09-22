@@ -39,13 +39,13 @@ classdef acceptance_general < matlab.unittest.TestCase
             testCase.assertEqual(ascii_set.num_drops, length(ascii_set.drops));
         end
 
-        function mat_set_creation(testCase)
-            drops = testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, false);
-            mat_set = drop_set(drops);
-            testCase.assertInstanceOf(mat_set, 'drop_set');
-            testCase.assertNotEmpty(mat_set.drops);
-            testCase.assertEqual(mat_set.num_drops, length(mat_set.drops));
-        end
+       %     function mat_set_creation(testCase)
+       %         drops = testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, false);
+       %         mat_set = drop_set(drops);
+       %         testCase.assertInstanceOf(mat_set, 'drop_set');
+       %         testCase.assertNotEmpty(mat_set.drops);
+       %         testCase.assertEqual(mat_set.num_drops, length(mat_set.drops));
+       %     end
 
         function drop_assembler_generates_non_empty_list_of_ascii_drops(testCase)
             drops = testCase.assembler.assemble('resources/small_data/ascii/', 0, true);
@@ -55,13 +55,13 @@ classdef acceptance_general < matlab.unittest.TestCase
             end
         end
 
-        function drop_assembler_generates_non_empty_list_of_mat_drops(testCase)
-            drops = testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, false);
-            testCase.assertNotEmpty(drops);
-            for i=1:length(drops)
-                testCase.assertInstanceOf(drops(i).Value, 'drop');
-            end
-        end
+       %     function drop_assembler_generates_non_empty_list_of_mat_drops(testCase)
+       %         drops = testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, false);
+       %         testCase.assertNotEmpty(drops);
+       %         for i=1:length(drops)
+       %             testCase.assertInstanceOf(drops(i).Value, 'drop');
+       %         end
+       %     end
 
         function dumper_dumps_data_to_file(testCase)
             non_empty_collector = calculation_collector();

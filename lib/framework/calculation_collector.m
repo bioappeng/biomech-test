@@ -1,3 +1,4 @@
+%collects/stores calculated values
 classdef calculation_collector < handle
     properties
         calculated;

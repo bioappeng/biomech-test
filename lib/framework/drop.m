@@ -1,3 +1,4 @@
+%represents a single drop of the testing rig
 classdef drop < handle & flaggable
     properties
         id

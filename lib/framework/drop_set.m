@@ -1,3 +1,4 @@
+%represents some set of drops
 classdef drop_set < handle
     properties
         drops

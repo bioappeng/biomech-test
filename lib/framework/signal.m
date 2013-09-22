@@ -1,3 +1,5 @@
+%represents a signal/datastream from a single channel
+%of a sensor
 classdef signal < handle & flaggable
     properties
         data;

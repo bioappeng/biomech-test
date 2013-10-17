@@ -1,14 +1,19 @@
 %represents some set of drops
 classdef drop_set < handle
     properties
-        drops
-        num_drops
+        drops;
+        num_drops;
+        settings;
     end
     
     properties (Constant)
     end
     
     methods
+        function set_settings(obj, settings);
+            obj.settings = settings;
+        end
+        
         function obj = drop_set(drops)
             obj.drops = drops;
             num_drops = size(obj.drops);

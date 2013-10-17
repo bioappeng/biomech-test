@@ -1,4 +1,4 @@
-function process_data(Set);
+function process_data(Set, window_start, window_end);
     f = figure('Visible','off',...
               'Position',[100,200,350,500],...
               'MenuBar','none',...
@@ -95,22 +95,46 @@ function process_data(Set);
     end
 
     function done_button_Callback(source, eventdata)
-        preproc.preprocess_signals(Set);
+        
+        %Pull the drop id's and add them to dump file
+        id_list = cell(Set.num_drops, 1);
+        for i = 1:Set.num_drops
+            drop = Set.get_drop(i);
+            id_list{i, 1} = drop.get_id();
+        end
+        collector.add_field(id_list, 'Name');
+        
+        %Run processes on all signals
+        preproc.preprocess_signals(Set, window_start, window_end);
         for i=1:length(processes)
             process = processes{i};
             if process.to_run
                 proc.apply_process(collector, Set, process)
             end
         end
-
-        [file, path] = uiputfile('*.txt')
-        filepath = fullfile(path,file);
-        dumper = data_dumper();
-        dumper.grab_data(collector)
-        dumper.dump(filepath);
-        delete(get(source, 'parent'));
+        
+        %Push the processed data from collector to the dump file object
+        %Output to file specified
+        %TODO: Error check for open file
+        [file, path] = uiputfile('*.txt');
+        
+        if isequal(file, 0) || isequal(path, 0)
+            %User pressed cancel
+        else
+            filepath = fullfile(path, file);
+            dumper = data_dumper();
+            dumper.grab_data(collector)
+            if dumper.dump(filepath);
+                delete(get(source, 'parent'));
+            else
+                %File was open or problem exist
+                errordlg('The file specified could not be opened, check if the file is open in another application and try again', 'File could not be opened');
+            end
+        end
     end
 
+    %Specify processes to run on the drop set
+    %TODO:  Clean up and set dynamically
     max_accx = process_max_accx(Set);
     max_accy = process_max_accy(Set);
     max_accz = process_max_accz(Set);

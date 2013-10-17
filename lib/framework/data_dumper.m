@@ -8,10 +8,16 @@ classdef data_dumper < handle
             obj.data = collector.calculated;
         end
 
-        function dump(obj, file_path)
+        function err = dump(obj, file_path)
+            err = 1;
             FID = fopen(file_path, 'w+');
-            struct2csv(obj.data, FID);
-            fclose(FID);
+            if FID == -1
+                %File already open
+                err = 0;
+            else
+                struct2csv(obj.data, FID);
+                fclose(FID);
+            end
         end
     end
 end

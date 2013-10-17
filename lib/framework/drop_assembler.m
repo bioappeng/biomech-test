@@ -11,22 +11,22 @@ classdef drop_assembler < handle
             obj.settings = settings.settings;
         end
 
-        function drops = assemble(obj, path, num_headerlines, isascii)
+        function drops = assemble(obj, path, isascii)
             if isascii
-                drops = obj.build_ascii_drops(path, num_headerlines);
+                drops = obj.build_ascii_drops(path);
             else
                 database = obj.get_mat_database(path);
                 drops = obj.build_mat_drops_from_database(database);
             end
         end
 
-        function drops = build_ascii_drops(obj, path, num_headerlines)
+        function drops = build_ascii_drops(obj, path)
             fext = obj.settings.text_file_extension;
             flist = dir([path, fext]);
             numfiles = size(flist,1);
             for i=1:numfiles
                 filepath = [path, flist(i,1).name];
-                [id, obj.ascii_data] = obj.parse_ascii_file(filepath, num_headerlines);
+                [id, obj.ascii_data] = obj.parse_ascii_file(filepath, obj.settings.headerlines);
                 signals = obj.build_ascii_signals();
                 drops(i).Value = drop(signals, id, obj.settings.sample_rate);
             end

@@ -21,17 +21,14 @@ function load_data
                             'String', 'text|mat',...
                             'Position', [.225, .55, .1, .3],...
                             'Callback',{@filetype_Callback});
-    header_lines_text = uicontrol('Style', 'text',...
-                            'Parent', uipanel_settings,...
-                                  'Units', 'normalized',...
-                                  'Position', [.375, .5, .15, .3],...
-                                  'String', 'Header Lines');
-    headerlines_edit_box = uicontrol('Style', 'edit',...
-                            'Parent', uipanel_settings,...
-                            'Units', 'normalized',...
-                            'String', '0',...
-                            'Position', [.53, .5, .03, .3],...
-                            'Callback',{@headerlines_Callback});
+
+    settings_path_button = uicontrol('Style','pushbutton',...
+                        'Parent', uipanel_settings,...
+                        'Units', 'normalized',...
+                        'String', 'Settings File',...
+                        'Position', [0.375,0.5,0.15,0.3],...
+                        'Callback', {@settings_path_callback});
+    
     filepath_button = uicontrol('Style', 'pushbutton',...
                         'Parent', uipanel_files,...
                         'Units', 'normalized',...
@@ -57,10 +54,6 @@ function load_data
         set(filelist, 'String', sorted_names(3:end), 'Value', 1);
     end
 
-    function headerlines_Callback(source, eventdata)
-        drop_set_headerlines = str2num(get(source, 'String'));
-    end
-
     function filelist_Callback(source, eventdata)
     end
 
@@ -73,21 +66,32 @@ function load_data
     end
 
     function done_button_Callback(source, eventdata)
-        drops = assembler.assemble(drop_set_filepath, drop_set_headerlines, drop_set_isascii);
-        Set = drop_set(drops);
-        validate_data(Set);
-        delete(get(source, 'parent'));
+        
+        if have_settings
+            drops = assembler.assemble(drop_set_filepath, drop_set_isascii);
+            Set = drop_set(drops);
+            Set.set_settings(settings);
+            validate_data(Set);
+            delete(get(source, 'parent'));
+        else
+                warndlg('No YAML settings file was specified', 'No Setting File');
+        end
+
     end
 
-    %required objects
-    setting_parser = settings_parser('settings.yaml');
-    settings = setting_parser.parse_settings();
-    assembler = drop_assembler(settings);
+    function settings_path_callback(source, eventdata)
+        [file_name, path_name] = uigetfile('*.yaml', 'Choose settings file');
+        setting_parser = settings_parser(fullfile(path_name, file_name));
+        settings = setting_parser.parse_settings();
+        assembler = drop_assembler(settings);
+        have_settings = true;
+    end
     %initialize drop_set data (defaults)
     %these should be read from settings file in release versions
     drop_set_filepath = [pwd, '/'];
-    drop_set_headerlines = 0;
     drop_set_isascii = true;
-
+    have_settings = false;
+    assembler = NaN;
+    settings = NaN;
     set(f, 'Visible', 'on');
 end

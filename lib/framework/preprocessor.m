@@ -1,4 +1,5 @@
 %does preprocessing/calibration to prepare raw data for processing
+%TODO:  Pull calibration constants from YAML file
 classdef preprocessor < handle
     properties
         position_const = 433.0;
@@ -7,27 +8,15 @@ classdef preprocessor < handle
         acceleration_const = (1/0.010);
         window_start;
         window_end;
+        set;
     end
 
     methods
-        function remove_dc_offset(obj, signal)
-            yfft = fft(signal.data);
-            [a,i] = max(abs(yfft));
-            yfft(i,1) = 0;
-            signal.data = real(ifft(yfft));
-        end
 
-        function calculate_window(obj, x_load, position)
-            [throwaway_value, min_index] = min(x_load.data);
-            while position.data(min_index) < 0
-                min_index = min_index - 1;
-            end
-            obj.window_start = min_index - 50;
-            obj.window_end = obj.window_start + 145;
-        end
-
-        function preprocess_signals(obj, set)
+        function preprocess_signals(obj, set, window_start, window_end)
             import containers.Map;
+            obj.set = set;
+            %Hard-coded, this needs looking after
 
             for i = 1:set.num_drops;
                 drop = set.get_drop(i);
@@ -42,40 +31,61 @@ classdef preprocessor < handle
 
                 obj.calibrate_position(pot);
                 obj.calibrate_single_axis_load(load);
-                obj.calibrate_x_acceleration(accx);
-                obj.calibrate_acceleration(accy);
-                obj.calibrate_acceleration(accz);
-                obj.calibrate_triaxial_load(loadx);
-                obj.calibrate_triaxial_load(loady);
-                obj.calibrate_triaxial_load(loadz);
-
-                obj.calculate_window(loadx, pot);
-                drop.window_start = obj.window_start;
-                drop.window_end = obj.window_end;
+                obj.calibrate_acc_x(accx);
+                obj.calibrate_acc_y(accy);
+                obj.calibrate_acc_z(accz);
+                obj.calibrate_load_x(loadx);
+                obj.calibrate_load_y(loady);
+                obj.calibrate_load_z(loadz);
+                
+                %Window is calculated manually for now
+                drop.window_start = window_start;
+                drop.window_end = window_end;
             end
         end
 
         function calibrate_position(obj, pot)
-            position = pot.data * obj.position_const;
-            pos_min = min(position);
-            pot.data = position - pos_min;
+            pot.data = pot.data * obj.set.settings.settings.string_pot_slope + ...
+                    obj.set.settings.settings.string_pot_offset;
+%             pos_min = min(position);
+%             pot.data = position - pos_min;
         end
 
         function calibrate_single_axis_load(obj, load)
-            load.data = load.data * obj.single_axis_load_const;
+            load.data = load.data * obj.set.settings.settings.uni_load_slope + ...
+                    obj.set.settings.settings.uni_load_offset;
         end
 
-        function calibrate_acceleration(obj, acc)
-            acc.data = acc.data * obj.acceleration_const;
+        function calibrate_acc_x(obj, acc)
+            acc.data = acc.data * obj.set.settings.settings.acc_x_slope + ...
+                obj.set.settings.settings.acc_x_offset;
         end
 
-        function calibrate_x_acceleration(obj, acc)
-            acc.data = - acc.data * obj.acceleration_const;
+        
+        function calibrate_acc_y(obj, acc)
+            acc.data = acc.data * obj.set.settings.settings.acc_y_slope + ...
+                obj.set.settings.settings.acc_y_offset;
         end
+        
+        function calibrate_acc_z(obj, acc)
+            acc.data = acc.data * obj.set.settings.settings.acc_z_slope + ...
+                obj.set.settings.settings.acc_z_offset;
+        end
+        
 
-        function calibrate_triaxial_load(obj, load)
-            load.data * obj.triaxial_load_const;
-            obj.remove_dc_offset(load);
+        function calibrate_load_x(obj, load)
+            load.data = load.data * obj.set.settings.settings.load_x_slope+...
+                    obj.set.settings.settings.load_x_offset;
+        end
+        
+        function calibrate_load_y(obj, load)
+            load.data = load.data * obj.set.settings.settings.load_y_slope+...
+                    obj.set.settings.settings.load_y_offset;
+        end
+        
+        function calibrate_load_z(obj, load)
+            load.data = load.data * obj.set.settings.settings.load_z_slope+...
+                    obj.set.settings.settings.load_z_offset;
         end
     end
 end

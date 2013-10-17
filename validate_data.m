@@ -6,17 +6,17 @@ function validate_data(Set)
 
     uipanel_drops = uipanel('Title', 'Drops',...
                             'Units', 'normalized',...
-                            'Position', [.025, .025, .3, .95]);
+                            'Position', [.025, .025, .2, .95]);
     uipanel_controls = uipanel('Title', 'Controls',...
                                'Units', 'normalized',...
-                               'Position', [.35, .075, .625, .9]);
+                               'Position', [.25, .075, .725, .95]);
     uipanel_signal_controls = uipanel('Title', '',...
                                       'Parent', uipanel_controls,...
                                       'Units', 'normalized',...
-                                      'Position', [.05, .75, .9, .15]);
+                                      'Position', [.05, .8, .85, .15]);
     signal_plot = axes('Units', 'normalized',...
                        'Parent', uipanel_controls,...
-                       'Position', [.05, .05, .9, .65]);
+                       'Position', [.1, .15, .85, .55]);
     drop_list = uicontrol('Style', 'listbox',...
                         'Parent', uipanel_drops,...
                         'Units', 'normalized',...
@@ -54,6 +54,33 @@ function validate_data(Set)
                             'Units', 'normalized',...
                             'Position', [.5, .5, .2, .275],...
                             'Callback',{@signal_view_previous_button_Callback});
+    
+    %Configure and plot data for use in slider definition
+    current_drop = Set.drops(1).Value;
+    current_signal = current_drop.signals('pot');
+    signal = current_signal.data;
+    time = current_drop.signals('time').data;
+    drop_ids = Set.drop_ids();
+    set(drop_list, 'String', drop_ids(:), 'Value', 1);
+    set(current_drop_text, 'String', current_drop.id);
+    set(f, 'Visible', 'on');
+    
+    %Define slider values with respect to time-series data
+    min_slider = uicontrol('Style', 'slider',...
+                            'String', 'Window Minimum',...
+                            'Parent', uipanel_controls,...
+                            'Units', 'normalized',...
+                            'Position', [0.05, 0.05, 0.9, 0.05],...
+                            'Min', 0, 'Max', max(time), 'SliderStep', [0.001, 0.01],...
+                            'Callback', {@min_slider_callback});
+    max_slider = uicontrol('Style', 'slider',...
+                            'String', 'Window Maximum',...
+                            'Parent', uipanel_controls,...
+                            'Units', 'normalized',...
+                            'Position', [0.05, 0.0, 0.9, 0.05],...
+                            'Min', 0, 'Max', max(time), 'SliderStep', [0.001, 0.01],...
+                            'Callback', {@max_slider_callback});
+                        
     function droplist_Callback(source, eventdata)
         set(current_drop_text, 'String', drop_ids(get(drop_list, 'Value')))
         current_drop = Set.drops(get(drop_list, 'Value')).Value;
@@ -100,6 +127,21 @@ function validate_data(Set)
         else
             time = current_drop.signals('time').data;
             plot(signal_plot, time, signal);
+            
+            
+            min_sv = get(min_slider, 'Value');
+            max_sv = get(max_slider, 'Value');
+            yLim = get(signal_plot, 'YLim');
+            hold on;
+            min_l = plot(signal_plot, [min_sv min_sv], yLim,...
+                'Tag', 'min_l',...
+                'LineWidth', 1,...
+                'Color', 'g');
+            max_l = plot(signal_plot, [max_sv max_sv], yLim,...
+                'Tag', 'max_l',...
+                'LineWidth', 1,...
+                'Color', 'r');
+            hold off
         end
     end
 
@@ -109,23 +151,44 @@ function validate_data(Set)
             set(signal_list, 'Value', current_value - 1);
         end
         signal_list_callback(signal_list, 'nothing');
-        signal = current_signal.data;
-        time = current_drop.signals('time').data;
-        plot(signal_plot, time, signal);
+        plot_data();
     end
 
     function done_button_Callback(source, eventdata)
-        process_data(Set);
+        time = current_drop.signals('time').data;
+        min_window = get(min_slider, 'Value');
+        max_window = get(max_slider, 'Value');
+        [c min_i] = min(abs(time-min_window));
+        [c max_i] = min(abs(time-max_window));
+        
+        if max_i < min_i
+            tmp = max_i;
+            max_i = min_i;
+            min_i = tmp;
+        end
+        process_data(Set, min_i, max_i);
         delete(get(source, 'parent'));
     end
 
-    current_drop = Set.drops(1).Value;
-    current_signal = current_drop.signals('pot');
-    signal = current_signal.data;
-    time = current_drop.signals('time').data;
-    plot(signal_plot, time, signal);
-    drop_ids = Set.drop_ids();
-    set(drop_list, 'String', drop_ids(:), 'Value', 1);
-    set(current_drop_text, 'String', current_drop.id);
-    set(f, 'Visible', 'on');
+	function min_slider_callback(hObject, eventdata)
+	
+		value = get(hObject, 'Value');
+		yLim = get(signal_plot, 'YLim');
+		x_value = value;
+		min_l = findobj(gcf, 'Tag', 'min_l');
+		set(min_l, 'XData', [x_value x_value], 'YData', yLim);
+		
+	end
+	
+	function max_slider_callback(hObject, eventdata)
+
+		value = get(hObject, 'Value');
+		yLim = get(signal_plot, 'YLim');
+		x_value = value;
+		max_l = findobj(gcf, 'Tag', 'max_l');
+		set(max_l, 'XData', [x_value x_value], 'YData', yLim);
+    end
+    
+    %Draw first set of data
+    plot_data();
 end

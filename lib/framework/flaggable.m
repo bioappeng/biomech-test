@@ -2,7 +2,7 @@
 %flaggable. suggested use: for users to designate
 %items as potentially 'bad' -- potentially ignore
 %when doing analysis
-classdef (Abstract) flaggable < handle
+classdef flaggable < handle
     properties (Abstract)
         flagged;
     end

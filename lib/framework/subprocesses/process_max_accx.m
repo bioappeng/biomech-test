@@ -14,7 +14,7 @@ classdef process_max_accx < handle
             if Set.get_drop(1).signals('accx').data == false;
                 to_run = false;
             else
-                to_run = true;
+               to_run = true;
             end
         end
 

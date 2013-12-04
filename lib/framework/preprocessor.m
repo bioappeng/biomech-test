@@ -1,11 +1,6 @@
 %does preprocessing/calibration to prepare raw data for processing
-%TODO:  Pull calibration constants from YAML file
 classdef preprocessor < handle
     properties
-        position_const = 433.0;
-        single_axis_load_const = (1000/0.2273);
-        triaxial_load_const = 1;
-        acceleration_const = (1/0.010);
         window_start;
         window_end;
         set;

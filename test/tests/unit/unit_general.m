@@ -24,6 +24,16 @@ classdef unit_general < matlab.unittest.TestCase
             testCase.assertEqual(a_signal.flagged, false);
         end
 
+        function signal_flag_unflag_should_behave_as_expected(testCase)
+            a_signal = signal('name', []);
+            testCase.assertEqual(a_signal.flagged, false);
+            a_signal.flag();
+            testCase.assertEqual(a_signal.flagged, true);
+            testCase.assertEqual(a_signal.flagged, true);
+            a_signal.unflag();
+            testCase.assertEqual(a_signal.flagged, false);
+        end
+
         function drop_set_should_have_correct_num_drops_when_created(testCase)
             drop1 = drop([], 'one', 0);
             drop2 = drop([], 'two', 0);

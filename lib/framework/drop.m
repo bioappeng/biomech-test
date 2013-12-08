@@ -1,5 +1,5 @@
 %represents a single drop of the testing rig
-classdef drop < handle & flaggable
+classdef drop < handle
     properties
         id
         signals

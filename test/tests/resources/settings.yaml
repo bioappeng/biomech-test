@@ -15,26 +15,18 @@ accy: 3
 accz: 4
 accx: 5
 
-string_pot_slope: 433
-string_pot_offset: 0
+string_pot_calibration: 433
 
-uni_load_slope: 1
-uni_load_offset: 0
+uni_load_calibration: 1
 
-acc_x_slope: 1
-acc_x_offset: 0
+acc_x_calibration: 1
 
-acc_y_slope: 1
-acc_y_offset: 0
+acc_y_calibration: 1
 
-acc_z_slope: 1
-acc_z_offset: 0
+acc_z_calibration: 1
 
-load_x_slope: 1
-load_x_offset: 0
+load_x_calibration: 1
 
-load_y_slope: 1
-load_y_offset: 0
+load_y_calibration: 1
 
-load_z_slope: 1
-load_z_offset: 0
+load_z_calibration: 1

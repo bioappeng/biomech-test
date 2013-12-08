@@ -16,12 +16,8 @@ classdef signal < handle
             obj.flagged = false;
         end
         
-        function flag(obj)
-            obj.flagged = true;
-        end
-
-        function unflag(obj)
-            obj.flagged = false;
+        function change_flagged(obj)
+            obj.flagged = ~obj.flagged;
         end
     end
 end

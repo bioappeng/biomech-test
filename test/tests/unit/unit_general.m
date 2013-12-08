@@ -27,10 +27,9 @@ classdef unit_general < matlab.unittest.TestCase
         function signal_flag_unflag_should_behave_as_expected(testCase)
             a_signal = signal('name', []);
             testCase.assertEqual(a_signal.flagged, false);
-            a_signal.flag();
+            a_signal.change_flagged();
             testCase.assertEqual(a_signal.flagged, true);
-            testCase.assertEqual(a_signal.flagged, true);
-            a_signal.unflag();
+            a_signal.change_flagged();
             testCase.assertEqual(a_signal.flagged, false);
         end
 
@@ -61,10 +60,9 @@ classdef unit_general < matlab.unittest.TestCase
         function drop_flag_unflag_should_behave_as_expected(testCase)
             an_ascii_drop = drop([], 'a_drop_id', 0);
             testCase.assertEqual(an_ascii_drop.flagged, false);
-            an_ascii_drop.flag();
+            an_ascii_drop.change_flagged();
             testCase.assertEqual(an_ascii_drop.flagged, true);
-            testCase.assertEqual(an_ascii_drop.flagged, true);
-            an_ascii_drop.unflag();
+            an_ascii_drop.change_flagged();
             testCase.assertEqual(an_ascii_drop.flagged, false);
         end
 

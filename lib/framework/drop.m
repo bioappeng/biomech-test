@@ -17,14 +17,10 @@ classdef drop < handle
             obj.flagged = false;
         end
 
-        function flag(obj)
-            obj.flagged = true;
+        function change_flagged(obj)
+            obj.flagged = ~obj.flagged;
         end
         
-        function unflag(obj)
-            obj.flagged = false;
-        end
-
         function id = get_id(obj)
             id = obj.id;
         end

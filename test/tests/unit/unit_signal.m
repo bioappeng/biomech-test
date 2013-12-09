@@ -3,6 +3,12 @@ classdef unit_signal < matlab.unittest.TestCase
         signal
     end
 
+    methods(TestClassSetup)
+        function class_setup_other(testCase)
+            addpath('../../../lib/framework/');
+        end
+    end
+
     methods(TestMethodSetup)
         function setup_objects(testCase)
             testCase.signal = signal('a signal name', [1,2,3,4]);

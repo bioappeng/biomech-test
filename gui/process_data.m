@@ -120,7 +120,7 @@ function process_data(Set, window_start, window_end);
         %Push the processed data from collector to the dump file object
         %Output to file specified
         %TODO: Error check for open file
-        [file, path] = uiputfile('*.txt');
+        [file, path] = uiputfile('*.csv');
         
         if isequal(file, 0) || isequal(path, 0)
             %User pressed cancel

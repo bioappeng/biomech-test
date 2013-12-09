@@ -4,7 +4,7 @@ classdef unit_general < matlab.unittest.TestCase
             addpath('../../../lib/framework/');
         end
     end
-    
+
     methods(TestMethodSetup)
         function setup_Sets(testCase)
         end
@@ -38,15 +38,6 @@ classdef unit_general < matlab.unittest.TestCase
             a_got_drop = a_drop_set.get_drop(2);
             testCase.assertInstanceOf(a_got_drop, 'drop');
             testCase.assertEqual(a_got_drop, drop2);
-        end
-
-        function drop_flag_unflag_should_behave_as_expected(testCase)
-            an_ascii_drop = drop([], 'a_drop_id', 0);
-            testCase.assertEqual(an_ascii_drop.flagged, false);
-            an_ascii_drop.change_flagged();
-            testCase.assertEqual(an_ascii_drop.flagged, true);
-            an_ascii_drop.change_flagged();
-            testCase.assertEqual(an_ascii_drop.flagged, false);
         end
 
         function drop_set_get_ids_should_return_cell_array_of_correct_drop_ids(testCase)

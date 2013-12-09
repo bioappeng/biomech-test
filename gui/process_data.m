@@ -112,6 +112,10 @@ function process_data(Set, window_start, window_end);
                 proc.apply_process(collector, Set, process)
             end
         end
+
+        %add flagged drop data to collector
+        drop_flag = process_drop_flags()
+        drop_flag.flag(collector, Set)
         
         %Push the processed data from collector to the dump file object
         %Output to file specified

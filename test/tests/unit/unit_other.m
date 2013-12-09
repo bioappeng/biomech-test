@@ -1,4 +1,4 @@
-classdef unit_general < matlab.unittest.TestCase
+classdef unit_other < matlab.unittest.TestCase
     methods(TestClassSetup)
         function class_setup_other(testCase)
             addpath('../../../lib/framework/');

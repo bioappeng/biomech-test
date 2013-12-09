@@ -5,8 +5,6 @@ classdef signal < handle
         data;
         name;
         flagged;
-        window_start;
-        window_end;
     end
 
     methods

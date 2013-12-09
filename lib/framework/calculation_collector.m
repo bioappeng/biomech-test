@@ -6,10 +6,7 @@ classdef calculation_collector < handle
 
     methods
         function add_field(obj, value, field_name)
-            try
-                obj.calculated.(field_name) = value;
-            catch err
-            end
+            obj.calculated.(field_name) = value;
         end
         
         function parameter = access_field(obj, parameter_name)

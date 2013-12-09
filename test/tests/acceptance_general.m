@@ -36,8 +36,8 @@ classdef acceptance_general < matlab.unittest.TestCase
             drops = testCase.assembler.assemble('resources/small_data/ascii/', true);
             ascii_set = drop_set(drops);
             ascii_set.set_settings(testCase.settings);
-            preproc = preprocessor()
-            preproc.preprocess_signals(ascii_set, 0, length(ascii_set.get_drop(1).signals('pot').data))
+            preproc = preprocessor();
+            preproc.preprocess_signals(ascii_set, 0, length(ascii_set.get_drop(1).signals('pot').data));
             testCase.assertEqual(ascii_set.get_drop(1).signals('pot').data(758), .591 * 2)
         end
 

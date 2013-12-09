@@ -1,13 +1,13 @@
 sample_rate: 0.0005
 text_file_extension: '*.txt'
-headerlines: 3
+headerlines: 0
 
 #column -> signal settings
 #if not used -- 'none'
 
-string_pot: 2
+string_pot: 1
 head_pot: 'none'
-single_axis_load: 1
+single_axis_load: 2
 loady: 6
 loadx: 7
 loadz: 8
@@ -15,7 +15,7 @@ accy: 3
 accz: 4
 accx: 5
 
-string_pot_calibration: 433
+string_pot_calibration: 2
 
 uni_load_calibration: 1
 

@@ -32,13 +32,13 @@ classdef acceptance_general < matlab.unittest.TestCase
     end
 
     methods(Test)
-        function ascii_set_creation(testCase)
+        function test_ascii_set_created_correctly_and_settings_correctly_applied(testCase)
             drops = testCase.assembler.assemble('resources/small_data/ascii/', true);
             ascii_set = drop_set(drops);
             ascii_set.set_settings(testCase.settings);
-            testCase.assertInstanceOf(ascii_set, 'drop_set');
-            testCase.assertNotEmpty(ascii_set.drops);
-            testCase.assertEqual(ascii_set.num_drops, length(ascii_set.drops));
+            preproc = preprocessor()
+            preproc.preprocess_signals(ascii_set, 0, length(ascii_set.get_drop(1).signals('pot').data))
+            testCase.assertEqual(ascii_set.get_drop(1).signals('pot').data(758), .591 * 2)
         end
 
        %     function mat_set_creation(testCase)

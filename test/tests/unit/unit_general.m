@@ -16,46 +16,6 @@ classdef unit_general < matlab.unittest.TestCase
     end
 
     methods(Test)
-        function drop_set_should_have_correct_num_drops_when_created(testCase)
-            drop1 = drop([], 'one', 0);
-            drop2 = drop([], 'two', 0);
-            drop3 = drop([], 'three', 0);
-            drops(1).Value = drop1;
-            drops(2).Value = drop2;
-            drops(3).Value = drop3;
-            a_drop_set = drop_set(drops);
-            testCase.assertEqual(a_drop_set.num_drops, 3);
-        end
-
-        function drop_set_get_drop_should_return_valid_and_correct_drop(testCase)
-            drop1 = drop([], 'one', 0);
-            drop2 = drop([], 'two', 0);
-            drop3 = drop([], 'three', 0);
-            drops(1).Value = drop1;
-            drops(2).Value = drop2;
-            drops(3).Value = drop3;
-            a_drop_set = drop_set(drops);
-            a_got_drop = a_drop_set.get_drop(2);
-            testCase.assertInstanceOf(a_got_drop, 'drop');
-            testCase.assertEqual(a_got_drop, drop2);
-        end
-
-        function drop_set_get_ids_should_return_cell_array_of_correct_drop_ids(testCase)
-            addpath('../../mmockito/mmockito/');
-            mock_drop1 = Mock();
-            mock_drop2 = Mock();
-            mock_drop3 = Mock();
-            mock_drop1.when.get_id().thenReturn('one');
-            mock_drop2.when.get_id().thenReturn('two');
-            mock_drop3.when.get_id().thenReturn('three');
-            drops(1).Value = mock_drop1;
-            drops(2).Value = mock_drop2;
-            drops(3).Value = mock_drop3;
-            a_drop_set = drop_set(drops);
-            ids = a_drop_set.drop_ids();
-            testCase.assertEqual(ids, {'one', 'two', 'three'});
-        end
-
         function collector_add_field_for_num(testCase)
             collector = calculation_collector();
             field_name = 'testdata';

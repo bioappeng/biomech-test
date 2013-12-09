@@ -16,23 +16,6 @@ classdef unit_general < matlab.unittest.TestCase
     end
 
     methods(Test)
-        function signal_should_have_correct_properties_when_constructed(testCase)
-            a_signal = signal('a signal name', [1,2,3,4]);
-            testCase.assertInstanceOf(a_signal, 'signal');
-            testCase.assertEqual(a_signal.name, 'a signal name');
-            testCase.assertEqual(a_signal.data, [1,2,3,4]);
-            testCase.assertEqual(a_signal.flagged, false);
-        end
-
-        function signal_flag_unflag_should_behave_as_expected(testCase)
-            a_signal = signal('name', []);
-            testCase.assertEqual(a_signal.flagged, false);
-            a_signal.change_flagged();
-            testCase.assertEqual(a_signal.flagged, true);
-            a_signal.change_flagged();
-            testCase.assertEqual(a_signal.flagged, false);
-        end
-
         function drop_set_should_have_correct_num_drops_when_created(testCase)
             drop1 = drop([], 'one', 0);
             drop2 = drop([], 'two', 0);

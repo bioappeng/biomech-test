@@ -17,5 +17,13 @@ classdef signal < handle
         function change_flagged(obj)
             obj.flagged = ~obj.flagged;
         end
+
+        function whether_exists = exists(obj)
+            if obj.data
+                whether_exists = true;
+            else
+                whether_exists = false;
+            end
+        end
     end
 end

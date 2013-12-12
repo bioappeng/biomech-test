@@ -30,5 +30,15 @@ classdef unit_signal < matlab.unittest.TestCase
             testCase.signal.change_flagged();
             testCase.assertEqual(testCase.signal.flagged, false);
         end
+
+        function exists_returns_false_if_data_empty(testCase)
+            a_signal = signal('name', []);
+            testCase.assertEqual(a_signal.exists(), false);
+        end
+
+        function exists_returns_true_if_data_not_empty(testCase)
+            a_signal = signal('name', [1,2,3]);
+            testCase.assertEqual(a_signal.exists(), true);
+        end
     end
 end

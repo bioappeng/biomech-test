@@ -1,15 +1,12 @@
 function results = runtests(which_tests)
     import matlab.unittest.TestSuite;
     import matlab.unittest.TestRunner;
-    import matlab.unittest.plugins.*;
 
-    runner = TestRunner.withNoPlugins;
-    runner.addPlugin(TestSuiteProgressPlugin);
     switch which_tests
         case 'all',
-            results = run(runner, TestSuite.fromFolder('test/tests/', 'IncludingSubfolders', true));
+            results = run(TestSuite.fromFolder('test/tests/', 'IncludingSubfolders', true));
         case 'unit',
-            results = run(runner, TestSuite.fromFolder('test/tests/unit/', 'IncludingSubfolders', true));
+            results = run(TestSuite.fromFolder('test/tests/unit/', 'IncludingSubfolders', true));
     end
 
     time = 0.0;

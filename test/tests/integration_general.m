@@ -1,4 +1,4 @@
-classdef acceptance_general < matlab.unittest.TestCase
+classdef integration_general < matlab.unittest.TestCase
     properties
         assembler;
         settings;

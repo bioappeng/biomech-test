@@ -33,7 +33,7 @@ classdef acceptance_general < matlab.unittest.TestCase
 
     methods(Test)
         function ascii_set_creation(testCase)
-            drops = testCase.assembler.assemble('resources/small_data/ascii/', true);
+            drops = testCase.assembler.assemble('resources/small_data/ascii/');
             ascii_set = drop_set(drops);
             ascii_set.set_settings(testCase.settings);
             testCase.assertInstanceOf(ascii_set, 'drop_set');
@@ -41,29 +41,13 @@ classdef acceptance_general < matlab.unittest.TestCase
             testCase.assertEqual(ascii_set.num_drops, length(ascii_set.drops));
         end
 
-       %     function mat_set_creation(testCase)
-       %         drops = testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, false);
-       %         mat_set = drop_set(drops);
-       %         testCase.assertInstanceOf(mat_set, 'drop_set');
-       %         testCase.assertNotEmpty(mat_set.drops);
-       %         testCase.assertEqual(mat_set.num_drops, length(mat_set.drops));
-       %     end
-
         function drop_assembler_generates_non_empty_list_of_ascii_drops(testCase)
-            drops = testCase.assembler.assemble('resources/small_data/ascii/', true);
+            drops = testCase.assembler.assemble('resources/small_data/ascii/');
             testCase.assertNotEmpty(drops);
             for i=1:length(drops)
                 testCase.assertInstanceOf(drops(i).Value, 'drop');
             end
         end
-
-       %     function drop_assembler_generates_non_empty_list_of_mat_drops(testCase)
-       %         drops = testCase.assembler.assemble('resources/small_data/mat/test.mat', 0, false);
-       %         testCase.assertNotEmpty(drops);
-       %         for i=1:length(drops)
-       %             testCase.assertInstanceOf(drops(i).Value, 'drop');
-       %         end
-       %     end
 
         function dumper_dumps_data_to_file(testCase)
             non_empty_collector = calculation_collector();
@@ -78,7 +62,7 @@ classdef acceptance_general < matlab.unittest.TestCase
         end
 
         function preprocess_basic_code_correctness(testCase)
-            drops = testCase.assembler.assemble('resources/small_data/ascii/', true);
+            drops = testCase.assembler.assemble('resources/small_data/ascii/');
             set = drop_set(drops);
             set.set_settings(testCase.settings);
             preproc = preprocessor();
@@ -87,7 +71,7 @@ classdef acceptance_general < matlab.unittest.TestCase
 
         function velocity_process_basic_code_correctness(testCase)
             addpath('../../lib/framework/subprocesses/');
-            drops = testCase.assembler.assemble('resources/small_data/ascii/', true);
+            drops = testCase.assembler.assemble('resources/small_data/ascii/');
             set = drop_set(drops);
             set.set_settings(testCase.settings);
             preproc = preprocessor();

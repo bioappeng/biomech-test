@@ -37,13 +37,17 @@ function validate_data(Set)
     current_drop_text = uicontrol('Style', 'text',...
                                'Parent', uipanel_controls,...
                                'Units', 'normalized',...
-                               'Position', [.25, .93, .3, .03]);
+                               'Position', [.225, .93, .2, .03]);
     flag_current_drop_button = uicontrol('Style', 'pushbutton',...
                                          'Parent', uipanel_controls,...
                                          'String', 'Flag Drop',... 
                                          'Units', 'normalized',...
-                                         'Position', [.6, .93, .23, .04],...
+                                         'Position', [.45, .93, .15, .04],...
                                          'Callback', {@flag_current_drop_button_callback});
+    drop_flag_text = uicontrol('Style', 'text',...
+                                  'Parent', uipanel_controls,...
+                                  'Units', 'normalized',...
+                                  'Position', [.6, .93, .3, .03]);
     done_button = uicontrol('Style', 'pushbutton', 'String', 'Done',...
                             'Units', 'normalized',...
                             'Position', [.9, .015, .075, .05],...
@@ -63,6 +67,7 @@ function validate_data(Set)
     
     %Configure and plot data for use in slider definition
     current_drop = Set.drops(1).Value;
+    set_drop_flag_text();
     current_signal = current_drop.signals('pot');
     signal = current_signal.data;
     time = current_drop.signals('time').data;
@@ -91,12 +96,23 @@ function validate_data(Set)
     function droplist_Callback(source, eventdata)
         set(current_drop_text, 'String', drop_ids(get(drop_list, 'Value')))
         current_drop = Set.drops(get(drop_list, 'Value')).Value;
+        set_drop_flag_text()
         signal_list_callback(signal_list, eventdata);
     end
 
     function flag_current_drop_button_callback(source, eventdata)
         current_drop.change_flagged();
+        set_drop_flag_text()
     end
+
+    function set_drop_flag_text()
+        if current_drop.flagged
+            set(drop_flag_text, 'String', 'Flagged')
+        else
+            set(drop_flag_text, 'String', 'Not Flagged')
+        end
+    end
+
 
     function signal_list_callback(source, eventdata)
         selection = get(source, 'Value');

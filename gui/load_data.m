@@ -80,7 +80,7 @@ function load_data
     end
 
     function settings_path_callback(source, eventdata)
-        [file_name, path_name] = uigetfile('*.yaml', 'Choose settings file');
+        [file_name, path_name] = uigetfile('*','Choose settings file');
         setting_parser = settings_parser(fullfile(path_name, file_name));
         settings = setting_parser.parse_settings();
         assembler = drop_assembler(settings);

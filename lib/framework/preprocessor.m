@@ -39,39 +39,55 @@ classdef preprocessor < handle
             end
         end
 
+        function remove_dc_offset(obj, signal)
+            total = 0;
+            for i=1:length(signal.data)
+                total = total + signal.data(i);
+            end
+            offset = total / length(signal.data);
+            signal.data = signal.data - offset;
+        end
+
         function calibrate_position(obj, pot)
             pot.data = pot.data * obj.set.settings.settings.string_pot_calibration;
-%            pos_min = min(position);
-%            pot.data = position - pos_min;
+            pot_min = min(pot.data);
+            pot.data = pot.data - pot_min;
         end
 
         function calibrate_single_axis_load(obj, load)
+            obj.remove_dc_offset(load)
             load.data = load.data * obj.set.settings.settings.uni_load_calibration;
         end
 
         function calibrate_acc_x(obj, acc)
+            obj.remove_dc_offset(acc)
             acc.data = acc.data * obj.set.settings.settings.acc_x_calibration;
         end
 
         
         function calibrate_acc_y(obj, acc)
+            obj.remove_dc_offset(acc)
             acc.data = acc.data * obj.set.settings.settings.acc_y_calibration;
         end
         
         function calibrate_acc_z(obj, acc)
+            obj.remove_dc_offset(acc)
             acc.data = acc.data * obj.set.settings.settings.acc_z_calibration;
         end
         
 
         function calibrate_load_x(obj, load)
+            obj.remove_dc_offset(load)
             load.data = load.data * obj.set.settings.settings.load_x_calibration;
         end
         
         function calibrate_load_y(obj, load)
+            obj.remove_dc_offset(load)
             load.data = load.data * obj.set.settings.settings.load_y_calibration;
         end
         
         function calibrate_load_z(obj, load)
+            obj.remove_dc_offset(load)
             load.data = load.data * obj.set.settings.settings.load_z_calibration;
         end
     end

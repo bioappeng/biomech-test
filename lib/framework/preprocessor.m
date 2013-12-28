@@ -6,9 +6,19 @@ classdef preprocessor < handle
         set;
     end
 
-    methods
+    methods (Static)
+        function set_window(set, window_start, window_end)
+            for i = 1:set.num_drops;
+                drop = set.drops(i).Value;
+                %Window is calculated manually for now
+                drop.window_start = window_start;
+                drop.window_end = window_end;
+            end
+        end
+    end
 
-        function preprocess_signals(obj, set, window_start, window_end)
+    methods
+        function preprocess_signals(obj, set)
             import containers.Map;
             obj.set = set;
             %Hard-coded, this needs looking after
@@ -32,10 +42,6 @@ classdef preprocessor < handle
                 obj.calibrate_load_x(loadx);
                 obj.calibrate_load_y(loady);
                 obj.calibrate_load_z(loadz);
-                
-                %Window is calculated manually for now
-                drop.window_start = window_start;
-                drop.window_end = window_end;
             end
         end
 

@@ -101,8 +101,8 @@ function process_data(Set, window_start, window_end);
         end
         collector.add_field(id_list, 'Name');
         
+        preprocessor.set_window(Set, window_start, window_end)
         %Run processes on all signals
-        preproc.preprocess_signals(Set, window_start, window_end);
         for i=1:length(processes)
             process = processes{i};
             if process.to_run
@@ -143,7 +143,6 @@ function process_data(Set, window_start, window_end);
     processes = {max_accx, max_accy, max_accz, max_loadx, max_loady, max_loadz, max_load, velocity_validation};
     collector = calculation_collector();
     proc = processor();
-    preproc = preprocessor();
 
     filepath = [];
 

@@ -54,7 +54,10 @@ function validate_data(Set)
                             'Units', 'normalized',...
                             'Position', [.5, .5, .2, .275],...
                             'Callback',{@signal_view_previous_button_Callback});
-    
+   %preprocess data 
+    preproc = preprocessor();
+    preproc.preprocess_signals(Set);
+
     %Configure and plot data for use in slider definition
     current_drop = Set.drops(1).Value;
     current_signal = current_drop.signals('pot');

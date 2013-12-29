@@ -66,7 +66,7 @@ classdef acceptance_general < matlab.unittest.TestCase
             set = drop_set(drops);
             set.set_settings(testCase.settings);
             preproc = preprocessor();
-            preproc.preprocess_signals(set, 0, max(set.drops(1).Value.signals('time').data));
+            preproc.preprocess_signals(set);
         end 
 
         function velocity_process_basic_code_correctness(testCase)
@@ -75,7 +75,7 @@ classdef acceptance_general < matlab.unittest.TestCase
             set = drop_set(drops);
             set.set_settings(testCase.settings);
             preproc = preprocessor();
-            preproc.preprocess_signals(set, 0, max(set.drops(1).Value.signals('time').data));
+            preproc.preprocess_signals(set);
             proc = processor();
             collector = calculation_collector();
             process = process_velocity_validation(set);

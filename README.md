@@ -1,7 +1,10 @@
 About
 -----
 
+This is the release 1.0 stable branch. Active development takes place in the master branch.
+
 Software for the analysis of data collected using the [Biomechanical Surface Tester](http://www.bioappeng.com/Horse/Horse_home.html).
+
 
 License
 -------

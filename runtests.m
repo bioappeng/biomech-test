@@ -2,7 +2,6 @@ function results = runtests(which_tests)
     import matlab.unittest.TestSuite;
     import matlab.unittest.TestRunner;
 
-    runner = TestRunner.withTextOutput;
     switch which_tests
         case 'all',
             results = run(TestSuite.fromFolder('test/tests/', 'IncludingSubfolders', true));

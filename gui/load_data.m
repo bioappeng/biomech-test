@@ -48,7 +48,6 @@ function load_data
             Set = drop_set(drops);
             Set.set_settings(settings);
             validate_data(Set);
-            delete(get(source, 'parent'));
         else
                 warndlg('No YAML settings file was specified', 'No Setting File');
         end

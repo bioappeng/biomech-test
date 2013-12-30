@@ -37,8 +37,8 @@ classdef integration_general < matlab.unittest.TestCase
             ascii_set = drop_set(drops);
             ascii_set.set_settings(testCase.settings);
             preproc = preprocessor();
-            preproc.preprocess_signals(ascii_set, 0, length(ascii_set.get_drop(1).signals('pot').data));
-            testCase.assertEqual(ascii_set.get_drop(1).signals('pot').data(758), .591 * 2)
+            preproc.preprocess_signals(ascii_set);
+            testCase.assertEqual(ascii_set.get_drop(1).signals('pot').data(758), 1.056)
         end
 
        %     function mat_set_creation(testCase)
@@ -82,7 +82,7 @@ classdef integration_general < matlab.unittest.TestCase
             set = drop_set(drops);
             set.set_settings(testCase.settings);
             preproc = preprocessor();
-            preproc.preprocess_signals(set, 0, max(set.drops(1).Value.signals('time').data));
+            preproc.preprocess_signals(set);
         end 
 
         function velocity_process_basic_code_correctness(testCase)
@@ -91,7 +91,7 @@ classdef integration_general < matlab.unittest.TestCase
             set = drop_set(drops);
             set.set_settings(testCase.settings);
             preproc = preprocessor();
-            preproc.preprocess_signals(set, 0, max(set.drops(1).Value.signals('time').data));
+            preproc.preprocess_signals(set);
             proc = processor();
             collector = calculation_collector();
             process = process_velocity_validation(set);

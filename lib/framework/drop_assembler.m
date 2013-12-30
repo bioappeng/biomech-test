@@ -30,7 +30,7 @@ classdef drop_assembler < handle
         function [id, data] = parse_file(obj, filepath, headerlines)
             [pathstr, id, ext] = fileparts(filepath);
             file = fopen(filepath);
-            numfields = '%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f';
+            numfields = repmat('%f',1,43);
             data = textscan(file, numfields, 'HeaderLines', headerlines);
             fclose(file);
         end

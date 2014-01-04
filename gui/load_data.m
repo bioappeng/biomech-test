@@ -55,7 +55,8 @@ function load_data
     end
 
     function settings_path_callback(source, eventdata)
-        [file_name, path_name] = uigetfile('*','Choose settings file');
+        [file_name, path_name] = uigetfile([working_settings_location, '*.*'],'Choose settings file');
+        working_settings_location = path_name;
         setting_parser = settings_parser(fullfile(path_name, file_name));
         settings = setting_parser.parse_settings();
         assembler = drop_assembler(settings);
@@ -64,6 +65,7 @@ function load_data
     %initialize drop_set data (defaults)
     %these should be read from settings file in release versions
     drop_set_filepath = [pwd, '/'];
+    working_settings_location = [pwd, '/']
     have_settings = false;
     assembler = NaN;
     settings = NaN;

@@ -1,3 +1,17 @@
+%{
+second 'user_pane'
+
+most functionally complex user step.
+
+allows the user to select and view each of the signals in each of the drops
+in the set.
+
+allow the user to flag and unflag drops that appear to be erroneous
+
+allows the user to window the data manually.
+
+%}
+
 function validate_data(Set)
     f = figure('Visible','off',...
               'Position',[100,100,800,600],...

@@ -1,3 +1,14 @@
+%{
+first 'user pane'
+
+requires the user to select a settings file.
+
+the user selects the location of the folder containing the ascii drop data.
+once selected, the contents of this location is shown in the file-list pane.
+
+clicking the 'done' button closes this pane and opens the 'validate_data' pane
+%}
+
 function load_data
     f = figure('Visible','off',...
               'Position',[100,200,700,500],...

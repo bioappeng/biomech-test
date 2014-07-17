@@ -1,3 +1,11 @@
+%{
+third 'user pane'
+
+allows the user to select which of the calculations to perform on the data.
+
+clicking 'done' opens a save dialog to save the output .csv file
+%}
+
 function process_data(Set, window_start, window_end);
     f = figure('Visible','off',...
               'Position',[100,200,350,500],...

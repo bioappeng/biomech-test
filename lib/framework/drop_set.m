@@ -1,4 +1,9 @@
-%represents some set of drops
+%{
+drop class
+
+represents some set of drops with common settings.
+%}
+
 classdef drop_set < handle
     properties
         drops;
@@ -6,20 +11,27 @@ classdef drop_set < handle
         settings;
     end
     
-    properties (Constant)
-    end
-    
     methods
         function set_settings(obj, settings);
             obj.settings = settings;
         end
         
+        %{
+        constructor for drop_set
+
+        param: an array of drops
+        %}
         function obj = drop_set(drops)
             obj.drops = drops;
             num_drops = size(obj.drops);
             obj.num_drops = num_drops(2);
         end
 
+        %{
+        gets an array of the ids of the drops in order
+        
+        return: array of the ids of the drops in order
+        %}
         function ids = drop_ids(obj)
             ids = {};
             for i=1:length(obj.drops)

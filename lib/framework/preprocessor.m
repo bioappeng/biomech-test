@@ -1,4 +1,8 @@
-%does preprocessing/calibration to prepare raw data for processing
+%{
+preprocessor class
+
+does preprocessing/calibration to prepare raw data for processing
+%}
 classdef preprocessor < handle
     properties
         window_start;
@@ -7,6 +11,9 @@ classdef preprocessor < handle
     end
 
     methods (Static)
+        %{
+        sets the window information for the given dropset
+        %}
         function set_window(set, window_start, window_end)
             for i = 1:set.num_drops;
                 drop = set.drops(i).Value;

@@ -1,20 +1,43 @@
-%assembles drops from their respective data formats
-%using settings provided in settings_holder object
+%{
+drop_assembler class
+
+drop factory that creates drops from input data based on given settings
+%}
 classdef drop_assembler < handle
     properties
         settings;
-        data;
+        data; %this is really bad this shouldn't be here
     end
 
     methods
+        %{
+        constructor for drop_assembler
+
+        param: settings -- a settings_holder containing settings for the
+        drop creation
+        %}
         function obj = drop_assembler(settings)
             obj.settings = settings.settings;
         end
 
+        %{
+        assembles an array of drops
+
+        param: path -- the path to the directory containing the data to be
+        parsed into drops.
+
+        return: an array of drops
+        %}
         function drops = assemble(obj, path)
             drops = obj.build_drops(path);
         end
 
+        %{
+        helper method for assemble
+    
+        does all the work for creating an array of drops from the data
+        at the given filepath
+        %}
         function drops = build_drops(obj, path)
             fext = obj.settings.text_file_extension;
             flist = dir([path, fext]);
@@ -27,6 +50,13 @@ classdef drop_assembler < handle
             end
         end
 
+        %{
+        parses text data out of the file at the given filepath. ignores
+        the given number of header lines.
+
+        param: filepath -- the path of the file to be parsed
+        param: headerlines -- the number of headerlines to ignore in the file
+        %}
         function [id, data] = parse_file(obj, filepath, headerlines)
             [pathstr, id, ext] = fileparts(filepath);
             file = fopen(filepath);
@@ -35,6 +65,11 @@ classdef drop_assembler < handle
             fclose(file);
         end
 
+        %{
+        does the grunt work for assembling the signals struct
+
+        returns a Map of signals
+        %}
         function signals = build_signals(obj)
             import containers.Map;
 

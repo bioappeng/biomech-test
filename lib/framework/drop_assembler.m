@@ -6,7 +6,6 @@ drop factory that creates drops from input data based on given settings
 classdef drop_assembler < handle
     properties
         settings;
-        data; %this is really bad this shouldn't be here
     end
 
     methods
@@ -44,8 +43,8 @@ classdef drop_assembler < handle
             numfiles = size(flist,1);
             for i=1:numfiles
                 filepath = [path, flist(i,1).name];
-                [id, obj.data] = obj.parse_file(filepath, obj.settings.headerlines);
-                signals = obj.build_signals();
+                [id, ascii_data] = obj.parse_file(filepath, obj.settings.headerlines);
+                signals = obj.build_signals(ascii_data);
                 drops(i).Value = drop(signals, id, obj.settings.sample_rate);
             end
         end
@@ -68,31 +67,42 @@ classdef drop_assembler < handle
         %{
         does the grunt work for assembling the signals struct
 
+        param: ascii_data -- the cell array from which to pull signals
         returns a Map of signals
         %}
-        function signals = build_signals(obj)
+        function signals = build_signals(obj, ascii_data)
             import containers.Map;
 
             signals = Map();
-            signals('pot') = signal('string pot', obj.get_data(obj.settings.string_pot));
-            signals('pot2') = signal('head pot', obj.get_data(obj.settings.head_pot));
-            signals('load') = signal('single axis load', obj.get_data(obj.settings.single_axis_load));
-            signals('loady') = signal('y load', obj.get_data(obj.settings.loady));
-            signals('loadx') = signal('x load', obj.get_data(obj.settings.loadx));
-            signals('loadz') = signal('z load', obj.get_data(obj.settings.loadz));
-            signals('accy') = signal('y acceleration', obj.get_data(obj.settings.accy));
-            signals('accz') = signal('z acceleration', obj.get_data(obj.settings.accz));
-            signals('accx') = signal('x acceleration', obj.get_data(obj.settings.accx));
+            signals('pot') = signal('string pot', obj.get_data(ascii_data, obj.settings.string_pot));
+            signals('pot2') = signal('head pot', obj.get_data(ascii_data, obj.settings.head_pot));
+            signals('load') = signal('single axis load', obj.get_data(ascii_data, obj.settings.single_axis_load));
+            signals('loady') = signal('y load', obj.get_data(ascii_data, obj.settings.loady));
+            signals('loadx') = signal('x load', obj.get_data(ascii_data, obj.settings.loadx));
+            signals('loadz') = signal('z load', obj.get_data(ascii_data, obj.settings.loadz));
+            signals('accy') = signal('y acceleration', obj.get_data(ascii_data, obj.settings.accy));
+            signals('accz') = signal('z acceleration', obj.get_data(ascii_data, obj.settings.accz));
+            signals('accx') = signal('x acceleration', obj.get_data(ascii_data, obj.settings.accx));
             length = size(signals('pot').data);
             length = length(1,:);
             signals('time') = signal('time', (0: obj.settings.sample_rate: ((length-1)*obj.settings.sample_rate))');
         end
 
-        function data = get_data(obj, setting)
+        %{
+        cleanly gets data from the given cell array
+
+        param: ascii_data -- the data from which to get the signal vector
+        param: setting -- the settings defining the column number of the
+            signal vector
+
+        return: false if the settings do not specify a column,
+                the signal vector if the settings do specify a column
+        %}
+        function data = get_data(obj, ascii_data, setting)
             if setting == 'none'
                 data = false;
             else
-                data = obj.data{1, setting}(:,1);
+                data = ascii_data{1, setting}(:,1);
             end
         end
     end

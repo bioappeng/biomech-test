@@ -10,7 +10,8 @@ classdef calculation_collector < handle
 
     methods
         %{
-        add a calculated vector of the given value with the given name
+        add a calculated vector of the given value with the given name.
+        the field name must be a valid struct name
 
         param: value -- the value of the vector
         param: field_name -- the name of the calculated vector

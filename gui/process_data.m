@@ -20,6 +20,8 @@ function process_data(Set, window_start, window_end);
                             'Units', 'normalized',...
                             'Position', [.8, .025, .15, .05],...
                             'Callback',{@done_button_Callback});
+
+    %checkboxes for calculations
     max_acc_x_checkbox = uicontrol('Style', 'checkbox',...
                                    'Parent', uipanel_processes,...
                                    'String', 'max acceleration x',...
@@ -98,6 +100,7 @@ function process_data(Set, window_start, window_end);
                                    'Position', [.05, .26, .6, .05],...
                                    'Callback', {@responsiveness_callback});
 
+    %callbacks for calculation checkboxes
     function responsiveness_callback(source, eventdata)
         responsiveness.to_run = get(source, 'Value') 
     end
@@ -185,8 +188,8 @@ function process_data(Set, window_start, window_end);
         end
     end
 
-    %Specify processes to run on the drop set
-    %TODO:  Clean up and set dynamically
+    %process objects (need one for each process)
+    velocity_validation = process_velocity_validation(Set);
     max_accx = process_max_accx(Set);
     max_accy = process_max_accy(Set);
     max_accz = process_max_accz(Set);
@@ -198,13 +201,15 @@ function process_data(Set, window_start, window_end);
     cushioning = process_cushioning(Set);
     responsiveness = process_responsiveness(Set); %not implemented!
     grip = process_grip(Set); %not implemented!
-    velocity_validation = process_velocity_validation(Set);
+
+    %list of processes to run
     processes = {...
                 max_accx, max_accy, max_accz, max_loadx, max_loady,...
                 max_loadz, max_load, velocity_validation,...
                 impact_firmness, cushioning,...
                 grip, responsiveness...
                 };
+
     collector = calculation_collector();
     proc = processor();
 

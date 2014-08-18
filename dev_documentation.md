@@ -1,5 +1,19 @@
 # Documentation for developers
 
+## Implementation notes
+impact firmness and cushioning calculations assume the below orientations
+of the triaxial load cell and accelerometer
+
+Load cell:
+loadx is side to side
+loady is front to back
+loadz is vertical
+
+Accelerometer:
+accx is vertical
+accy is side to side
+accz is front to back
+
 ## Organization of code
 Code for UI lives in gui/. The standard entry point is gui/main.m. The core
 of the codebase is in lib/framework. All outside libraries used are in

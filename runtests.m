@@ -2,12 +2,7 @@ function results = runtests(which_tests)
     import matlab.unittest.TestSuite;
     import matlab.unittest.TestRunner;
 
-    switch which_tests
-        case 'all',
-            results = run(TestSuite.fromFolder('test/tests/', 'IncludingSubfolders', true));
-        case 'unit',
-            results = run(TestSuite.fromFolder('test/tests/unit/', 'IncludingSubfolders', true));
-    end
+    results = run(TestSuite.fromFolder('test/tests/', 'IncludingSubfolders', true));
 
     time = 0.0;
     for i=1:length(results)

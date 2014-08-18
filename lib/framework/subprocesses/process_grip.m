@@ -5,7 +5,7 @@ classdef process_grip < handle
 
     methods
         function obj = process_grip(set)
-            obj.to_run = process_impact_firmness.assess_to_run(set);
+            obj.to_run = process_grip.assess_to_run(set);
         end
     end
 

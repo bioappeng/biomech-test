@@ -5,6 +5,26 @@ Software for the analysis of data collected using the [Biomechanical Surface Tes
 
 Project home: http://github.com/bioappeng/biomech-test
 
+This is the development branch for this project. Stable releases [can be found here](https://github.com/bioappeng/biomech-test/releases).
+
+Installation
+------------
+
+There is an installer for the windows version of this software. This installer
+accompanies all releases.
+
+[Releases can be found here](https://github.com/bioappeng/biomech-test/releases/)
+
+To install the software, users need to run the installer exe and modify the
+example settings.txt to match their specifications.
+
+Documentation
+-------------
+
+Documentation for the software can be found in `docs` folder in the
+project source. See this documentation for information about using or developing
+the software.
+
 License
 -------
 

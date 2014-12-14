@@ -1,6 +1,6 @@
-# Documentation for developers
+# Notes for Developers Working on the Project
 
-## Implementation notes
+## Notes on calculations
 impact firmness and cushioning calculations assume the below orientations
 of the triaxial load cell and accelerometer
 
@@ -14,17 +14,20 @@ accx is vertical
 accy is side to side
 accz is front to back
 
+## Docs for writing new calculation processes
+
+Documentation for writing new calculation processes is in
+`docs/new_calcs_readme.md`. These docs include instructions for
+writing new calculation classes & for adding new calculations to the user
+interface.
+
 ## Organization of code
-Code for UI lives in gui/. The standard entry point is gui/main.m. The core
-of the codebase is in lib/framework. All outside libraries used are in
-lib/resources.
 
-Calculations are in lib/framework/subprocesses/
+Code for the user interface lives in `gui/`. The standard entry point is
+`gui/main.m`. The core of the codebase is in `lib/framework`. All outside
+libraries used are in `lib/resources`.
 
-There is some *very* simple automated testing for the codebase. It is written
-using the matlab unit testing framework introduced in Matlab 2013a. The tests
-can be run with  `runtests('all')` from within Matlab (working directory needs
-to be the project directory)
+Calculations are in `lib/framework/subprocesses/`
 
 ## Version control
 All version control for this project has been done with git. Most development
@@ -51,6 +54,16 @@ url.
 GitHub has its own lightweight release tool. It allows for a release write up
 and some file hosting. For each release, we post the installer and a sample
 settings file.
+
+New releases should include
+ 
+* changes in the new release
+* installation instructions
+* licensing notes
+* contact information for maintainer
+
+* installer for compiled version of the software
+* example settings file
 
 ### Version Numbering
 Releases are numbered using (roughly) Semantic Version Numbering. Basically,

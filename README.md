@@ -5,6 +5,28 @@ This is the release 1.0 stable branch. Active development takes place in the mas
 
 Software for the analysis of data collected using the [Biomechanical Surface Tester](http://www.bioappeng.com/Horse/Horse_home.html).
 
+Release 1.0
+-----------
+
+Official production release version 1.0 [located here](https://github.com/bioappeng/biomech-test/releases/tag/v1.0)
+
+Installation
+------------
+
+There is an installer for the windows version of this software. This installer
+accompanies all releases.
+
+[Releases can be found here](https://github.com/bioappeng/biomech-test/releases/)
+
+To install the software, users need to run the installer exe and modify the
+example settings.txt to match their specifications.
+
+Documentation
+-------------
+
+Documentation for the software can be found in `docs` folder in the
+project source. See this documentation for information about using or developing
+the software.
 
 License
 -------

@@ -43,7 +43,7 @@ classdef drop_assembler < handle
             numfiles = size(flist,1);
             for i=1:numfiles
                 filepath = [path, flist(i,1).name];
-                [id, ascii_data] = obj.parse_file(filepath, obj.settings.headerlines);
+                [id, ascii_data] = obj.parse_file(filepath, obj.settings.headerlines, obj.settings.leftlabelcolumns);
                 signals = obj.build_signals(ascii_data);
                 drops(i).Value = drop(signals, id, obj.settings.sample_rate);
             end
@@ -55,13 +55,15 @@ classdef drop_assembler < handle
 
         param: filepath -- the path of the file to be parsed
         param: headerlines -- the number of headerlines to ignore in the file
+        param: leftlabelcols -- the number of columns on the left to ignore
+        (eg: date/time information)
         %}
-        function [id, data] = parse_file(obj, filepath, headerlines)
-            [pathstr, id, ext] = fileparts(filepath);
-            file = fopen(filepath);
-            numfields = repmat('%f',1,43);
-            data = textscan(file, numfields, 'HeaderLines', headerlines);
-            fclose(file);
+        function [id, data] = parse_file(obj, filepath, headerlines, leftlabelcols)
+            [pathstr, id, ext] = fileparts(filepath)
+            %file = fopen(filepath);
+            %numfields = repmat('%f',1,43);
+            %data = textscan(file, numfields, 'HeaderLines', headerlines);
+            data = csvread(filepath, headerlines, leftlabelcols);
         end
 
         %{
@@ -102,7 +104,7 @@ classdef drop_assembler < handle
             if setting == 'none'
                 data = false;
             else
-                data = ascii_data{1, setting}(:,1);
+                data = ascii_data(:, setting);
             end
         end
     end
